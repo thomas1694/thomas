@@ -50,7 +50,7 @@
 			<div class="container">
 				<div class="statistics-box">
 					<div class="statistics-item">
-						<span class="value">2,300</span>
+						<span class="value">2,400</span>
 						<p class="title">등록된 스토어수</p>
 					</div>
 
