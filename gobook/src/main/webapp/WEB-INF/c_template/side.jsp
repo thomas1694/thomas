@@ -1,4 +1,6 @@
 <%@page contentType="text/html; charset=UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="root" value="${pageContext.request.contextPath }"></c:set>
 <!DOCTYPE HTML>
 <!--
 	Prologue by HTML5 UP
@@ -11,7 +13,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="css/c_template/assets/css/main.css" />
+		<link rel="stylesheet" href="${root }/css/c_template/assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		
@@ -26,7 +28,7 @@
 
 					<!-- Logo -->
 						<div id="logo">
-							<span class="image avatar48"><img src="css/c_template/images/img4.jpg" alt="" /></span>
+							<span class="image avatar48"><img src="${root }/css/c_template/images/img4.jpg" alt="" /></span>
 							<h1 id="title">${id }</h1>
 							<p>코막힘 전문 병원</p>
 						</div>
@@ -67,7 +69,7 @@
 							<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
 						</ul>
 					-->
-					<a href="#"><img src="top/images/goobookTitle.png" width="90%" ></a>
+					<a href="#"><img src="${root }/top/images/goobookTitle.png" width="90%" ></a>
 				</div>
 
 			</div>
@@ -77,13 +79,13 @@
 		
 
 		<!-- Scripts -->
-			<script src="css/c_template/assets/js/jquery.min.js"></script>
-			<script src="css/c_template/assets/js/jquery.scrolly.min.js"></script>
-			<script src="css/c_template/assets/js/jquery.scrollzer.min.js"></script>
-			<script src="css/c_template/assets/js/skel.min.js"></script>
-			<script src="css/c_template/assets/js/util.js"></script>
+			<script src="${root }/css/c_template/assets/js/jquery.min.js"></script>
+			<script src="${root }/css/c_template/assets/js/jquery.scrolly.min.js"></script>
+			<script src="${root }/css/c_template/assets/js/jquery.scrollzer.min.js"></script>
+			<script src="${root }/css/c_template/assets/js/skel.min.js"></script>
+			<script src="${root }/css/c_template/assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="css/c_template/assets/js/main.js"></script>
+			<script src="${root }/css/c_template/assets/js/main.js"></script>
 
 	</body>
 </html>

@@ -1,4 +1,6 @@
 <%@page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +11,8 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<link href="bottom/img/gobook_icon.png" type="image/x-icon" rel="shortcut icon" />
-<link href="bottom/css/screen.css" rel="stylesheet" />
+<link href="${root }/bottom/img/gobook_icon.png" type="image/x-icon" rel="shortcut icon" />
+<link href="${root }/bottom/css/screen.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
@@ -87,13 +89,13 @@
 		</footer>
 
 		<!-- Scripts -->
-		<script src="bottom/js/jquery.js"></script>
-		<script src="bottom/js/functions.js"></script>
+		<script src="${root }/bottom/js/jquery.js"></script>
+		<script src="${root }/bottom/js/functions.js"></script>
 		
-		<script src="bottom/js/jquery.min.js"></script>
-		<script src="bottom/js/skel.min.js"></script>
-		<script src="bottom/js/util.js"></script>
+		<script src="${root }/bottom/js/jquery.min.js"></script>
+		<script src="${root }/bottom/js/skel.min.js"></script>
+		<script src="${root }/bottom/js/util.js"></script>
 		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-		<script src="bottom/js/main.js"></script>
+		<script src="${root }/bottom/js/main.js"></script>
 </body>
 </html>
