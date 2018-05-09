@@ -1,3 +1,4 @@
+<%@page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE HTML>
 <!--
 	Future Imperfect by HTML5 UP
@@ -22,9 +23,9 @@
 				<!-- Header -->
 					<header id="header" style="height: 150px; background-color: #70866F; color: white; font-size: 20px;">
 						
-						<h1 style="margin-top: 40px; width:20%;text-align: center;"><a href="#"><img src="top/images/goobookTitle.png" width="250px" ></a></h1>
+						<h1 style="margin-top: 30px; width:20%;text-align: center;"><a href="#"><img src="top/images/goobookTitle.png" width="250px" ></a></h1>
 						<nav class="links">
-							<ul style="margin-top:40px;">
+							<ul style="margin-top:45px;">
 								<li><a href="#">Notice</a></li>
 								<li><a href="#">FreeBoard</a></li>
 								<li><a href="#">Customer Center</a></li>

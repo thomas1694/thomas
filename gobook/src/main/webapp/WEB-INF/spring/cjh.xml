@@ -6,7 +6,7 @@
 <tiles-definitions> 
     
 	
-    <definition name="/freeboard" extends="main"> 
+    <definition name="/freeboard/list" extends="main"> 
         <put-attribute name="title" value="고북닷컴" ></put-attribute> 
         <put-attribute name="body" value="/WEB-INF/views/home.jsp" /> 
     </definition>   

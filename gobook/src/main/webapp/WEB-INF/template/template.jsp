@@ -6,6 +6,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><tiles:getAsString name="title"/></title>
 <link href="bottom/img/gobook_icon.png" type="image/x-icon" rel="shortcut icon" />
+<style type="text/css">
+		@font-face{font-family:'Nanum SquareR'; src:url('font/NanumSquareRoundR.ttf')}
+ 		@font-face{font-family:'Nanum BarunpenR'; src:url('font/NanumBarunpenR.ttf')}
+ 		
+		#header{
+		font-family:'Nanum SquareR';
+		}
+		h1,h2,h3,h4,h5{
+		font-family:'Nanum SquareR';
+		}
+		#page{
+			font-family:'Nanum BarunpenR';
+		}
+		</style>
 </head>
 <body>
 <tiles:insertAttribute name="header"/>

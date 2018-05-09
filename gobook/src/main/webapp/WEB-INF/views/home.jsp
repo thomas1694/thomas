@@ -9,11 +9,8 @@
 <meta name="author" content="Design Hooks" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1" />
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Raleway:400,700"
-	rel="stylesheet" />
 
-<link href="bottom/css/screen.css" rel="stylesheet" />
+
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>

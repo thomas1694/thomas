@@ -8,7 +8,18 @@
 	<definition name="main" template="/WEB-INF/template/template.jsp"> 
         <put-attribute name="header" value="/WEB-INF/template/top.jsp" /> 
         <put-attribute name="footer" value="/WEB-INF/template/bottom.jsp" /> 
-    </definition>   
+        
+    </definition> 
+    <definition name="c_main" template="/WEB-INF/c_template/template.jsp"> 
+        <put-attribute name="sidebar" value="/WEB-INF/c_template/side.jsp" /> 
+        <put-attribute name="c_footer" value="/WEB-INF/c_template/footer.jsp" />
+    </definition> 
+    
+    <definition name="/c_home" extends="c_main">
+    	<put-attribute name="title" value="고북닷컴" /> 
+        <put-attribute name="body" value="/WEB-INF/views/c_home.jsp" /> 
+        
+    </definition>  
     <definition name="/home" extends="main"> 
         <put-attribute name="title" value="고북닷컴" /> 
         <put-attribute name="body" value="/WEB-INF/views/home.jsp" /> 

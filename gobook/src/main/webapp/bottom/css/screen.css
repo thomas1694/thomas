@@ -24,7 +24,6 @@
 /* */
 /* ----------------- 1. Reset ----------------- */
 html {
-  font-family: sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
@@ -127,7 +126,6 @@ pre {
 }
 
 code, kbd, pre, samp {
-  font-family: monospace, monospace;
   font-size: 1em;
 }
 
@@ -2120,7 +2118,7 @@ hr {
 
 body {
   font-size: 15px;
-  font-family: "Open Sans", sans-serif;
+
   font-size: 15px;
   line-height: 24px;
 }
@@ -2468,7 +2466,6 @@ textarea:focus {
   border: 0;
   padding: 0 240px 0 30px;
   font-size: 14px;
-  font-family: "Raleway", sans-serif;
   letter-spacing: 0.04em;
   border-radius: 5px;
   color: #2c3e50;
@@ -2528,7 +2525,6 @@ textarea:focus {
   top: 0;
   font-size: 14px !important;
   font-weight: 500 !important;
-  font-family: "Open Sans", sans-serif !important;
   letter-spacing: 0.02em;
   padding: 0 30px !important;
 }
@@ -2549,7 +2545,6 @@ textarea:focus {
   border-radius: 5px;
   color: #ffffff;
   height: 60px;
-  font-family: "Raleway", sans-serif;
   font-weight: 700;
   font-size: 14px;
   letter-spacing: 0.04em;
@@ -2572,7 +2567,6 @@ textarea:focus {
   border: 1px solid #ffffff;
   border-radius: 5px;
   font-weight: 700;
-  font-family: "Raleway", sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   font-size: 15px;
@@ -2592,7 +2586,6 @@ textarea:focus {
   border: 1px solid #bdbdbd;
   font-size: 14px;
   font-weight: 700;
-  font-family: "Raleway", sans-serif;
   text-transform: uppercase;
   color: #343435;
   letter-spacing: 0.04em;
@@ -2649,7 +2642,6 @@ textarea:focus {
   text-transform: uppercase;
   font-size: 16px;
   font-weight: 700;
-  font-family: "Raleway", sans-serif;
   letter-spacing: 0.04em;
 }
 .main-header .site-nav .site-links li a:hover {
@@ -2735,7 +2727,6 @@ textarea:focus {
 .section-title .title {
   line-height: 1em;
   font-size: 30px;
-  font-family: "Raleway", sans-serif;
   letter-spacing: 0.04em;
   color: #343435;
   font-weight: 500;
@@ -2773,7 +2764,6 @@ textarea:focus {
   color: #ffffff;
 }
 .hero-box .hero-text h1 {
-  font-family: "Raleway", sans-serif;
   letter-spacing: 0.08em;
   font-weight: 700;
   font-size: 72px;
@@ -2934,7 +2924,6 @@ textarea:focus {
 }
 .boat-box .box-meta .boat-name,
 .boat-box .box-meta .boat-meta {
-  font-family: "Raleway", sans-serif;
   letter-spacing: 0.04em;
   font-weight: 500;
   line-height: 1em;
@@ -3083,7 +3072,6 @@ textarea:focus {
 }
 .destination-box .box-meta .city,
 .destination-box .box-meta .country {
-  font-family: "Raleway", sans-serif;
   letter-spacing: 0.04em;
   font-weight: 500;
   line-height: 1em;
@@ -3147,7 +3135,6 @@ textarea:focus {
 }
 .parallax-box h1 {
   letter-spacing: 0.08em;
-  font-family: "Raleway", sans-serif;
   font-weight: 700;
   font-size: 72px;
   margin: 0 0 10px;

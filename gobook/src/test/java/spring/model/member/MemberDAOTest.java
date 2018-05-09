@@ -51,7 +51,7 @@ public class MemberDAOTest {
 	
 	@Test
 	@Ignore
-	public void total() throws Exception {
+	public void total() {
 		Map map=new HashMap();
 		assertNotNull(dao.total(map));
 		
