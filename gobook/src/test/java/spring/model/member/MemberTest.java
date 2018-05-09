@@ -58,12 +58,6 @@ public class MemberTest {
 		}
 	}
 
-	private static void p(MemberDTO dto) {
-		System.out.println(dto.getId());
-		System.out.println(dto.getGrade());
-		System.out.println("================================");
-		
-	}
 
 	private static void read(MemberDAO dao) {
 		String pk="stest";
@@ -99,4 +93,11 @@ public class MemberTest {
 	private static void p(String string) {
 		System.out.println(string);
 	}
+
+private static void p(MemberDTO dto) {
+	System.out.println(dto.getId());
+	System.out.println(dto.getGrade());
+	System.out.println("================================");
+	
+}
 }
