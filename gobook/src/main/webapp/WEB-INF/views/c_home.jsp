@@ -43,7 +43,7 @@
 						<div class="container">
 
 							<header>
-								<h2>진시크 병원 소개</h2>
+								<h2>${id } 소개</h2>
 							</header>
 
 							<p>코를 정말 잘 뚫어주는 병원입니다.</p>
