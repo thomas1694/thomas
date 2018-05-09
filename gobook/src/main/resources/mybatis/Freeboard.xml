@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="freeboard">
+    
+    <select id="read" resultType="freeboardDTO" parameterType="int">
+    	select * from freeboard
+    	where f_num = #{f_num}
+    </select>
+     
+    <insert id="create" parameterType="freeboardDTO">
+	
+	<selectKey keyProperty="f_num" resultType="int" order="BEFORE">
+	SELECT NVL(MAX(f_num),0) + 1 FROM freeboard
+	</selectKey>
+	
+	
+	insert into freeboard(f_num, f_content, f_count, f_wdate, id , f_grpno, 
+	f_indent, f_ansnum, f_filename, f_filesize,f_title) 
+	values(#{f_num},#{f_content},#{f_count}, sysdate, #{id}, #{f_grpno}, #{f_indent} ,                                     
+	#{f_ansnum},#{f_filename, jdbcType=VARCHAR},#{f_filesize},#{f_title})                                         
+
+	</insert>
+
+	<delete id="delete" parameterType="int">
+	delete from freeboard
+	where f_num = #{f_num}
+	
+	</delete>
+	
+	<select id="total" parameterType="Map" resultType="int">
+	
+	select count(*) as cnt from freeboard
+	
+	<!-- <where>
+	<choose>
+		<when test="col=='id'">
+		id like '%'||#{id}||'%'
+		</when>
+		<when test="col=='f_title'">
+		f_title like '%'||#{f_title}||'%'
+		</when>
+		<when test="col=='f_content'">
+		f_content like '%'||#{f_content}||'%'
+		</when>
+
+	</choose>
+	</where> -->
+	
+	
+	</select>
+
+	<update id="update" parameterType="freeboardDTO">
+ update freeboard                     
+set id =#{id}, 
+	f_title=#{f_title} ,
+	f_content=#{f_content}
+	<if test="f_filesize > 0">  
+ 	,f_filename=#{f_filename},                  
+ 	f_filesize=#{f_filesize}                 
+    </if>                                 
+ where f_num = #{f_num}                               
+	
+	
+	</update>
+	
+	
+
+	<select id="list" resultType="freeboardDTO" parameterType="Map">
+	select f_num, f_content, f_count, f_wdate, id , f_grpno, f_indent, f_ansnum, f_filename, f_filesize, r -- rownum의 성질을 r이라는 컬럼으로 가져다 쓴 것이다.
+from(
+	select f_num, f_content, f_count, f_wdate, id , f_grpno, f_indent, f_ansnum, f_filename, f_filesize, rownum r -- 가상컬럼 rownum
+	from(
+		select f_num, f_content, f_count, f_wdate, id , f_grpno, f_indent, f_ansnum, f_filename, f_filesize
+		from freeboard
+	<where>
+<!-- 	<choose>
+		<when test="col=='wname'">
+		wname like '%'||#{word}||'%'
+		</when>
+		<when test="col=='title'">
+		title like '%'||#{title}||'%'
+		</when>
+		<when test="col=='content'">
+		content like '%'||#{word}||'%'
+		</when>
+
+	</choose> -->
+	</where>
+	order by f_grpno desc, f_ansnum
+	)
+)
+<![CDATA[
+	where r >= 1 and r <=5
+]]>
+	
+	</select>
+	
+</mapper>
+
+

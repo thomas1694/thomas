@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reservation">
+    
+	<insert id="create" parameterType="reservationDTO">
+		INSERT INTO reservation(res_code,res_time,sv_num,c_id)
+		VALUES(#{res_code},#{res_time},#{sv_num},#{c_id})
+	</insert>
+	
+	<select id="list" parameterType="map" resultType="reservationDTO">
+		select * from reservation
+		<where>
+			<choose>
+				<when test="col=='c_id'">
+				c_id=#{c_id}
+				</when>
+				<when test="col=='sv_num'">
+				sv_num=#{sv_num}
+				</when>
+				
+			</choose>
+		</where>
+	</select>
+    
+    <select id="read" parameterType="string" resultType="reservationDTO">
+		select * from reservation
+		where res_code=#{res_code}
+		
+				
+	</select>
+    
+    
+  	<update id="update" parameterType="reservationDTO">
+  		UPDATE reservation
+  		SET	res_time=#{res_time}
+  		WHERE res_code=#{res_code}
+  	</update>
+     
+    <delete id="delete" parameterType="string">
+    	delete from reservation
+    	WHERE res_code=#{res_code}
+    </delete>
+</mapper>
+

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="review">
+    
+    <select id="list" resultType="reviewDTO" parameterType="Map">
+    
+    select re_num, re_title,re_content,re_filename,re_count,re_rating, re_like,re_wdate, r 
+    from(
+        select re_num, re_title,re_content,re_filename,re_count,re_rating, re_like,re_wdate, rownum r
+        from(
+            select re_num, re_title,re_content,re_filename,re_count,re_rating, re_like, to_char(re_wdate, 'yyyy-mm-dd') re_wdate
+             from review
+   <where>
+		<choose>
+						<when test="col=='title'">
+						title like '%' || #{word} || '%'
+						</when>
+						<when test="col=='content'">
+						content like '%' || #{word} || '%'
+						</when>
+				</choose>
+	</where>   
+	order by re_wdate desc           
+		)
+	)
+	<![CDATA[
+	where r>=#{sno} and r<=#{eno}
+	]]>
+	</select>
+	
+    <select id="create" parameterType="reviewDTO">
+    	insert into review(re_num, re_title,re_content
+    	,re_filename,re_filesize,re_rating,c_id, s_id,re_wdate)
+    	values((select nvl(max(re_num),0)+1 from review), #{re_title}, #{re_content},#{re_filename,jdbcType=VARCHAR},
+    	#{re_filesize},#{re_rating},#{c_id},#{s_id},sysdate)
+    </select>
+    
+   <update id="update" parameterType="reviewDTO">
+	update review 
+	set re_title = #{re_title},
+	re_content = #{re_content}, 
+     <if test="re_filesize > 0">
+			re_filename = #{re_filename},
+			re_filesize = #{re_filesize},
+		</if>
+	re_rating = #{re_rating}
+	where re_num = #{re_num}
+	</update>
+	
+	<update id="upRe_count" parameterType="int">
+		update review
+		set re_count = re_count +1
+		where re_num = #{re_num}
+	</update>
+	
+    <delete id="delete" parameterType="int">
+	delete from review
+	where re_num=#{re_num}    
+	</delete>
+    
+    <select id="read" resultType="reviewDTO" parameterType="int">
+      select * from review 
+      where re_num = #{re_num}
+    </select>
+     
+   	<select id="total" resultType="int" parameterType="Map">
+		select count(*) from review
+		<where>
+			<choose>
+				<when test="col=='title'">
+					title like '%' || #{word}||'%'
+				</when>
+				<when test="col=='content'">
+					content like '%' || #{word}||'%'
+				</when>
+			</choose>
+		</where>
+	</select>
+     
+     
+</mapper>
+
+

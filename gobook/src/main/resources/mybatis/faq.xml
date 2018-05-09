@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="faq">
+
+    <select id="read" resultType="faqDTO" parameterType="int">
+    	select * from faq
+    	where faq_num = #{faq_num} 
+    </select>
+    
+   	<insert id="create" parameterType="faqDTO">
+   	INSERT INTO faq(faq_num, faq_category, faq_title, faq_content, faq_wdate, a_id)
+   	VALUES(#{faq_num},#{faq_category},#{faq_title}, #{faq_content},sysdate,#{a_id}) 
+   	</insert> 
+   	 
+   	<update id="update" parameterType="faqDTO">
+   	UPDATE faq
+   	SET faq_category = #{faq_category}, faq_title = #{faq_title}, faq_content = #{faq_content}
+   	WHERE faq_num = #{faq_num}
+   	</update>
+   
+   	<delete id="delete" parameterType="int">
+   	 DELETE FROM faq
+   	 WHERE faq_num = #{faq_num}
+   	</delete>
+
+   	<select id="list" resultType="faqDTO">
+   	SELECT faq_num, faq_category, faq_title, faq_content, faq_wdate, a_id FROM faq
+   	ORDER BY faq_num
+   	</select>
+  
+   	<select id="total">
+   	SELECT COUNT(*) FROM faq;
+   	</select>
+ 
+</mapper>
+

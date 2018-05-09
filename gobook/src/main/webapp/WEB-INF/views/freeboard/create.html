@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+ 
+<div class="container">
+<h2><span class="glyphicon glyphicon-th-list"></span>등록</h2>
+ 
+<FORM name='frm'>
+  <TABLE class ="table table-bordered">
+    <thead>
+    <TR>
+      <TH>성명</TH>
+      <TD><input type="text" name="wname"></TD>
+    </TR>
+    </thead>
+    
+    <thead>
+    
+    <TR>
+      <TH>제목</TH>
+      <TD><input type="text" name="title"></TD>
+    </TR>
+      </thead>
+    
+    <thead>
+    <TR>
+      <TH valign ="middle">내용</TH>
+      <TD>
+      <textarea rows="10" cols="45" name="content"></textarea></TD>
+    </TR>
+    </thead>
+    
+    <thead>
+    <TR>
+      <TH valign ="middle">비밀번호</TH>
+      <TD>
+      <input type="text" name="passwd"></TD>
+    </TR>
+    </thead>
+    
+    <thead>
+    <TR>
+      <TH>파일</TH>
+      <TD><input type="file" name="filenameMF"></TD>
+    </TR>
+    </thead>
+  </TABLE>
+  
+  <DIV class='bottom'>
+    <input type='submit' value='등록'>
+    <input type='button' value='취소' onclick="history.back()">
+  </DIV>
+</FORM>
+ 
+</body>
+</html>

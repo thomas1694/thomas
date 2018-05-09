@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qna">
+
+	<select id="read" resultType="qnaDTO" parameterType="int">
+		SELECT * FROM qna
+		WHERE q_num = #{q_num}
+	</select>
+	
+  	<insert id="create" parameterType="qnaDTO">
+  	INSERT INTO qna(q_num, q_title, q_content, q_wdate, id, q_lock)
+  	VALUES(#{q_num},#{q_title},#{q_content}, sysdate ,#{id},#{q_lock})0
+  	</insert>
+    
+   	<update id="update" parameterType="qnaDTO">
+   	UPDATE qna
+   	SET q_title = #{q_title}, q_content = #{q_content}
+   	WHERE q_num = #{q_num}
+   	</update>
+   	
+   	<delete id="delete" parameterType="int">
+   	DELETE FROM qna
+   	WHERE q_num = #{q_num}
+   	</delete> 
+   	
+   	<select id="list" resultType="qnaDTO">
+   	SELECT q_num, q_title, q_content, q_wdate, id, q_lock, r
+   	FROM (
+   		SELECT q_num, q_title, q_content, q_wdate, id, q_lock, rownum r
+   		FROM (
+   			SELECT q_num, q_title, q_content, q_wdate, id, q_lock
+   			FROM qna
+   			ORDER BY q_num))
+   	</select>
+   
+   	<select id="total">
+   	SELECT COUNT(*) FROM qna;
+   	</select>
+ 
+</mapper>
+

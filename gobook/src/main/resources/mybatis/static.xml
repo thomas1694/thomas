@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="static">
+
+	<!-- s_id 하나당 매일 1개씩 생성된다. -->
+	<insert id="create" parameterType="staticDTO">
+		<selectKey keyProperty="stat_num" resultType="int" order="BEFORE"> 
+			select NVL(MAX(stat_num), 0)+1 from static
+		</selectKey>
+		insert into static(stat_num, s_id, stat_visitcount, stat_malevisit, stat_femalevisit, 
+							stat_date, stat_totalreserve_day, stat_income)
+		values(#{stat_num}, #{s_id}, #{stat_visitcount}, #{stat_malevisit}, #{stat_femalevisit}, 
+			TO_DATE(sysdate,'YY-MM-DD'), #{stat_totalreserve_day}, 
+			((select sv_price 
+			from service
+			where s_id = #{s_id}
+			) * #{stat_totalreserve_day})
+		) 
+	</insert>
+
+</mapper>
