@@ -24,8 +24,14 @@
 		</style>
 </head>
 <body>
+<div id="header">
 <tiles:insertAttribute name="header"/>
+</div>
+<div id="gobookcontent" style="margin-top: 150px;">
 <tiles:insertAttribute name="body"/>
+</div>
+<div id="bottom">
 <tiles:insertAttribute name="footer"/>
+</div>
 </body>
 </html>

@@ -6,13 +6,34 @@
 <tiles-definitions> 
     
 	 
+    <definition name="/s_member/list" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/s_member/s_MemberList.jsp" /> 
+    </definition>   
+    <definition name="/s_member/s_login" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/s_member/s_login.jsp" /> 
+    </definition> 
+    <definition name="/s_member/create" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/s_member/s_MemberCreate.jsp" /> 
+    </definition>   
+    <definition name="/s_member/read" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/s_member/s_MemberRead.jsp" /> 
+    </definition>   
+     <definition name="/s_member/update" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/s_member/s_MemberUpdate.jsp" /> 
+    </definition> 
+    <definition name="/s_member/delete" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/s_member/s_MemberDelete.jsp" /> 
+    </definition> 
     <definition name="/member" extends="main"> 
         <put-attribute name="title" value="고북닷컴" ></put-attribute> 
-        <put-attribute name="body" value="/WEB-INF/views/home.jsp" /> 
-    </definition>   
-     
-    
-     
+        <put-attribute name="body" value="/WEB-INF/views/member/MemberList.jsp" /> 
+    </definition> 
            
    
 </tiles-definitions> 

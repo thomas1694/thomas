@@ -96,7 +96,7 @@
 						<!-- Actions -->
 							<section>
 								<ul class="actions vertical">
-									<li><a href="#" class="button big fit">Log In</a></li>
+									<li><a href="#" class="btn big fit">Log In</a></li>
 								</ul>
 							</section>
 
