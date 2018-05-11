@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="create" parameterType="s_memberDTO">
     	INSERT INTO s_member(
     		s_id,s_email,s_passwd,s_tel,s_category,s_location,s_name,s_info,s_hour,s_rdate)
-		VALUES(#{s_id},#{s_email},#{s_passwd},#{s_tel},#{s_category},#{s_location},#{s_name},#{s_info},#{s_hour},sysdate)
+		VALUES(#{s_id,jdbcType=VARCHAR},#{s_email,jdbcType=VARCHAR},#{s_passwd,jdbcType=VARCHAR},#{s_tel,jdbcType=VARCHAR},#{s_category,jdbcType=VARCHAR},#{s_location,jdbcType=VARCHAR},#{s_name,jdbcType=VARCHAR},#{s_info,jdbcType=VARCHAR},#{s_hour,jdbcType=VARCHAR},sysdate)
     </insert>
     
     <select id="read" resultType="s_memberDTO" parameterType="string">

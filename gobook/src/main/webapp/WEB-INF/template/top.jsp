@@ -25,7 +25,7 @@
 				<!-- Header -->
 					<header id="header" style="height: 150px; background-color: #70866F; color: white; font-size: 20px;">
 						
-						<h1 style="margin-top: 30px; width:20%;text-align: center;"><a href="#"><img src="${root }/top/images/goobookTitle.png" width="250px" ></a></h1>
+						<h1 style="margin-top: 30px; width:20%;text-align: center;"><a href="${root }"><img src="${root }/top/images/goobookTitle.png" width="250px" ></a></h1>
 						<nav class="links">
 							<ul style="margin-top:45px;">
 								<li><a href="#">Notice</a></li>
@@ -42,10 +42,7 @@
 									</form>
 								</li>
 								<li class="user">
-									<a style="margin-top:40px;" class="fa-user" href="#user">User</a>
-								</li>
-								<li class="menu">
-									<a style="margin-top: 40px;" class="fa-bars" href="#menu">Menu</a>
+									<a style="margin-top:40px;" class="fa-user" href="${root }/member/read">User</a>
 								</li>
 								
 							</ul>
@@ -53,54 +50,7 @@
 						
 					</header>
 
-				<!-- Menu -->
-					<section id="menu">
-
-						<!-- Search -->
-							<section>
-								<form class="search" method="get" action="#">
-									<input type="text" name="query" placeholder="Search" />
-								</form>
-							</section>
-
-						<!-- Links -->
-							<section>
-								<ul class="links">
-									<li>
-										<a href="#">
-											<h3>Lorem ipsum</h3>
-											<p>Feugiat tempus veroeros dolor</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Dolor sit amet</h3>
-											<p>Sed vitae justo condimentum</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Feugiat veroeros</h3>
-											<p>Phasellus sed ultricies mi congue</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Etiam sed consequat</h3>
-											<p>Porta lectus amet ultricies</p>
-										</a>
-									</li>
-								</ul>
-							</section>
-
-						<!-- Actions -->
-							<section>
-								<ul class="actions vertical">
-									<li><a href="#" class="btn big fit">Log In</a></li>
-								</ul>
-							</section>
-
-					</section>
+				
 
 				
 

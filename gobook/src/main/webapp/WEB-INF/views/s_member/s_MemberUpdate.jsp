@@ -391,7 +391,7 @@ $j144(document).ready(function($){
 		</table>
 
 		<DIV class="btn1">
-			<input type='submit' class="btn_submit" value='회원가입'> 
+			<input type='submit' class="btn_submit" value='수정하기'> 
 			<input type='reset' class="btn_reset" value='초기화'>
 		</DIV>
 	</div>

@@ -37,7 +37,7 @@
 							<input style="background-color: #ffffff;" type="text" name="destination" value=""
 								class="form-input check-value" placeholder="검색해봐." />
 							<button type="button" name="destination-submit"
-								class="form-submit btn btn-special">Find a Gobook</button>
+								class="form-submit btn btn-special" onclick="location.href='${root}/gobook/s_member/list'">Find a Gobook</button>
 						</div>
 					</form>
 				</div>

@@ -16,7 +16,28 @@
 	th{
 	background-color: #A4A4A4;
 	}
+	
 </style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+<script type="text/javascript">
+var $j232 = jQuery.noConflict();   
+
+$j232(document).ready(function ($) {
+	 
+	  $("#rateYo").rateYo({
+	    rating: 3.6,
+	    readOnly:true
+	  });
+	 
+	  $("#rateYo2").rateYo({
+		    rating: 4.5,
+		    readOnly:true
+		  });
+	});
+</script>
 </head>
 <body >
 <div style="width: 70%;margin: auto;text-align: center;">
@@ -41,6 +62,8 @@
 		<th style="padding: 0;vertical-align: middle;">회사ID</th>
 		<th style="padding: 0;vertical-align: middle;">회사명</th>
 		<th style="padding: 0;vertical-align: middle;">회사사진</th>
+		<th style="padding: 0;vertical-align: middle;">평점</th>
+		<th style="padding: 0;vertical-align: middle;">비고</th>
 	</tr> 
 	<tr height="200px;">
 		<td style="padding: 0;vertical-align: middle;">2</td>
@@ -48,6 +71,8 @@
 		<td style="padding: 0;vertical-align: middle;"><a href="#">MomsTouch</a></td>
 		<td style="padding: 0;vertical-align: middle;"><a href="#">Mom's Touch</a></td>
 		<td style="padding: 0;vertical-align: middle;"><img src="http://www.parque-net.com/foreign/cmn/img/restaurants/alhambra_img.jpg" width="200px" height="200px"></td>
+		<td style="padding: 0;vertical-align: middle;"><div id="rateYo" style="margin: auto;"></div></td>
+		<td style="padding: 0;vertical-align: middle;"><button>예약하러가기</button></td>
 	</tr>
 	<tr height="200px;">
 		<td style="padding: 0;vertical-align: middle;">1</td>
@@ -55,6 +80,8 @@
 		<td style="padding: 0;vertical-align: middle;"><a href="#">JSHospital</a></td>
 		<td style="padding: 0;vertical-align: middle;"><a href="#">JinSick</a></td>
 		<td style="padding: 0;vertical-align: middle;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPNTFC97CjLRzBDnWn33j-_e0U45aNmeUcW2nXiQ52CQm0uhqz" width="200px" height="200px"></td>
+		<td style="padding: 0;vertical-align: middle;"><div id="rateYo2" style="margin: auto;"></div></td>
+		<td style="padding: 0;vertical-align: middle;"><button>예약하러가기</button></td>
 	</tr>
 </table>
 </div>

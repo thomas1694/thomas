@@ -3,43 +3,43 @@ package spring.model.s_member;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import www.dao.IDAO;
-import www.mybatis.MyAppSqlConfig;
-
-public class S_MemberDAO implements IDAO {
+@Repository
+public class S_MemberDAO implements S_IDAO {
 	
-	private static SqlSessionFactory sqlMapper;
+	@Autowired
+	private SqlSessionTemplate mybatis;
 	
-	static{
-
-		sqlMapper = MyAppSqlConfig.getSqlMapInstance();
+	public void setMybatis(SqlSessionTemplate mybatis) {
+		this.mybatis = mybatis;
 	}
-	
+
 	@Override
 	public boolean create(Object dto) throws Exception {
 		boolean flag=false;
-		int cnt=sqlMapper.openSession().insert("s_member.create", dto);
+		int cnt=mybatis.insert("s_member.create", dto);
 		if(cnt>0)flag=true;
 		return flag;
 	}
 
 	@Override
 	public List list(Map map) throws Exception {
-		return sqlMapper.openSession().selectList("s_member.list", map);
+		return mybatis.selectList("s_member.list", map);
 	}
 
 	@Override
 	public Object read(Object pk) throws Exception {
 		
-		return sqlMapper.openSession().selectOne("s_member.read", pk);
+		return mybatis.selectOne("s_member.read", pk);
 	}
 
 	@Override
 	public boolean update(Object dto) throws Exception {
 		boolean flag=false;
-		int cnt=sqlMapper.openSession().update("s_member.update", dto);
+		int cnt=mybatis.update("s_member.update", dto);
 		if(cnt>0)flag=true;
 		return flag;
 	}
@@ -47,7 +47,7 @@ public class S_MemberDAO implements IDAO {
 	@Override
 	public boolean delete(Object pk) throws Exception {
 		boolean flag=false;
-		int cnt=sqlMapper.openSession().delete("s_member.delete",pk);
+		int cnt=mybatis.delete("s_member.delete",pk);
 		if(cnt>0)flag=true;
 		return flag;
 	}
@@ -55,13 +55,13 @@ public class S_MemberDAO implements IDAO {
 	@Override
 	public int total(Map map) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlMapper.openSession().selectOne("s_member.total", map);
+		return mybatis.selectOne("s_member.total", map);
 	}
 
-	@Override
+	
 	public boolean passwdCheck(Map map) {
 		boolean flag=false;
-		int cnt=sqlMapper.openSession().selectOne("passwdCheck", map);
+		int cnt=mybatis.selectOne("passwdCheck", map);
 		if(cnt>0)flag=true;
 		return flag;
 	}

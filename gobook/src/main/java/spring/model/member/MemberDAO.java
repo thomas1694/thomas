@@ -11,12 +11,12 @@ import org.springframework.stereotype.Repository;
 public class MemberDAO implements IMemberDAO {
 	
 	@Autowired
-	private static SqlSessionTemplate mybatis;
+	private SqlSessionTemplate mybatis;
 	
 	
 	
-	public static void setMybatis(SqlSessionTemplate mybatis) {
-		MemberDAO.mybatis = mybatis;
+	public void setMybatis(SqlSessionTemplate mybatis) {
+		this.mybatis = mybatis;
 	}
 
 	

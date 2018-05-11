@@ -35,6 +35,8 @@ public class HomeController {
 		
 		return "/cscenter";
 	}
+	
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String c_home(Locale locale, Model model,@PathVariable String id) {
 		if(id.trim().equals("member")) {

@@ -34,6 +34,17 @@
         <put-attribute name="title" value="고북닷컴" ></put-attribute> 
         <put-attribute name="body" value="/WEB-INF/views/member/MemberList.jsp" /> 
     </definition> 
-           
+     
+    <definition name="/s_member/imgUpdate" template="/WEB-INF/c_template/template.jsp"> 
+        <put-attribute name="sidebar" value="" /> 
+        <put-attribute name="c_footer" value="" />
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/s_member/imgUpdate.jsp" />
+    </definition>        
+   
+    <definition name="/s_member/success" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/s_member/success.jsp" /> 
+    </definition> 
    
 </tiles-definitions> 
