@@ -29,6 +29,12 @@ public class HomeController {
 		return "/home";
 	}
 	
+	@RequestMapping(value = "/cscenter", method = RequestMethod.GET)
+	public String cs(Locale locale, Model model) {
+		
+		
+		return "/cscenter";
+	}
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String c_home(Locale locale, Model model,@PathVariable String id) {
 		if(id.trim().equals("member")) {
@@ -37,4 +43,5 @@ public class HomeController {
 		model.addAttribute("id", id);
 		return "/c_home";
 	}
+	
 }

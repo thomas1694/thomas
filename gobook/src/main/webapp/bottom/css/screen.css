@@ -277,7 +277,7 @@ hr {
   cursor: pointer;
 }
 
-.container, .container-fluid {
+#bottom .container, .container-fluid {
   margin-right: auto;
   margin-left: auto;
   padding-left: 15px;
@@ -285,33 +285,33 @@ hr {
 }
 
 @media (min-width: 768px) {
-  .container {
+ #bottom .container {
     width: 740px;
   }
 }
 @media (min-width: 992px) {
-  .container {
+  #bottom .container {
     width: 960px;
   }
 }
 @media (min-width: 1200px) {
-  .container {
+  #bottom .container {
     width: 1160px;
   }
 }
-.row {
+#bottom .row2 {
   margin-left: -15px;
   margin-right: -15px;
 }
 
-.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12, .col-xs-13, .col-sm-13, .col-md-13, .col-lg-13, .col-xs-14, .col-sm-14, .col-md-14, .col-lg-14, .col-xs-15, .col-sm-15, .col-md-15, .col-lg-15, .col-xs-16, .col-sm-16, .col-md-16, .col-lg-16, .col-xs-17, .col-sm-17, .col-md-17, .col-lg-17, .col-xs-18, .col-sm-18, .col-md-18, .col-lg-18, .col-xs-19, .col-sm-19, .col-md-19, .col-lg-19, .col-xs-20, .col-sm-20, .col-md-20, .col-lg-20, .col-xs-21, .col-sm-21, .col-md-21, .col-lg-21, .col-xs-22, .col-sm-22, .col-md-22, .col-lg-22, .col-xs-23, .col-sm-23, .col-md-23, .col-lg-23, .col-xs-24, .col-sm-24, .col-md-24, .col-lg-24 {
+#bottom .col-xs-1, #bottom .col-sm-1, #bottom .col-md-1, #bottom .col-lg-1, #bottom .col-xs-2, #bottom .col-sm-2, #bottom .col-md-2, #bottom .col-lg-2, #bottom .col-xs-3, #bottom .col-sm-3, #bottom .col-md-3, #bottom .col-lg-3, #bottom .col-xs-4, #bottom .col-sm-4, #bottom .col-md-4, #bottom .col-lg-4, #bottom .col-xs-5, #bottom .col-sm-5, #bottom .col-md-5, #bottom .col-lg-5, #bottom .col-xs-6, #bottom .col-sm-6, #bottom .col-md-6, #bottom .col-lg-6, #bottom .col-xs-7, #bottom .col-sm-7, #bottom .col-md-7, #bottom .col-lg-7, #bottom .col-xs-8, #bottom .col-sm-8, #bottom .col-md-8, #bottom .col-lg-8, #bottom .col-xs-9, #bottom .col-sm-9, #bottom .col-md-9, #bottom .col-lg-9, #bottom .col-xs-10, #bottom .col-sm-10, #bottom .col-md-10, #bottom .col-lg-10, #bottom .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12, .col-xs-13, .col-sm-13, .col-md-13, .col-lg-13, .col-xs-14, .col-sm-14, .col-md-14, .col-lg-14, .col-xs-15, .col-sm-15, .col-md-15, .col-lg-15, .col-xs-16, .col-sm-16, .col-md-16, .col-lg-16, .col-xs-17, .col-sm-17, .col-md-17, .col-lg-17, .col-xs-18, .col-sm-18, .col-md-18, .col-lg-18, .col-xs-19, .col-sm-19, .col-md-19, .col-lg-19, .col-xs-20, .col-sm-20, .col-md-20, .col-lg-20, .col-xs-21, .col-sm-21, .col-md-21, .col-lg-21, .col-xs-22, .col-sm-22, .col-md-22, .col-lg-22, .col-xs-23, .col-sm-23, .col-md-23, .col-lg-23, .col-xs-24, .col-sm-24, .col-md-24, .col-lg-24 {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 
-.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-13, .col-xs-14, .col-xs-15, .col-xs-16, .col-xs-17, .col-xs-18, .col-xs-19, .col-xs-20, .col-xs-21, .col-xs-22, .col-xs-23 {
+#bottom .col-xs-1, #bottom .col-xs-2, #bottom .col-xs-3, #bottom .col-xs-4, #bottom .col-xs-5, #bottom .col-xs-6, #bottom .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-13, .col-xs-14, .col-xs-15, .col-xs-16, .col-xs-17, .col-xs-18, .col-xs-19, .col-xs-20, .col-xs-21, .col-xs-22, .col-xs-23 {
   float: left;
 }
 
@@ -1923,12 +1923,12 @@ hr {
   display: table;
 }
 
-.container:before, .container:after {
+#bottom .container:before, .container:after {
   content: " ";
   display: table;
 }
 
-.container-fluid:before, .container-fluid:after {
+#bottom .container-fluid:before, .container-fluid:after {
   content: " ";
   display: table;
 }
@@ -1938,7 +1938,7 @@ hr {
   display: table;
 }
 
-.clearfix:after, .container:after, .container-fluid:after, .row:after {
+.clearfix:after, #bottom .container:after, #bottom .container-fluid:after, .row:after {
   clear: both;
 }
 

@@ -26,7 +26,7 @@
 		<!-- Footer -->
 		<footer class="main-footer">
 			<div class="container">
-				<div class="row">
+				<div class="row2">
 					<div class="col-md-5">
 						<div class="widget widget_links">
 							<h5 class="widget-title">Gobook</h5>

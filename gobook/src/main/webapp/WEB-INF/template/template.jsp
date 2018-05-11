@@ -27,7 +27,7 @@
 <div id="header">
 <tiles:insertAttribute name="header"/>
 </div>
-<div id="gobookcontent" style="margin-top: 150px;">
+<div id="gobookcontent" style="margin-top: 137px;">
 <tiles:insertAttribute name="body"/>
 </div>
 <div id="bottom">
