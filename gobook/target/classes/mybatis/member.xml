@@ -21,8 +21,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE id=#{id}
     </delete>
     
-    <select id="list" resultType="memberDTO">
+    <select id="list" resultType="memberDTO" parameterType="map">
     	select * from member
+    	<where>
+    		<choose>
+    			<when test="col=='id'">
+    				id like '%'||#{word}||'%'
+    			</when>
+    			<when test="col=='grade'">
+    				id like '%'||#{word}||'%'
+    			</when>
+    		</choose>
+    	</where>
+    	order by id
     </select>
     
     <select id="total" resultType="int">

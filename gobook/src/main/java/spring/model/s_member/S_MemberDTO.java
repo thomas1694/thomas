@@ -14,11 +14,11 @@ public class S_MemberDTO {
 	private String s_passwd;
 	private String s_filename;
 	private int s_filesize;
-	
-	
 	private String s_zipcode;
 	private String s_address1;
 	private String s_address2;
+	
+	
 	private String s_time;
 	private String s_time2;
 	private String s_time3;

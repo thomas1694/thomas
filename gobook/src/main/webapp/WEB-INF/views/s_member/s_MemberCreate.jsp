@@ -248,8 +248,8 @@ $j144(document).ready(function($){
 						}
 
 						// 우편번호와 주소 정보를 해당 필드에 넣는다.
-						document.getElementById('sample6_postcode').value = data.zonecode; //5자리 새우편번호 사용
 						document.getElementById('sample6_address').value = fullAddr;
+						document.getElementById('sample6_postcode').value = data.zonecode; //5자리 새우편번호 사용
 
 						// 커서를 상세주소 필드로 이동한다.
 						document.getElementById('sample6_address2').focus();
@@ -415,18 +415,12 @@ geocoder.addressSearch(address1, function(result, status) {
 			<TR>
 				<TH class="th" scope="row"><img src="../images/star.png"/>회사 주소</TH>
 				<TD>
-					<input type="text" name="s_address1" size="80" id="sample6_address" placeholder="주소"> 
+					<input type="text" name="s_address1" size="80" id="sample6_address" placeholder="주소" > 
 					<input type="text" name="s_address2" size="40" id="sample6_address2" placeholder="상세주소">
 				</TD>
 			
 			</TR>
-			<tr>
-				<TH class="th" scope="row"><img src="../images/star.png"/>회사 위치</TH>
-				<td>
-					<div id="map" style="width:100%;height:350px;"></div>
-					<input type="text" id="s_location" name="s_location" value="">
-				</td>
-			</tr>
+			
 			<TR>
 				<th class="th" scope="row"><img src="../images/star.png"/>비지니스 카테고리</TH>
 				<TD>
@@ -481,6 +475,13 @@ geocoder.addressSearch(address1, function(result, status) {
   			<input type="text" name="s_time7" id="s_time7" readonly style="border:0; color:#f6931f; font-weight:bold;">
 		
 		<div id="slider-range7" style="width:30%;text-align: center;margin: auto;"></div>
+				</td>
+			</tr>
+			<tr>
+				<TH class="th" scope="row"><img src="../images/star.png"/>회사 위치</TH>
+				<td>
+					<div id="map" style="width:100%;height:350px;"></div>
+					<input type="text" id="s_location" name="s_location" value="">
 				</td>
 			</tr>
 			<tr>

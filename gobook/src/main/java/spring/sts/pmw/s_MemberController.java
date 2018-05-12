@@ -49,15 +49,14 @@ public class s_MemberController {
 	
 	@RequestMapping(value = "/s_member/create", method = RequestMethod.POST)
 	public String create(S_MemberDTO dto, Model model) {
-		dto.setS_location(dto.getS_address1()+dto.getS_address2()+dto.getS_zipcode());
-		dto.setS_hour(
-				dto.getS_time()+
-				dto.getS_time2()+
-				dto.getS_time3()+
-				dto.getS_time4()+
-				dto.getS_time5()+
-				dto.getS_time6()+
-				dto.getS_time7()
+		dto.setS_hour("MON:"+
+				dto.getS_time()+";"+"TUE:"+
+				dto.getS_time2()+";"+"WED:"+
+				dto.getS_time3()+";"+"THU:"+
+				dto.getS_time4()+";"+"FRI:"+
+				dto.getS_time5()+";"+"SAT:"+
+				dto.getS_time6()+";"+"SUN:"+
+				dto.getS_time7()+";"
 				);
 		
 		
