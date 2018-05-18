@@ -104,12 +104,13 @@ $j144(document).ready(function($){
 					$("#s_time").val("휴일");
 				}else{
 					$("#s_time").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
+					$("#s_hour1").val("Mon/"+ui.values[0]+","+ ui.values[1]);
 				}
 				}
 		});
 		$("#s_time").val( $("#slider-range").slider("values", 0) +
 			" : 00 ~ " + $("#slider-range").slider("values", 1) +" : 00");
-	
+		$("#s_hour1").val("Mon/"+$("#slider-range").slider("values", 0)+","+$("#slider-range").slider("values", 1));
 		$("#slider-range2").slider({
 			range : true,
 			min : 0,
@@ -120,12 +121,13 @@ $j144(document).ready(function($){
 					$("#s_time2").val("휴일");
 				}else{
 					$("#s_time2").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
+					$("#s_hour2").val("Tue/"+ui.values[0]+","+ ui.values[1]);
 				}
 				}
 		});
 		$("#s_time2").val( $("#slider-range2").slider("values", 0) +
 			" : 00 ~ " + $("#slider-range2").slider("values", 1) +" : 00");
-		
+		$("#s_hour2").val("Tue/"+$("#slider-range2").slider("values", 0)+","+$("#slider-range2").slider("values", 1));
 		$("#slider-range3").slider({
 			range : true,
 			min : 0,
@@ -136,12 +138,13 @@ $j144(document).ready(function($){
 					$("#s_time3").val("휴일");
 				}else{
 					$("#s_time3").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
+					$("#s_hour3").val("Wed/"+ui.values[0]+","+ ui.values[1]);
 				}
 				}
 		});
 		$("#s_time3").val( $("#slider-range3").slider("values", 0) +
 			" : 00 ~ " + $("#slider-range3").slider("values", 1) +" : 00");
-		
+		$("#s_hour3").val("Wed/"+$("#slider-range3").slider("values", 0)+","+$("#slider-range3").slider("values", 1));
 		$("#slider-range4").slider({
 			range : true,
 			min : 0,
@@ -152,12 +155,13 @@ $j144(document).ready(function($){
 					$("#s_time4").val("휴일");
 				}else{
 					$("#s_time4").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
+					$("#s_hour4").val("Thu/"+ui.values[0]+","+ ui.values[1]);
 				}
 				}
 		});
 		$("#s_time4").val( $("#slider-range4").slider("values", 0) +
 			" : 00 ~ " + $("#slider-range4").slider("values", 1) +" : 00");
-		
+		$("#s_hour4").val("Thu/"+$("#slider-range4").slider("values", 0)+","+$("#slider-range4").slider("values", 1));
 		$("#slider-range5").slider({
 			range : true,
 			min : 0,
@@ -168,12 +172,13 @@ $j144(document).ready(function($){
 					$("#s_time5").val("휴일");
 				}else{
 					$("#s_time5").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
+					$("#s_hour5").val("Fri/"+ui.values[0]+","+ ui.values[1]);
 				}
 				}
 		});
 		$("#s_time5").val( $("#slider-range5").slider("values", 0) +
 			" : 00 ~ " + $("#slider-range5").slider("values", 1) +" : 00");
-		
+		$("#s_hour5").val("Fri/"+$("#slider-range5").slider("values", 0)+","+$("#slider-range5").slider("values", 1));
 		$("#slider-range6").slider({
 			range : true,
 			min : 0,
@@ -184,12 +189,13 @@ $j144(document).ready(function($){
 					$("#s_time6").val("휴일");
 				}else{
 					$("#s_time6").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
+					$("#s_hour6").val("Sat/"+ui.values[0]+","+ ui.values[1]);
 				}
 				}
 		});
 		$("#s_time6").val( $("#slider-range6").slider("values", 0) +
 			" : 00 ~ " + $("#slider-range6").slider("values", 1) +" : 00");
-		
+		$("#s_hour6").val("Sat/"+$("#slider-range6").slider("values", 0)+","+$("#slider-range6").slider("values", 1));
 		$("#slider-range7").slider({
 			range : true,
 			min : 0,
@@ -200,12 +206,13 @@ $j144(document).ready(function($){
 					$("#s_time7").val("휴일");
 				}else{
 					$("#s_time7").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
+					$("#s_hour7").val("Sun/"+ui.values[0]+","+ ui.values[1]);
 				}
 				}
 		});
 		$("#s_time7").val( $("#slider-range7").slider("values", 0) +
 			" : 00 ~ " + $("#slider-range7").slider("values", 1) +" : 00");
-	
+		$("#s_hour7").val("Sun/"+$("#slider-range7").slider("values", 0)+","+$("#slider-range7").slider("values", 1));
 	});
 });
 </script>
@@ -319,6 +326,7 @@ var geocoder = new daum.maps.services.Geocoder();
 
 var address1=document.getElementById('sample6_address').value;
 // 주소로 좌표를 검색합니다
+
 geocoder.addressSearch(address1, function(result, status) {
 
     // 정상적으로 검색이 완료됐으면 
@@ -361,6 +369,13 @@ geocoder.addressSearch(address1, function(result, status) {
 	<!-- Form -->
 	<FORM name='frm' method='POST' action='./create'
 		onsubmit="return inCheck(this)">
+		<input type="hidden" name="s_hour1" id="s_hour1">
+		<input type="hidden" name="s_hour2" id="s_hour2">
+		<input type="hidden" name="s_hour3" id="s_hour3">
+		<input type="hidden" name="s_hour4" id="s_hour4">
+		<input type="hidden" name="s_hour5" id="s_hour5">
+		<input type="hidden" name="s_hour6" id="s_hour6">
+		<input type="hidden" name="s_hour7" id="s_hour7">
 	<div class="container">
 	<h2 class='title'>GoBook 회원가입</h2>
 		<table class="question">
@@ -443,7 +458,7 @@ geocoder.addressSearch(address1, function(result, status) {
 				<td>
 					<label for="s_time">월요일 영업시간:</label>
   			<input type="text" name="s_time" id="s_time" readonly style="border:0; color:#f6931f; font-weight:bold;">
-		
+			
 		<div id="slider-range" style="width:30%;text-align: center;margin: auto;"></div>
 		
 		<label for="s_time2">화요일 영업시간:</label>

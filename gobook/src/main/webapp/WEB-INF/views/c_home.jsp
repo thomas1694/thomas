@@ -1,4 +1,6 @@
 <%@page contentType="text/html; charset=UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="root" value="${pageContext.request.contextPath }"></c:set>
 <!DOCTYPE HTML>
 <!--
 	Prologue by HTML5 UP
@@ -11,7 +13,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="css/c_template/assets/css/main.css" />
+		<link rel="stylesheet" href="${root }/resources/pmw/c_template/assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		
@@ -51,13 +53,13 @@
 							<div class="row">
 								<div class="4u 12u$(mobile)">
 									<article class="item">
-										<a href="#" class="image fit"><img src="css/c_template/images/img1.jpg" alt="" /></a>
+										<a href="#" class="image fit"><img src="${root }/resources/pmw/c_template/images/img1.jpg" alt="" /></a>
 										<header>
 											<h3>진료중인 진시크 원장님</h3>
 										</header>
 									</article>
 									<article class="item">
-										<a href="#" class="image fit"><img src="css/c_template/images/img2.jpg" alt="" /></a>
+										<a href="#" class="image fit"><img src="${root }/resources/pmw/c_template/images/img2.jpg" alt="" /></a>
 										<header>
 											<h3>병원 내부</h3>
 										</header>
@@ -65,13 +67,13 @@
 								</div>
 								<div class="4u 12u$(mobile)">
 									<article class="item">
-										<a href="#" class="image fit"><img src="css/c_template/images/img3.jpg" alt="" /></a>
+										<a href="#" class="image fit"><img src="${root }/resources/pmw/c_template/images/img3.jpg" alt="" /></a>
 										<header>
 											<h3>주사실</h3>
 										</header>
 									</article>
 									<article class="item">
-										<a href="#" class="image fit"><img src="css/c_template/images/img4.jpg" alt="" /></a>
+										<a href="#" class="image fit"><img src="${root }/resources/pmw/c_template/images/img4.jpg" alt="" /></a>
 										<header>
 											<h3>대기실</h3>
 										</header>
@@ -79,13 +81,13 @@
 								</div>
 								<div class="4u$ 12u$(mobile)">
 									<article class="item">
-										<a href="#" class="image fit"><img src="css/c_template/images/img5.png" alt="" /></a>
+										<a href="#" class="image fit"><img src="${root }/resources/pmw/c_template/images/img5.png" alt="" /></a>
 										<header>
 											<h3>검사실</h3>
 										</header>
 									</article>
 									<article class="item">
-										<a href="#" class="image fit"><img src="css/c_template/images/img6.JPG" alt="" /></a>
+										<a href="#" class="image fit"><img src="${root }/resources/pmw/c_template/images/img6.JPG" alt="" /></a>
 										<header>
 											<h3>병원 카운터</h3>
 										</header>

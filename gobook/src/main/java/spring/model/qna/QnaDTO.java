@@ -7,6 +7,12 @@ public class QnaDTO {
 	private String q_wdate;
 	private String id;
 	private String q_lock;
+	private int viewcnt;
+	private int q_grpno;
+	private int q_indent;
+	private int q_ansnum;
+	private int q_refnum;
+	
 	public int getQ_num() {
 		return q_num;
 	}
@@ -44,5 +50,36 @@ public class QnaDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
+	public int getViewcnt() {
+		return viewcnt;
+	}
+	public void setViewcnt(int viewcnt) {
+		this.viewcnt = viewcnt;
+	}
+	public int getQ_grpno() {
+		return q_grpno;
+	}
+	public void setQ_grpno(int q_grpno) {
+		this.q_grpno = q_grpno;
+	}
+	public int getQ_indent() {
+		return q_indent;
+	}
+	public void setQ_indent(int q_indent) {
+		this.q_indent = q_indent;
+	}
+	public int getQ_ansnum() {
+		return q_ansnum;
+	}
+	public void setQ_ansnum(int q_ansnum) {
+		this.q_ansnum = q_ansnum;
+	}
+	public int getQ_refnum() {
+		return q_refnum;
+	}
+	public void setQ_refnum(int q_refnum) {
+		this.q_refnum = q_refnum;
+	}
+
 	
 }

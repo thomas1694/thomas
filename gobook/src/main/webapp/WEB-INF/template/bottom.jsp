@@ -11,8 +11,8 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<link href="${root }/bottom/img/gobook_icon.png" type="image/x-icon" rel="shortcut icon" />
-<link href="${root }/bottom/css/screen.css" rel="stylesheet" />
+<link href="${root }/resources/pmw/bottom/img/gobook_icon.png" type="image/x-icon" rel="shortcut icon" />
+<link href="${root }/resources/pmw/bottom/css/screen.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
@@ -24,7 +24,7 @@
 	
 
 		<!-- Footer -->
-		<footer class="main-footer">
+		<footer class="main-footer" style="height: 250px; text-align:center;">
 			<div class="container">
 				<div class="row2">
 					<div class="col-md-5">
@@ -89,13 +89,12 @@
 		</footer>
 
 		<!-- Scripts -->
-		<script src="${root }/bottom/js/jquery.js"></script>
-		<script src="${root }/bottom/js/functions.js"></script>
+		<script src="${root }/resources/pmw/bottom/js/jquery.js"></script>
+		<script src="${root }/resources/pmw/bottom/js/functions.js"></script>
 		
-		<script src="${root }/bottom/js/jquery.min.js"></script>
-		<script src="${root }/bottom/js/skel.min.js"></script>
-		<script src="${root }/bottom/js/util.js"></script>
+		<script src="${root }/resources/pmw/bottom/js/skel.min.js"></script>
+		<script src="${root }/resources/pmw/bottom/js/util.js"></script>
 		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-		<script src="${root }/bottom/js/main.js"></script>
+		<script src="${root }/resources/pmw/bottom/js/main.js"></script>
 </body>
 </html>

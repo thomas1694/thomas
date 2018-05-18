@@ -4,6 +4,51 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="freeboard">
+
+	<select id="checkRefnum" parameterType="int" resultType="int">
+	
+	select count(f_refnum) from freeboard  
+		 where f_refnum = #{f_num}
+	
+	
+	
+	</select>
+	
+	<insert id="createReply" parameterType="FreeboardDTO">
+	insert into freeboard										 	
+	(f_num, id, f_title, f_content,  f_wdate, 			
+	 f_grpno, f_indent, f_ansnum, f_refnum, f_filename, f_filesize)		
+	 values((select nvl(max(f_num),0)+1 as f_num from freeboard), 
+	#{id,jdbcType=VARCHAR}, #{f_title}, #{f_content}, sysdate,
+	#{f_grpno}, #{f_indent}+1, #{f_ansnum}+1, #{f_num}, #{f_filename,jdbcType=VARCHAR}, #{f_filesize})                        
+	</insert>
+
+
+	<update id="upAnsnum" parameterType="Map">
+	
+	update freeboard
+	set f_ansnum = f_ansnum + 1
+	where f_grpno = #{f_grpno} 
+	and f_ansnum > #{f_ansnum}
+	
+	</update>
+
+	<select id="readReply" resultType="FreeboardDTO" parameterType="int">
+	
+	select f_num, f_grpno, f_indent, f_ansnum, f_title
+	from freeboard
+	where f_num = #{f_num}
+	
+	</select>
+	
+	
+	<update id="upViewcnt" parameterType="int">
+	
+	     update freeboard 
+		 set f_count = f_count +1 
+		 where f_num= #{f_num} 
+	
+	</update>
     
     <select id="read" resultType="freeboardDTO" parameterType="int">
     	select * from freeboard
@@ -17,10 +62,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</selectKey>
 	
 	
-	insert into freeboard(f_num, f_content, f_count, f_wdate, id , f_grpno, 
-	f_indent, f_ansnum, f_filename, f_filesize,f_title) 
-	values(#{f_num},#{f_content},#{f_count}, sysdate, #{id}, #{f_grpno}, #{f_indent} ,                                     
-	#{f_ansnum},#{f_filename, jdbcType=VARCHAR},#{f_filesize},#{f_title})                                         
+	insert into freeboard(f_num, f_content, f_wdate, id , f_grpno, 
+	 f_filename, f_filesize,f_title) 
+	values(#{f_num},#{f_content}, sysdate, #{id}, (SELECT NVL(MAX(f_grpno),0) + 1 FROM freeboard),                                      
+	#{f_filename, jdbcType=VARCHAR},#{f_filesize, jdbcType=VARCHAR},#{f_title})                                         
 
 	</insert>
 
@@ -34,20 +79,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	select count(*) as cnt from freeboard
 	
-	<!-- <where>
+	<where>
 	<choose>
-		<when test="col=='id'">
-		id like '%'||#{id}||'%'
+	<when test="col=='id'">
+		id like '%'||#{word}||'%'
 		</when>
 		<when test="col=='f_title'">
-		f_title like '%'||#{f_title}||'%'
+		f_title like '%'||#{word}||'%'
 		</when>
 		<when test="col=='f_content'">
-		f_content like '%'||#{f_content}||'%'
+		f_content like '%'||#{word}||'%'
 		</when>
 
 	</choose>
-	</where> -->
+ 	</where> 
 	
 	
 	</select>
@@ -58,8 +103,8 @@ set id =#{id},
 	f_title=#{f_title} ,
 	f_content=#{f_content}
 	<if test="f_filesize > 0">  
- 	,f_filename=#{f_filename},                  
- 	f_filesize=#{f_filesize}                 
+ 	,f_filename=#{f_filename,jdbcType=VARCHAR},                  
+ 	f_filesize=#{f_filesize, jdbcType=VARCHAR}                 
     </if>                                 
  where f_num = #{f_num}                               
 	
@@ -69,31 +114,31 @@ set id =#{id},
 	
 
 	<select id="list" resultType="freeboardDTO" parameterType="Map">
-	select f_num, f_content, f_count, f_wdate, id , f_grpno, f_indent, f_ansnum, f_filename, f_filesize, r -- rownum의 성질을 r이라는 컬럼으로 가져다 쓴 것이다.
+	select f_num, f_title, f_count, f_wdate, id , f_grpno, f_indent, f_ansnum, f_filename, f_filesize, r 
 from(
-	select f_num, f_content, f_count, f_wdate, id , f_grpno, f_indent, f_ansnum, f_filename, f_filesize, rownum r -- 가상컬럼 rownum
+	select f_num, f_title, f_count, f_wdate, id , f_grpno, f_indent, f_ansnum, f_filename, f_filesize, rownum r 
 	from(
-		select f_num, f_content, f_count, f_wdate, id , f_grpno, f_indent, f_ansnum, f_filename, f_filesize
+		select f_num, f_title, f_count, f_wdate, id , f_grpno, f_indent, f_ansnum, f_filename, f_filesize
 		from freeboard
 	<where>
-<!-- 	<choose>
-		<when test="col=='wname'">
-		wname like '%'||#{word}||'%'
+ 	<choose>
+		<when test="col=='id'">
+		id like '%'||#{word}||'%'
 		</when>
-		<when test="col=='title'">
-		title like '%'||#{title}||'%'
+		<when test="col=='f_title'">
+		f_title like '%'||#{word}||'%'
 		</when>
-		<when test="col=='content'">
-		content like '%'||#{word}||'%'
+		<when test="col=='f_content'">
+		f_content like '%'||#{word}||'%'
 		</when>
 
-	</choose> -->
+	</choose> 
 	</where>
 	order by f_grpno desc, f_ansnum
 	)
 )
 <![CDATA[
-	where r >= 1 and r <=5
+	where r >= #{sno} and r <= #{eno}
 ]]>
 	
 	</select>

@@ -1,5 +1,9 @@
 package spring.model.service;
 
+import java.util.List;
+
+import spring.model.service_image.Service_imageDTO;
+
 public class ServiceDTO {
 	private int sv_num;
 	private int sv_num_upper;
@@ -9,6 +13,24 @@ public class ServiceDTO {
 	private int sv_price;
 	private String sv_content;
 	private String sv_template;
+	
+	private Service_imageDTO serdto;
+	
+	public ServiceDTO() {
+		super();
+	}
+	public ServiceDTO(int sv_num, int sv_num_upper, int sv_timeperson , String sv_title, String s_id,
+	int sv_price, String sv_content, String sv_template) {
+		super();
+		this.sv_num = sv_num;
+		this.sv_num_upper = sv_num_upper;
+		this.sv_timeperson = sv_timeperson;
+		this.sv_title = sv_title;
+		this.s_id = s_id;
+		this.sv_price = sv_price;
+		this.sv_content = sv_content;
+		this.sv_template = sv_template;
+	}
 	
 	public int getSv_num() {
 		return sv_num;
@@ -57,6 +79,12 @@ public class ServiceDTO {
 	}
 	public void setSv_template(String sv_template) {
 		this.sv_template = sv_template;
+	}
+	public Service_imageDTO getSerdto() {
+		return serdto;
+	}
+	public void setSerdto(Service_imageDTO serdto) {
+		this.serdto = serdto;
 	}
 	
 	

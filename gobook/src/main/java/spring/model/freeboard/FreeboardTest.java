@@ -12,15 +12,15 @@ public class FreeboardTest {
 		
 		FreeboardDAO dao = new FreeboardDAO();
 		
-		//read(dao);
+		read(dao);
         //create(dao);
 		//update(dao);
 		//delete(dao);
 		//list(dao);
-		total(dao);
+		//total(dao);
 	}
 	
-	private static void total(FreeboardDAO dao) {
+	private static void total(FreeboardDAO dao) throws Exception {
 
 			Map map = new HashMap();
 			map.put("col", "id");
@@ -32,7 +32,7 @@ public class FreeboardTest {
 		}
 	
 
-	private static void list(FreeboardDAO dao) {
+	private static void list(FreeboardDAO dao) throws Exception {
 		Map map = new HashMap();
 		map.put("col", "id");
 		map.put("word", "");
@@ -67,7 +67,7 @@ public class FreeboardTest {
 		}
 	}
 
-	private static void create(FreeboardDAO dao) {
+	private static void create(FreeboardDAO dao) throws Exception {
 		 FreeboardDTO dto = new FreeboardDTO();
 		 dto.setF_title("뭘좀아는친군데?");
 		 dto.setF_content("ㅗㅗㅗㅗㅗㅗ");
@@ -83,7 +83,7 @@ public class FreeboardTest {
 
 	
 	private static void read(FreeboardDAO dao) {
-		int f_num = 1;
+		int f_num = 3;
 		
 		FreeboardDTO dto = dao.read(f_num);
 		

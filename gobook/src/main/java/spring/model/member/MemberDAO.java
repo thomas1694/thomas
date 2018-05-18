@@ -24,7 +24,7 @@ public class MemberDAO implements IMemberDAO {
 	public boolean create(Object dto) throws Exception {
 		boolean flag=false;
 		
-		int cnt=mybatis.delete("member.create",dto);
+		int cnt=mybatis.insert("member.create",dto);
 		System.out.println(cnt);
 		if(cnt>0)flag=true;
 		
@@ -62,6 +62,15 @@ public class MemberDAO implements IMemberDAO {
 		
 		return mybatis.selectOne("member.total", map);
 	}
+
+
+	public String getGrade(String id) throws Exception{
+
+		return mybatis.selectOne("member.getGrade", id);
+	}
+
+
+
 
 	
 

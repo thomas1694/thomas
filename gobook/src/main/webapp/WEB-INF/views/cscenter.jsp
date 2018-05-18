@@ -27,19 +27,19 @@
   
   </style>
 </head>
-<body>
+<body style="margin-top: -30px;">
   <div class="jumbotron" style="margin-bottom: 0px;text-align: center;background-color: #404040; color: white;transform:scale(1.5);">
     <h1 style="font-size: 230%">고북 고객 센터</h1>      
   </div>
 	<div class="cscenter">
-   <a href="#"><div class="jumbotron" style="margin-bottom: 0px;text-align: center;background-color: white; border: 1px solid black;margin-top:40px;">
+   <a href="./notice/list"><div class="jumbotron" style="margin-bottom: 0px;text-align: center;background-color: white; border: 1px solid black;margin-top:40px;">
     <h1>공지사항</h1>      
   </div></a>
-  <a href="#">
+  <a href="./qna/list">
   <div class="jumbotron" style="margin-bottom: 0px;text-align: center; background-color: white; border: 1px solid black;">
     <h1>Q & A</h1>      
   </div></a>
-  <a href="#">
+  <a href="./faq/list">
   <div class="jumbotron" style="margin-bottom: 0px;text-align: center; background: white; border: 1px solid black;">
     <h1>자주 묻는 질문</h1>      
   </div></a>

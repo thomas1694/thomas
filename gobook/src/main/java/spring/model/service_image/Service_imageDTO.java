@@ -1,19 +1,30 @@
 package spring.model.service_image;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class Service_imageDTO {
 
 	private int simg_num;
 	private String simg_filename;
 	private int simg_filesize;
 	private int sv_num;
+	private MultipartFile filenameMF;
 	
-	
-
 	public int getSv_num() {
 		return sv_num;
 	}
 	public void setSv_num(int sv_num) {
 		this.sv_num = sv_num;
+	}
+	
+
+	public MultipartFile getFilenameMF() {
+		return filenameMF;
+	}
+	public void setFilenameMF(MultipartFile filenameMF) {
+		this.filenameMF = filenameMF;
 	}
 	public int getSimg_num() {
 		return simg_num;
@@ -33,4 +44,5 @@ public class Service_imageDTO {
 	public void setSimg_filesize(int simg_filesize) {
 		this.simg_filesize = simg_filesize;
 	}
+
 }

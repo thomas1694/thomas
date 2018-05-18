@@ -16,7 +16,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!--STYLESHEETS-->
-<link href="../css/c_style.css" rel="stylesheet" type="text/css" />
+<link href="${root}/resources/ksy/css/c_style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>

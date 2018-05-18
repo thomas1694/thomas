@@ -19,96 +19,111 @@
        border-collapse: collapse;
        border: 1px solid black;
        }
+       #gbfile,#gbsubmit{
+          display: block;
+   		  visibility: hidden;
+   		  width: 0;
+   		  height: 0;
+       }
 </style>
 
 	<script type="text/javascript">
 	function update_mimg(){
 		
-			var url = "${root}/member/imgupdate";
-			
-			
-			wr = window.open(url, "대표이미지변경", "width=500,height=500"); /*  window.open : 새창  wr는 새창을 말한다.*/
-			wr.moveTo((window.screen.width-500)/2,(window.screen.height-500)/2);              /* x좌표와 y좌표를 나타낸다 */
+		
+		    $('#gbfile').click();
+		    $('#gbfile').change(function (){
+		    	$('#gbsubmit').click();
+		    });
+		           
 		
 	}
 	function update_smember(){
-		var url="${root}/s_member/update";
+		var url="${root}/s_member/update?s_id=";
+		url+="${dto.s_id }";
 		location.href=url;
 	}
 	function delete_smember(){
-		var url="${root}/s_member/delete";
+		var url="${root}/s_member/delete?s_id=";
+		url+="${dto.s_id }";
 		location.href=url;
 	}
 	</script>
-    <script>
-      function initMap() {
-        var uluru = {lat: 37.493484, lng: 126.726519};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 18,
-          center: uluru
-        });
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
-        });
-      }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5l8wf2nrNmC5QGOLqqSB7bJG0fNiVjS0&callback=initMap">
-    </script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=47844deb89b482d0297165cccbc1dd67&libraries=services"></script>
+	<script>
+	var $d = jQuery.noConflict(); 
+
+	$d(document).ready(function($){
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    		mapOption = { 
+        		center: new daum.maps.LatLng(${dto.s_location }), // 지도의 중심좌표
+        		level: 3 // 지도의 확대 레벨
+    		};
+
+		// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+		var map = new daum.maps.Map(mapContainer, mapOption); 
+		
+		var markerPosition  = new daum.maps.LatLng(${dto.s_location }); 
+
+		// 마커를 생성합니다
+		var marker = new daum.maps.Marker({
+		    position: markerPosition
+		});
+
+		// 마커가 지도 위에 표시되도록 설정합니다
+		marker.setMap(map);
+	});
+		</script>
 </head>
 <body>
 	<h3 style="text-align: center;">판매회원 정보</h3>
 	<table>
 		<tr>
 			<th style="vertical-align: top;">대표이미지</th>
-			<td><img src="${root }/storage/member/img/member.jpg" width="225px" height="225px"></td>
+			<td><img src="${root }/storage/member/img/${dto.s_filename}" width="225px" height="225px"></td>
 		</tr>
 		<tr>
 			<th>회사ID</th>
-			<td>JSH</td>
+			<td>${dto.s_id }</td>
 		</tr>
 		
 		<tr>
 			<th>이메일</th>
-			<td>JSH@Jinsick.com</td>
+			<td>${dto.s_email }</td>
 		</tr>
 		
 		<tr>
 			<th>전화번호</th>
-			<td>+821021312221</td>
+			<td>${dto.s_tel }</td>
 		</tr>
 		
 		<tr>
 			<th>비지니스카테고리</th>
-			<td>병원</td>
+			<td>${dto.s_category }</td>
 		</tr>
 		
 		<tr>
 			<th>회사위치</th>
-			<td>인천시 부평구 부평동 롯데시네마 3층 Jinsick의원<div id="map"></div></td>
+			<td>${s_address1 }  ${s_address2 }<div id="map"></div></td>
 		</tr>
-		
+		<tr>
+			<th>회사우편번호</th>
+			<td>${dto.s_zipcode }</td>
+		</tr>
 		<tr>
 			<th>회사명</th>
-			<td>진식이비인후과</td>
+			<td>${dto.s_name }</td>
 		</tr>
 		
 		<tr>
 			<th>회사설명</th>
-			<td>부평 근방에서 막힌코를 제일 잘 뚫어드립니다!
+			<td>${dto.s_info }
 			</td>
 		</tr>
 		
 		<tr>
 			<th>영업시간</th>
-			<td>월 = 09:00~17:00<br>
-			화 = 09:00~17:00<br>
-			수 = 09:00~17:00<br>
-			목 = 09:00~17:00<br>
-			금 = 09:00~17:00<br>
-			토 = 09:00~17:00<br>
-			일 = 09:00~17:00<br>
+			<td>${dto.s_hour }
 			
 			</td>
 		</tr>
@@ -119,6 +134,13 @@
 	<button type="button" onclick="update_smember()">회원정보수정</button>
 	<button type="button" onclick="update_passwd()">패스워드변경</button>
 	<button type="button" onclick="delete_smember()">회원탈퇴</button>
+	</div>
+	<div>
+	<form action="./updateImg" method="post" enctype="multipart/form-data">
+	<input type="file" id="gbfile" name="filenameMF">
+	<input type="hidden" name="s_id" value="${dto.s_id }">
+	<input type="submit" id="gbsubmit">
+	</form>
 	</div>
 </body>
 </html>

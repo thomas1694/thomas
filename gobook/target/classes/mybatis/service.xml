@@ -3,67 +3,104 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="service">
-    
-    <insert id="create" parameterType="serviceDTO">
-      insert into service(sv_num,SV_NUM_UPPER,sv_timeperson,sv_title,s_id,sv_template,sv_price, sv_content)
-       VALUES((select nvl(max(sv_num),0)+1 as sv_num from SERVICE),#{sv_num_upper},#{sv_timeperson},#{sv_title},
-       #{s_id},#{sv_template},#{sv_price},#{sv_content})   
-    </insert>
-    
-    <select id="read" resultType="serviceDTO" parameterType="int">
-    	select * from service where sv_num=#{sv_num}
-    </select>
-    
-    <select id="list" resultType="serviceDTO">
-    select * from service
-    </select>
-    
-    
-<!--     <select id="readjoin" resultMap="serviceList"> -->
-<!--      select e.s_id, e.sv_timeperson , e.sv_title, e.sv_price, e.sv_content, e.sv_template, -->
-<!--      p.s_id, p.s_email, p.s_tel, p.s_category, p.s_location, p.s_name, s_hour -->
-<!--      from service e INNER JOIN s_member p -->
-<!--      ON e.s_id = p.s_id; -->
-<!--     </select> -->
-    
-<!--     <resultMap type="serviceDTO" id="serviceList"> -->
-<!--         <result property="s_id" column="s_id"></result> -->
-<!--        <result property="sv_title" column="sv_title"></result> -->
-<!--        <result property="sv_price" column="sv_price"></result> -->
-<!--        <result property="sv_content" column="sv_content"></result> -->
-<!--        <result property="sv_template" column="sv_template"></result> -->
-<!--        <collection property="s_memberList" column="s_id" javaType="List" ofType="s_memberDTO" -->
-<!--         resultMap="DAO.s_memberDTOList"></collection>   -->
-<!--     </resultMap> -->
-    
-<!--     <resultMap type="s_memberDTO" id="s_memberDTOList"> -->
-<!--        <result property="s_id" column="s_id"></result> -->
-<!--        <result property="s_tel" column="s_tel"></result> -->
-<!--        <result property="s_category" column="s_category"></result> -->
-<!--        <result property="s_location" column="s_location"></result> -->
-<!--        <result property="s_name" column="s_name"></result> -->
-<!--        <result property="s_hour" column="s_hour"></result> -->
-<!--        <result property="s_rdate" column="s_rdate"></result> -->
-<!--     </resultMap> -->
-    
-    <update id="update" parameterType="serviceDTO">
-    update service
-    set sv_title=#{sv_title},
-    sv_price=#{sv_price},
-    sv_content=#{sv_content}
-    where Sv_num =#{sv_num}
-    </update>
-    
-    <delete id="delete" parameterType="int">
-    DELETE FROM service where sv_num=#{sv_num}
-    </delete>
-    
-<!--     <delete id="delete" parameterType="int"> -->
-<!--     DELETE * FROM service from -->
-<!--     service_image e inner join service p -->
-<!--     on e.simg_num = p.s_id -->
-<!--     where e.simg_num = #{e.simg_num}; -->
-<!--     </delete> -->
-     
+
+	<insert id="Dcreate" parameterType="serviceDTO">
+		insert into
+		service(sv_num,SV_NUM_UPPER,sv_timeperson,sv_title,sv_template,sv_price,s_id,sv_content)
+		VALUES((select nvl(max(sv_num),0)+1 as sv_num from
+		SERVICE),#{sv_num_upper},
+		#{sv_timeperson},#{sv_title,jdbcType=VARCHAR},#{sv_template},#{sv_price},#{s_id,jdbcType=VARCHAR},#{sv_content})
+	</insert>
+
+	<insert id="create" parameterType="serviceDTO">
+		insert into
+		SERVICE(sv_num,SV_NUM_UPPER,sv_title,s_id)
+		VALUES((select
+		nvl(max(sv_num),0)+1 as sv_num from
+		SERVICE),#{sv_num_upper},#{sv_title,jdbcType=VARCHAR},#{s_id,jdbcType=VARCHAR})
+	</insert>
+
+<!-- 	<update id="uppernum" parameterType="int"> -->
+<!-- 		update service -->
+<!-- 		set -->
+<!-- 		sv_num_upper = sv_num -->
+<!-- 		where sv_num = #{sv_num} -->
+<!-- 	</update> -->
+
+	<select id="finalnum" resultType="int">
+		select sv_num from
+		(select
+		sv_num from service order by rownum desc)
+		where
+		rownum =1
+	</select>
+
+	<select id="read" parameterType="int" resultMap="serviceMap">
+		select
+		e.sv_num, e.sv_title,p.simg_filename
+		from service e INNER JOIN service_image p
+		ON e.sv_num = p.sv_num
+		where e.sv_num = #{e.sv_num}
+	</select>
+
+	<resultMap type="serviceDTO" id="serviceMap">
+		<result property="sv_num" column="sv_num" />
+		<result property="sv_num_upper" column="sv_num_upper" />
+		<result property="sv_timeperson" column="sv_timeperson" />
+		<result property="sv_title" column="sv_title" />
+		<result property="sv_price" column="sv_price" />
+		<result property="sv_content" column="sv_content" />
+		<result property="sv_template" column="sv_template" />
+		<result property="s_id" column="s_id" />
+		<result property="serdto.simg_num" column="simg_num" />
+		<result property="serdto.simg_filename" column="simg_filename" />
+		<!-- <result property="serdto.simg_filesize" column="simg_filesize" /> -->
+	</resultMap>
+
+	<select id="Dread" parameterType="int" resultMap="serviceMap">
+		select
+		e.sv_num, e.sv_num_upper ,e.sv_timeperson , e.sv_title, e.sv_price,
+		e.sv_content, e.sv_template, e.s_id, p.simg_num, p.simg_filename
+		from
+		service e INNER JOIN service_image p
+		ON e.sv_num = p.sv_num
+		where
+		e.sv_num = #{e.sv_num}
+	</select>
+
+	<select id="DCread" parameterType="int" resultType="serviceDTO">
+		select sv_num_upper from service
+		where sv_num = #{sv_num}
+	</select>
+
+	<select id="list" resultType="serviceDTO">
+		select sv_num, sv_title,
+		sv_num_upper from
+		service order by sv_num_upper asc
+	</select>
+
+	<update id="update" parameterType="serviceDTO">
+		update service set
+		sv_title=#{sv_title},
+		sv_price=#{sv_price},
+		sv_content=#{sv_content},
+		sv_timeperson=#{sv_timeperson},
+		sv_template=#{sv_template}
+		where sv_num
+		=#{sv_num}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		DELETE FROM service where
+		sv_num=#{sv_num}
+	</delete>
+
+	<!-- <delete id="delete" parameterType="int"> -->
+	<!-- DELETE * FROM service from -->
+	<!-- service_image e inner join service p -->
+	<!-- on e.simg_num = p.s_id -->
+	<!-- where e.simg_num = #{e.simg_num}; -->
+	<!-- </delete> -->
+
 </mapper>
 

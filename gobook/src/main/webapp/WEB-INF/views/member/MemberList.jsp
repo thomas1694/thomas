@@ -35,7 +35,8 @@
 			<option value="">전체목록
 		</select>
 
-<input style="margin-left:15px;margin-right:15px;  font: 30px;height: 40px;" type="search" name="word"><button type="submit" style="height: 40px;font:30px;width: 60px;" >검색</button>
+<input style="margin-left:15px;margin-right:15px;  font: 30px;height: 40px;" type="search" name="word">
+<button type="submit" style="height: 40px;font:30px;width: 60px;" >검색</button>
 </div>
 </form>
 <br><br>

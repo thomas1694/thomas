@@ -12,13 +12,14 @@
     <uri>/ELFunctions</uri> 
      
     <function> 
+    
         <description>댓글갯수</description> 
-        <name>rcount</name>
+        <name>frcount</name>
         <function-class>                  
             spring.utility.gobook.Utility
         </function-class> 
         <function-signature> 
-            int rcount( int, spring.model.Freeboard_reply.Freeboard_replyDAO ) 
+            int rcount( int, spring.model.freeboard_reply.Freeboard_replyDAO ) 
         </function-signature> 
     </function> 
     <function> 
@@ -39,6 +40,17 @@
         </function-class> 
         <function-signature> 
             boolean compareDay( java.lang.String ) 
+        </function-signature> 
+    </function> 
+    
+    <function> 
+        <description>관심사명 생성</description> 
+        <name>c_interestValue</name>
+        <function-class>                  
+            spring.utility.gobook.Utility
+        </function-class> 
+        <function-signature> 
+            java.lang.String getInterest_Value( java.lang.String ) 
         </function-signature> 
     </function> 
     

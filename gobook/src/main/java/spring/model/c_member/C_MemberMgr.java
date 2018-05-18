@@ -1,34 +1,36 @@
 package spring.model.c_member;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
-import gobook.member.MemberDAO;
-import www.dao.IService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class C_MemberMgr implements IService {
-	C_MemberDAO cdao=new C_MemberDAO();
-	MemberDAO dao=new MemberDAO();
+import spring.model.member.MemberDAO;
 
-	public void delete(String ) throws Exception{
-		dao.delete(bbsno); // 댓글'들' 모두를 삭제
+@Service
+public class C_MemberMgr{
+	@Autowired
+	private MemberDAO mdao;
+	
+	@Autowired
+	private C_MemberDAO dao;
+	
+	public void create(C_MemberDTO dto) throws Exception{
+		/*root-context에 트랜잭션 설정해줌*/
+		System.out.println(dto.getC_id()+"$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+		
+		Map map = new HashMap();
+		map.put("id", dto.getC_id());
+		map.put("grade", "C");
+		
+		mdao.create(map);
+		dao.create(dto);
 	}
 	
-	@Override
-	public boolean passwdCheck(Map map) {
-		
-	}
-
-	@Override
-	public List list(Map map) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int total(Map map) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+	/*
+	public void delete(int bbsno) throws Exception{
+		rdao.bdelete(bbsno); 
+		dao.delete(bbsno);	
+	}*/
 }

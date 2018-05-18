@@ -3,87 +3,70 @@ package spring.model.faq;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import www.dao.IDAO;
-import www.mybatis.MyAppSqlConfig;
+import spring.model.faq.FaqDAO;
 
-public class FaqDAO implements IDAO {
 
-	private static SqlSessionFactory sqlMapper;
-	
-	static {
+@Repository
+public class FaqDAO implements IFaqDAO {
+
+	@Autowired
+	private SqlSessionTemplate mybatis;
 		
-			sqlMapper = MyAppSqlConfig.getSqlMapInstance();
+	public void setMybatis(SqlSessionTemplate mybatis) {
+		this.mybatis = mybatis;
 	}
+
+	
 	
 	
 	@Override
 	public boolean create(Object dto) throws Exception {
-		SqlSession session = sqlMapper.openSession();
 		boolean flag = false;
-		int cnt = session.insert("faq.create", dto);
+		int cnt = mybatis.insert("faq.create", dto);
 		if(cnt>0)flag=true;
-		session.commit();
-		session.close();
 		
 		return flag;
 	}
 
 	@Override
 	public List list(Map map) throws Exception {
-		SqlSession session = sqlMapper.openSession();
-		List list = session.selectList("faq.list", map);
-		session.commit();
-		session.close();
+		List list = mybatis.selectList("faq.list", map);
+		
 		return list;
 	}
 
 	@Override
 	public Object read(Object pk) throws Exception {
-		SqlSession session = sqlMapper.openSession();
-		FaqDTO dto = session.selectOne("faq.read", pk);
-		session.commit();
-		session.close();
+		FaqDTO dto = mybatis.selectOne("faq.read", pk);
 		
 		return dto;
 	}
 
 	@Override
 	public boolean update(Object dto) throws Exception {
-		SqlSession session = sqlMapper.openSession();
 		boolean flag = false;
-		int cnt = session.update("faq.update", dto);
+		int cnt = mybatis.update("faq.update", dto);
+		System.out.println(cnt);
 		if(cnt>0)flag = true;
-		session.commit();
-		session.close();
 		
 		return flag;
 	}
 
 	@Override
 	public boolean delete(Object pk) throws Exception {
-		SqlSession session = sqlMapper.openSession();
 		boolean flag = false;
-		int cnt = session.delete("faq.delete", pk);
+		int cnt = mybatis.delete("faq.delete", pk);
 		if(cnt>0)flag = true;
-		session.commit();
-		session.close();
 		
 		return flag;
 	}
 
 	@Override
 	public int total(Map map) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return mybatis.selectOne("faq.total", map);
 	}
-
-	@Override
-	public boolean passwdCheck(Map map) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }

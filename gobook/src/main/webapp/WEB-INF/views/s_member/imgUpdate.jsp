@@ -23,16 +23,12 @@
   
   </style>
   <script type="text/javascript">
-  	function imgUp(){
-  		
-  	}
+ $(document).ready(function(){$('#aaa').trigger('click');});
   </script>
 </head>
 <body>
-<a href="javascript:imgUp()">
-<div class="jumbotron" style="padding-left:0px;padding-right:0px; height:500px; margin-bottom: 0px;text-align: center;background-color: #404040; color: white;transform:scale(1.5);">
-    <h1 style="margin-top:220px;font-size: 230%">대표이미지 변경하기</h1>      
-  </div>
-</a>
+<form >
+<input id="aaa" type="file" name="filenameMF">
+</form>
 </body>
 </html>

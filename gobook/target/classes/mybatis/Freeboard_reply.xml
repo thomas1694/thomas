@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</selectKey>
 	
 	insert into freeboard_reply(fr_num, fr_content, fr_wdate, f_num, id)
-	values(#{fr_num}, #{fr_content}, sysdate, #{f_num}, #{id}) 
+	values(#{fr_num}, #{fr_content}, sysdate, #{f_num}, #{id,jdbcType=VARCHAR}) 
 	                                   
 
 	</insert>
@@ -28,27 +28,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	</delete>
 	
+	<delete id="bdelete" parameterType="int">
+delete from freeboard_reply
+where f_num = #{f_num}
+</delete>
+	
 	<select id="total" parameterType="Map" resultType="int">
 	
 	
 	select count(*) from freeboard_reply
 	where f_num=#{f_num}
 	
-	<!-- <where>
-	<choose>
-		<when test="col=='id'">
-		id like '%'||#{id}||'%'
-		</when>
-		<when test="col=='f_title'">
-		f_title like '%'||#{f_title}||'%'
-		</when>
-		<when test="col=='f_content'">
-		f_content like '%'||#{f_content}||'%'
-		</when>
-
-	</choose>
-	</where> -->
-	
+		
 	
 	</select>
 
@@ -73,7 +64,7 @@ where f_num = #{f_num}
 order by fr_num DESC
    )
 <![CDATA[
-)WHERE r >= 1 and r <= 5
+)WHERE r >= #{sno} and r <= #{eno}
 ]]>
 	
 	</select>

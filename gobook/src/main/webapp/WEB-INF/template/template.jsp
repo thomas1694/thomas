@@ -7,10 +7,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><tiles:getAsString name="title"/></title>
-<link href="${root }/bottom/img/gobook_icon.png" type="image/x-icon" rel="shortcut icon" />
+<link href="${root }/resources/pmw/bottom/img/gobook_icon.png" type="image/x-icon" rel="shortcut icon" />
 <style type="text/css">
-		@font-face{font-family:'Nanum SquareR'; src:url('${root }/font/NanumSquareRoundR.ttf')}
- 		@font-face{font-family:'Nanum BarunpenR'; src:url('${root }/font/NanumBarunpenR.ttf')}
+		@font-face{font-family:'Nanum SquareR'; src:url('${root }/resources/pmw/font/NanumSquareRoundR.ttf')}
+ 		@font-face{font-family:'Nanum BarunpenR'; src:url('${root }/resources/pmw/font/NanumBarunpenR.ttf')}
  		
 		#header{
 		font-family:'Nanum SquareR';
@@ -24,13 +24,13 @@
 		</style>
 </head>
 <body>
-<div id="header">
+<div id="gobookheader">
 <tiles:insertAttribute name="header"/>
 </div>
 <div id="gobookcontent" style="margin-top: 137px;">
 <tiles:insertAttribute name="body"/>
 </div>
-<div id="bottom">
+<div id="gobookbottom">
 <tiles:insertAttribute name="footer"/>
 </div>
 </body>

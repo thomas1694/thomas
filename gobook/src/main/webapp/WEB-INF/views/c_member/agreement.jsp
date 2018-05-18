@@ -16,7 +16,18 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!--STYLESHEETS-->
-<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<link href="${root}/resources/ksy/css/style.css" rel="stylesheet" type="text/css" />
+
+<script> 
+  function send(){ 
+    if(document.frm.agree.checked == false){ 
+      alert('회원 약관에 동의해야 회원 가입이 가능합니다.'); 
+      return false;
+    }else{ 
+      return true;
+    } 
+  } 
+</script> 
 </head>
 
 <body>

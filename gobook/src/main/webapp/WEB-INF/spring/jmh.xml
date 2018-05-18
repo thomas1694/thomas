@@ -6,13 +6,95 @@
 <tiles-definitions> 
     
 	 
-    <definition name="/notice" extends="main"> 
+    <definition name="/notice/list" extends="main"> 
         <put-attribute name="title" value="고북닷컴" ></put-attribute> 
-        <put-attribute name="body" value="/WEB-INF/views/home.jsp" /> 
-    </definition>   
-     
+        <put-attribute name="body" value="/WEB-INF/views/notice/Notice.list.jsp" /> 
+    </definition> 
     
+    <definition name="/notice/create" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/notice/Notice.create.jsp" /> 
+    </definition>   
+    
+    <definition name="/notice/read" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/notice/Notice.read.jsp" /> 
+    </definition>  
+    
+    <definition name="/notice/update" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/notice/Notice.update.jsp" /> 
+    </definition>    
      
-           
+  	<definition name="/notice/delete" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/notice/Notice.delete.jsp" /> 
+    </definition>    
+
+   
+   
+    <definition name="/faq/list" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/faq/Faq.list.jsp" /> 
+    </definition>           
+   
+   	<definition name="/faq/create" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/faq/Faq.create.jsp" /> 
+    </definition>   
+    
+    <definition name="/faq/read" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/faq/Faq.read.jsp" /> 
+    </definition> 
+    
+     <definition name="/faq/read1" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/faq/Faq.read1.jsp" /> 
+    </definition> 
+      
+    <definition name="/faq/update" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/faq/Faq.update.jsp" /> 
+    </definition>   
+    
+    <definition name="/faq/delete" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/faq/Faq.delete.jsp" /> 
+    </definition>   
+    
+    
+    
+    <definition name="/qna/list" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/qna/Qna.list.jsp" /> 
+    </definition>   
+    
+    <definition name="/qna/create" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/qna/Qna.create.jsp" /> 
+    </definition>   
+    
+    <definition name="/qna/read" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/qna/Qna.read.jsp" /> 
+    </definition>   
+    
+    <definition name="/qna/update" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/qna/Qna.update.jsp" /> 
+    </definition>   
+   
+   <definition name="/qna/delete" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/qna/Qna.delete.jsp" /> 
+    </definition>  
+     
+     
+   <definition name="/qna/reply" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/qna/Qna.reply.jsp" /> 
+    </definition>  
+     
    
 </tiles-definitions> 

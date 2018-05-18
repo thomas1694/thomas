@@ -1,5 +1,7 @@
 package spring.model.review;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class ReviewDTO {
 	private int re_num;
 	private String re_title;
@@ -7,11 +9,22 @@ public class ReviewDTO {
 	private String re_filename;
 	private int re_filesize;
 	private int re_count;
-	private int re_rating;
+	private double re_rating;
 	private int re_like;	
 	private String s_id;
 	private String c_id;
 	private String re_wdate;
+	
+	private MultipartFile filenameMF;
+	
+	public MultipartFile getFilenameMF() {
+		return filenameMF;
+	}
+	public void setFilenameMF(MultipartFile filenameMF) {
+		this.filenameMF = filenameMF;
+	}
+
+	
 	
 	public int getRe_num() {
 		return re_num;
@@ -31,7 +44,7 @@ public class ReviewDTO {
 	public int getRe_count() {
 		return re_count;
 	}
-	public int getRe_rating() {
+	public double getRe_rating() {
 		return re_rating;
 	}
 	public int getRe_like() {
@@ -64,7 +77,7 @@ public class ReviewDTO {
 	public void setRe_count(int re_count) {
 		this.re_count = re_count;
 	}
-	public void setRe_rating(int re_rating) {
+	public void setRe_rating(double re_rating) {
 		this.re_rating = re_rating;
 	}
 	public void setRe_like(int re_like) {

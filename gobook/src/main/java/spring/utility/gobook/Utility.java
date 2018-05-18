@@ -18,9 +18,9 @@ import spring.model.freeboard_reply.Freeboard_replyDAO;
 public class Utility {
 	
 	
-	public static int rcount(int bbsno,Freeboard_replyDAO rdao) {
+	public static int rcount(int f_num,Freeboard_replyDAO rdao) {
 		
-		return rdao.total(bbsno);
+		return rdao.total(f_num);
 		
 	}
 	
@@ -98,6 +98,22 @@ public class Utility {
         return fileName; 
     } 
     
+    public static String getInterest_Value(String code) {
+		String value=null;
+		Map<String,String> codes = new HashMap<String,String>();
+		codes.put("I00", "육아");
+		codes.put("I01", "핸드메이드");
+		codes.put("I02", "뷰티");
+		codes.put("I03", "키덜트");
+		codes.put("I04", "헤어");
+		codes.put("I05", "숙박");
+		codes.put("I06", "건강");
+		codes.put("I07", "운동");
+		
+		value = codes.get(code);
+		
+		return value;
+	}
 	
 	public static String getCodeValue(String code) {
 		String value=null;
@@ -270,7 +286,7 @@ public class Utility {
 		str.append("  #paging A:visited {text-decoration:none;color:black; font-size: 1em;}");
 		str.append("</style>");
 		str.append("<DIV id='paging'>");
-		str.append("현재 페이지: " + nowPage + " / " + totalPage + "  ");
+//		str.append("현재 페이지: " + nowPage + " / " + totalPage + "  ");
 
 		int _nowPage = (nowGrp - 1) * pagePerBlock; // 10개 이전 페이지로 이동
 		if (nowGrp >= 2) {
@@ -386,5 +402,126 @@ public class Utility {
 
 		return str.toString();
 	}
+	
+	
+	public static String messagelistpaging(int totalRecord, int nowPage, int recordPerPage, String col, String word, String id){ 
+		   int pagePerBlock = 10; // 그룹당 페이지 수 -> 한 화면에 보여 줄 페이지 개수. 
+		   int totalPage = (int)(Math.ceil((double)totalRecord/recordPerPage)); // 전체 페이지  // ceil은 올림.
+		   int totalGrp = (int)(Math.ceil((double)totalPage/pagePerBlock));// 전체 그룹  // 10페이지 씩 자른 그룹의 개수: 얘도 ex) 15p 여도  2개의 그룹으로 만들기 위한 ceil.
+		   int nowGrp = (int)(Math.ceil((double)nowPage/pagePerBlock));    // 현재 그룹 
+		   int startPage = ((nowGrp - 1) * pagePerBlock) + 1; // 특정 그룹의 페이지 목록 시작  // 페이지 그룹이 1, 11, 21 ... 등으로 시작하기 위한. // 결국 (nowGrp - 1)*10 은 십의 자리 구하기 위한. 
+		   int endPage = (nowGrp * pagePerBlock);             // 특정 그룹의 페이지 목록 종료   // 페이지 그룹이 10, 20, 30 ... 등으로 끝나기 위한.
+		    
+		   StringBuffer str = new StringBuffer(); // style쓰기 위한.
+		    
+		   str.append("<style type='text/css'>"); 
+		   str.append("  #paging {text-align: center; margin-top: 5px; font-size: 1em;}"); 
+		   str.append("  #paging A:link {text-decoration:none; color:black; font-size: 1em;}"); 
+		   str.append("  #paging A:hover{text-decoration:none; background-color: #CCCCCC; color:black; font-size: 1em;}"); 
+		   str.append("  #paging A:visited {text-decoration:none;color:black; font-size: 1em;}"); 
+		   str.append("  .span_box_1{"); 
+		   str.append("    text-align: center;");    
+		   str.append("    color: #a5a5a5;"); 
+		   str.append("    font-size: 1em;"); 
+		   str.append("    padding:1px 6px 1px 6px; /*위, 오른쪽, 아래, 왼쪽*/"); 
+		   str.append("    margin:1px 2px 1px 2px; /*위, 오른쪽, 아래, 왼쪽*/"); 
+		   str.append("  }"); 
+		   str.append("  .span_box_2{"); 
+		   str.append("    text-align: center;");    
+		   str.append("    background-color: #bbe5ea;"); 
+		   str.append("    color: #FFFFFF;"); 
+		   str.append("    font-size: 1em;");
+		   str.append("    padding:1px 6px 1px 6px; /*위, 오른쪽, 아래, 왼쪽*/"); 
+		   str.append("    margin:1px 2px 1px 2px; /*위, 오른쪽, 아래, 왼쪽*/"); 
+		   str.append("  }"); 
+		   str.append("</style>"); 
+		   str.append("<DIV id='paging'>"); 
+//		     str.append("현재 페이지: " + nowPage + " / " + totalPage + "  "); 
+		 
+		   int _nowPage = (nowGrp-1) * pagePerBlock; // 10개 이전 페이지로 이동 : 이 [이전]을 사용하려면 당연히 11('그룹2')부터 사용 가능하겠지. 왜냐면 그룹 1에 해당하는 1~10까지는 이전 그룹이 없으니까.
+		   if (nowGrp >= 2){ // 그래서 최소 2그룹 이상일 때, 라는 조건으로 [이전] 버튼을 활성화시키기 위한 span 태그를 작성하는 거야. 얘가 제일 먼저 나와야 하니까 제일 먼저 쓴 거고.
+		     str.append("<span class='span_box_1'><A href=\"javascript:mlist('"+id+"','"+col+"','"+word+"',"+_nowPage+")\">이전</A></span>"); 
+		   } 
+		 
+		   for(int i=startPage; i<=endPage; i++){ 
+		     if (i > totalPage){ // 만약 totalPage가 19면 20까지 돌면 안 되니까, for문을 정지 시키는 조건망을 걸어 준다.
+		       break; 
+		     }
+		     
+		     if (nowPage == i){ 
+		       str.append("<span class='span_box_2'>"+i+"</span>"); //이건 내가 보는 페이지에 해당하는 nowPage를 가지고 있는 애를 뽑아서 다른 style을 주려고.
+		     }else{ //이건 내가 보는 페이지가 아니므로, 그 페이지에 해당하는 리스트로 가기 위해서 link를 걸어 준 거야.
+		       str.append("<span class='span_box_1'><A href=\"javascript:mlist('"+id+"','"+col+"','"+word+"',"+i+")\">"+i+"</A></span>");   
+		     } 
+		   } 
+		    
+		   _nowPage = (nowGrp * pagePerBlock)+1; // 10개 다음 페이지로 이동 
+		   if (nowGrp < totalGrp){ //내가 있는 그룹넘버가 전체그룹개수보다 작을 경우에만 [다음]이 보여야 하니까.
+		     str.append("<span class='span_box_1'><A href=\"javascript:mlist('"+id+"','"+col+"','"+word+"',"+_nowPage+")\">다음</A></span>"); 
+		   } 
+		   str.append("</DIV>"); 
+		    
+		   return str.toString(); 
+		 }
+		 
+		 public static String messagesendlistpaging(int totalRecord, int nowPage, int recordPerPage, String col, String word, String id){ 
+			 int pagePerBlock = 10; // 그룹당 페이지 수 -> 한 화면에 보여 줄 페이지 개수. 
+			 int totalPage = (int)(Math.ceil((double)totalRecord/recordPerPage)); // 전체 페이지  // ceil은 올림.
+			 int totalGrp = (int)(Math.ceil((double)totalPage/pagePerBlock));// 전체 그룹  // 10페이지 씩 자른 그룹의 개수: 얘도 ex) 15p 여도  2개의 그룹으로 만들기 위한 ceil.
+			 int nowGrp = (int)(Math.ceil((double)nowPage/pagePerBlock));    // 현재 그룹 
+			 int startPage = ((nowGrp - 1) * pagePerBlock) + 1; // 특정 그룹의 페이지 목록 시작  // 페이지 그룹이 1, 11, 21 ... 등으로 시작하기 위한. // 결국 (nowGrp - 1)*10 은 십의 자리 구하기 위한. 
+			 int endPage = (nowGrp * pagePerBlock);             // 특정 그룹의 페이지 목록 종료   // 페이지 그룹이 10, 20, 30 ... 등으로 끝나기 위한.
+			 
+			 StringBuffer str = new StringBuffer(); // style쓰기 위한.
+			 
+			 str.append("<style type='text/css'>"); 
+			 str.append("  #paging {text-align: center; margin-top: 5px; font-size: 1em;}"); 
+			 str.append("  #paging A:link {text-decoration:none; color:black; font-size: 1em;}"); 
+			 str.append("  #paging A:hover{text-decoration:none; background-color: #CCCCCC; color:black; font-size: 1em;}"); 
+			 str.append("  #paging A:visited {text-decoration:none;color:black; font-size: 1em;}"); 
+			 str.append("  .span_box_1{"); 
+			 str.append("    text-align: center;");    
+			 str.append("    color: #a5a5a5;"); 
+			 str.append("    font-size: 1em;"); 
+			 str.append("    padding:1px 6px 1px 6px; /*위, 오른쪽, 아래, 왼쪽*/"); 
+			 str.append("    margin:1px 2px 1px 2px; /*위, 오른쪽, 아래, 왼쪽*/"); 
+			 str.append("  }"); 
+			 str.append("  .span_box_2{"); 
+			 str.append("    text-align: center;");    
+			 str.append("    background-color: #bbe5ea;"); 
+			 str.append("    color: #FFFFFF;"); 
+			 str.append("    font-size: 1em;");
+			 str.append("    padding:1px 6px 1px 6px; /*위, 오른쪽, 아래, 왼쪽*/"); 
+			 str.append("    margin:1px 2px 1px 2px; /*위, 오른쪽, 아래, 왼쪽*/"); 
+			 str.append("  }"); 
+			 str.append("</style>"); 
+			 str.append("<DIV id='paging'>"); 
+//		     str.append("현재 페이지: " + nowPage + " / " + totalPage + "  "); 
+			 
+			 int _nowPage = (nowGrp-1) * pagePerBlock; // 10개 이전 페이지로 이동 : 이 [이전]을 사용하려면 당연히 11('그룹2')부터 사용 가능하겠지. 왜냐면 그룹 1에 해당하는 1~10까지는 이전 그룹이 없으니까.
+			 if (nowGrp >= 2){ // 그래서 최소 2그룹 이상일 때, 라는 조건으로 [이전] 버튼을 활성화시키기 위한 span 태그를 작성하는 거야. 얘가 제일 먼저 나와야 하니까 제일 먼저 쓴 거고.
+				 str.append("<span class='span_box_1'><A href=\"javascript:msendlist('"+id+"','"+col+"','"+word+"',"+_nowPage+")\">이전</A></span>"); 
+			 } 
+			 
+			 for(int i=startPage; i<=endPage; i++){ 
+				 if (i > totalPage){ // 만약 totalPage가 19면 20까지 돌면 안 되니까, for문을 정지 시키는 조건망을 걸어 준다.
+					 break; 
+				 }
+				 
+				 if (nowPage == i){ 
+					 str.append("<span class='span_box_2'>"+i+"</span>"); //이건 내가 보는 페이지에 해당하는 nowPage를 가지고 있는 애를 뽑아서 다른 style을 주려고.
+				 }else{ //이건 내가 보는 페이지가 아니므로, 그 페이지에 해당하는 리스트로 가기 위해서 link를 걸어 준 거야.
+					 str.append("<span class='span_box_1'><A href=\"javascript:msendlist('"+id+"','"+col+"','"+word+"',"+i+")\">"+i+"</A></span>");   
+				 } 
+			 } 
+			 
+			 _nowPage = (nowGrp * pagePerBlock)+1; // 10개 다음 페이지로 이동 
+			 if (nowGrp < totalGrp){ //내가 있는 그룹넘버가 전체그룹개수보다 작을 경우에만 [다음]이 보여야 하니까.
+				 str.append("<span class='span_box_1'><A href=\"javascript:msendlist('"+id+"','"+col+"','"+word+"',"+_nowPage+")\">다음</A></span>"); 
+			 } 
+			 str.append("</DIV>"); 
+			 
+			 return str.toString(); 
+		 }
 
 }

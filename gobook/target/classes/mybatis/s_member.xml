@@ -10,8 +10,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
     
     <select id="read" resultType="s_memberDTO" parameterType="string">
-    	SELECT s_id,s_email,s_tel,s_category,s_location,s_name,s_info,s_hour,s_rdate FROM s_member
-		WHERE s_id=#{s_id};
+    	SELECT s_id,s_email,s_tel,s_category,s_location,s_name,s_info,s_hour,s_address1,s_address2,s_zipcode,s_rdate,s_filename FROM s_member
+		WHERE s_id=#{s_id,jdbcType=VARCHAR}
     </select>
     
     <update id="update" parameterType="s_memberDTO">
@@ -38,16 +38,48 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
     
     <select id="list" resultType="s_memberDTO" parameterType="map">
-    	SELECT s_id,s_name,s_email FROM s_member;
+    	select sid as s_id,s_name,s_category,s_filename,(select avg(re_rating) from review where s_id=sid group by s_id) as rating
+		from (SELECT s_id as sid ,s_name,s_category,s_filename FROM s_member)
+    	<where>
+    		<choose>
+    			<when test="col=='id'">
+    				sid like '%'||#{word}||'%'
+    						OR
+    			
+    				s_name like '%'||#{word}||'%'
+    			
+    						OR
+    				s_category like '%'||#{word}||'%'
+    			</when>
+    		</choose>
+    	</where>
+    	order by rating asc
     </select>
     
     <select id="total" resultType="int">
     	SELECT count(*) FROM s_member
     </select>
     
+    <select id="memberCheck" resultType="int" parameterType="string">
+    	SELECT count(*) FROM s_member
+    	where s_id=#{s_id}
+    </select>
+    
+    
     <select id="passwdCheck" parameterType="map" resultType="int">
     	select count(*) from s_member
     	where s_id=#{s_id} and s_passwd=#{s_passwd}
+    </select>
+    
+    <update id="updateImg" parameterType="map">
+     update s_member set
+     s_filename=#{s_filename},
+     s_filesize=#{s_filesize}
+     where s_id=#{s_id}
+    </update>
+    <select id="adminCheck" parameterType="map" resultType="int">
+    select count(*) from admin_member
+    where a_id=#{id} and a_passwd=#{passwd}
     </select>
 </mapper>
 

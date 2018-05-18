@@ -3,90 +3,99 @@ package spring.model.qna;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 
-import oracle.jdbc.util.SQLStateMapping;
-import www.dao.IDAO;
-import www.mybatis.MyAppSqlConfig;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-public class QnaDAO implements IDAO {
+import spring.model.qna.QnaDTO;
 
-	private static SqlSessionFactory sqlMapper;
+@Repository
+public class QnaDAO implements IQnaDAO {
+
+	@Autowired
+	private SqlSessionTemplate mybatis;
 	
-	static {
-		
-			sqlMapper = MyAppSqlConfig.getSqlMapInstance();
-			
+	public void setMybatis(SqlSessionTemplate mybatis) {
+		this.mybatis = mybatis;
 	}
-		
 	
 	@Override
 	public boolean create(Object dto) throws Exception {
-		SqlSession session = sqlMapper.openSession();
 		boolean flag = false;
-		int cnt = session.insert("qna.create", dto);
+		int cnt = mybatis.insert("qna.create", dto);
 		if(cnt>0)flag = true;
-		session.commit();
-		session.close();
 		
 		return flag;
 	}
 
 	@Override
+	public boolean createReply(QnaDTO dto) throws Exception {
+		boolean flag = false;
+		
+		int cnt = mybatis.insert("qna.createReply", dto);
+		
+		if(cnt>0)flag = true;
+
+		return flag;
+	}
+	
+	@Override
+	public QnaDTO readReply(int q_num) throws Exception {
+		
+		return mybatis.selectOne("qna.readReply", q_num);
+	}
+	
+	@Override
+	public void upAnsnum(Map map) {
+		
+		mybatis.update("qna.upAnsnum", map);
+	}
+	
+	@Override
 	public List list(Map map) throws Exception {
-		SqlSession session = sqlMapper.openSession();
-		List list = session.selectList("qna.list", map);
-		session.commit();
-		session.close();
+		List list = mybatis.selectList("qna.list", map);
 		
 		return list;
 	}
 
 	@Override
 	public Object read(Object pk) throws Exception {
-		SqlSession session = sqlMapper.openSession();
-		QnaDTO dto = session.selectOne("qna.read", pk);
-		session.commit();
-		session.close();
+		QnaDTO dto = mybatis.selectOne("qna.read", pk);
 		
 		return dto;
 	}
 
 	@Override
 	public boolean update(Object dto) throws Exception {
-		SqlSession session = sqlMapper.openSession();
 		boolean flag = false;
-		int cnt = session.update("qna.update", dto);
+		int cnt = mybatis.update("qna.update", dto);
 		if(cnt>0)flag = true;
-		session.commit();
-		session.close();
 		
 		return flag;
 	}
 
 	@Override
 	public boolean delete(Object pk) throws Exception {
-		SqlSession session = sqlMapper.openSession();
 		boolean flag = false;
-		int cnt = session.delete("qna.delete", pk);
+		int cnt = mybatis.delete("qna.delete", pk);
 		if(cnt>0)flag = true;
-		session.commit();
-		session.close();
 		
 		return flag;
 	}
-
+	
 	@Override
 	public int total(Map map) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return mybatis.selectOne("qna.total", map);
 	}
 
-	@Override
-	public boolean passwdCheck(Map map) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean checkRefnum(int q_num) {
+		
+		boolean flag = false;
+		int cnt = mybatis.update("qna.checkRefnum",q_num);
+		if(cnt>0)flag = true;
+		
+		return flag;
 	}
-
 }

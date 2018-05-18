@@ -47,4 +47,9 @@
         <put-attribute name="body" value="/WEB-INF/views/s_member/success.jsp" /> 
     </definition> 
    
+   
+   <definition name="/member/login" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/loginForm.jsp" /> 
+    </definition> 
 </tiles-definitions> 

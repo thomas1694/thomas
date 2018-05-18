@@ -3,44 +3,125 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reservation">
-    
+
 	<insert id="create" parameterType="reservationDTO">
-		INSERT INTO reservation(res_code,res_time,sv_num,c_id)
-		VALUES(#{res_code},#{res_time},#{sv_num},#{c_id})
+		INSERT INTO
+		reservation(res_code,res_time,sv_num,c_id)
+		VALUES(#{res_code,jdbcType=VARCHAR},#{res_time,jdbcType=VARCHAR},#{sv_num},#{c_id,jdbcType=VARCHAR})
 	</insert>
-	
-	<select id="list" parameterType="map" resultType="reservationDTO">
-		select * from reservation
+
+	<!-- <select id="list" parameterType="map" resultType="reservationDTO"> -->
+	<!-- select * from reservation -->
+	<!-- <where> -->
+	<!-- <choose> -->
+	<!-- <when test="col=='c_id'"> -->
+	<!-- c_id=#{c_id} -->
+	<!-- </when> -->
+	<!-- <when test="col=='sv_num'"> -->
+	<!-- sv_num=#{sv_num} -->
+	<!-- </when> -->
+
+	<!-- </choose> -->
+	<!-- </where> -->
+	<!-- </select> -->
+
+	<update id="update" parameterType="reservationDTO">
+		UPDATE reservation
+		SET
+		res_time=#{res_time}
+		WHERE res_code=#{res_code}
+	</update>
+
+	<delete id="Mdelete" parameterType="string">
+		delete from reservation
+		WHERE
+		res_code=#{res_code}
+	</delete>
+
+	<resultMap type="reservationMDTO" id="reservationMap">
+		<result property="sv_num" column="sv_num" />
+		<result property="sv_num_upper" column="sv_num_upper" />
+		<result property="sv_timeperson" column="sv_timeperson" />
+		<result property="sv_title" column="sv_title" />
+		<result property="sv_price" column="sv_price" />
+		<result property="sv_content" column="sv_content" />
+		<result property="sv_template" column="sv_template" />
+		<result property="resdto.res_code" column="res_code" />
+		<result property="resdto.res_time" column="res_time" />
+		<result property="resdto.c_id" column="c_id" />
+	</resultMap>
+
+	<select id="Mread" parameterType="string" resultMap="reservationMap">
+		select
+		e.sv_num, e.sv_title, e.sv_price, e.sv_content, e.sv_timeperson,
+		p.res_code, p.res_time, p.c_id
+		from service e INNER JOIN reservation p
+		ON e.sv_num = p.sv_num
+		where p.res_code = #{p.res_code}
+	</select>
+
+	<select id="Mlist" parameterType="string" resultMap="reservationMap">
+		select sv_num, sv_title, sv_price, res_code, res_time, c_id, r
+		from(
+		select sv_num, sv_title, sv_price, res_code, res_time, c_id, rownum as r
+		from(
+		select e.sv_num, e.sv_title, e.sv_price, p.res_code, p.res_time, p.c_id
+		from service e INNER JOIN reservation p ON e.sv_num = p.sv_num
 		<where>
 			<choose>
 				<when test="col=='c_id'">
-				c_id=#{c_id}
+					p.c_id like '%'||#{c_id}||'%'
 				</when>
-				<when test="col=='sv_num'">
-				sv_num=#{sv_num}
+				<when test="col=='sv_title'">
+					e.sv_title like '%'||#{sv_title}||'%'
 				</when>
-				
+				<when test="col=='sv_content'">
+					e.sv_content like '%'||#{sv_content}||'%'
+				</when>
+			</choose>
+		</where>
+		)
+		)
+    <![CDATA[
+    where r>=#{sno} and r<=${eno}
+    ]]>
+	</select>
+
+	<select id="total" resultType="int" parameterType="Map">
+		select count(*) as cnt from reservation
+		<where>
+			<choose>
+				<when test="col=='c_id'">
+					c_id like '%'||#{c_id}||'%'
+				</when>
+				<when test="col=='sv_title'">
+					sv_title like '%'||#{sv_title}||'%'
+				</when>
+				<when test="col=='sv_content'">
+					sv_content like '%'||#{sv_content}||'%'
+				</when>
 			</choose>
 		</where>
 	</select>
-    
-    <select id="read" parameterType="string" resultType="reservationDTO">
-		select * from reservation
-		where res_code=#{res_code}
-		
-				
+
+	<select id="list" resultType="serviceDTO">
+		select sv_num, sv_num_upper ,sv_title, r
+		from(
+		select sv_num, sv_num_upper ,sv_title, rownum as r
+		from(
+		select sv_num, sv_num_upper ,sv_title
+		from service
+		)
+		)
+    <![CDATA[
+    where r>=1 and r<=3
+    ]]>
 	</select>
-    
-    
-  	<update id="update" parameterType="reservationDTO">
-  		UPDATE reservation
-  		SET	res_time=#{res_time}
-  		WHERE res_code=#{res_code}
-  	</update>
-     
-    <delete id="delete" parameterType="string">
-    	delete from reservation
-    	WHERE res_code=#{res_code}
-    </delete>
+
+	<select id="Dlist" parameterType="int" resultType="serviceDTO">
+		select sv_num, sv_num_upper, sv_title, sv_content, sv_price, sv_timeperson
+		from service where sv_num_upper = #{sv_num_upper}
+	</select>
+	
 </mapper>
 

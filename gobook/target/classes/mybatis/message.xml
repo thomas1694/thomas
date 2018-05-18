@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="message"> <!-- root context에서 sqlSessionFactory 빈즈로 type alias를 해주어서 에러가 안 난다. -->
 
 <select id="list" parameterType="Map" resultType="messageDTO">
-	SELECT m_num, m_sendid, m_content, m_wdate, m_readcheck r
+	SELECT m_num, m_sendid, m_content, TO_CHAR(m_wdate, 'yyyy-MM-dd') m_wdate, m_readcheck, r
 	FROM (
 		SELECT m_num, m_sendid, m_content, m_wdate, m_readcheck, rownum r
 		FROM (
@@ -31,8 +31,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 </select>
 
-<select id="sendList" parameterType="Map" resultType="messageDTO">
-	SELECT m_num, m_receiveid, m_content, m_wdate, m_readcheck, r
+<select id="sendlist" parameterType="Map" resultType="messageDTO">
+	SELECT m_num, m_receiveid, m_content, TO_CHAR(m_wdate, 'yyyy-MM-dd') m_wdate, m_readcheck, r
 	FROM (
 		SELECT m_num, m_receiveid, m_content, m_wdate, rownum, m_readcheck, rownum r
 		FROM (
@@ -66,7 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </insert>
 
 <select id="read" parameterType="int" resultType="messageDTO">
-	SELECT m_num, m_sendid, m_receiveid, m_content, m_wdate
+	SELECT m_num, m_sendid, m_receiveid, m_content, m_wdate, m_readcheck
 	FROM message
 	WHERE m_num = #{num}
 </select>
@@ -90,7 +90,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</where> 
 </select>
 
-<select id="sendTotal" parameterType="Map" resultType="int">
+
+
+<select id="sendtotal" parameterType="Map" resultType="int">
 	SELECT COUNT(*) FROM message
 	<where>
 	m_sendid = #{id}
@@ -105,10 +107,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</where>
 </select>
 
-<update id="upReadCheck" parameterType="int">
+<update id="upreadcheck" parameterType="int">
 	UPDATE message
 	SET m_readcheck = 'T'
 	WHERE m_num = #{num}
 </update>
+
+<select id="readchecktotal" parameterType="String" resultType="int">
+	SELECT COUNT(*) FROM message
+	WHERE m_receiveid = #{id} AND m_readcheck = 'F'
+</select>
 
 </mapper>

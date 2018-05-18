@@ -3,97 +3,68 @@ package spring.model.notice;
 import java.util.List;
 import java.util.Map;
 
-import javax.websocket.Session;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-
-import www.dao.IDAO;
-import www.mybatis.MyAppSqlConfig;
-
-
-public class NoticeDAO implements IDAO {
+@Repository
+public class NoticeDAO implements INoticeDAO {
 	
-	private static SqlSessionFactory sqlMapper;
-	
-	static{
+	@Autowired
+	private SqlSessionTemplate mybatis;
 
-		sqlMapper = MyAppSqlConfig.getSqlMapInstance();
+	public void setMybatis(SqlSessionTemplate mybatis) {
+		this.mybatis = mybatis;
 	}
 
-   
-
-@Override
-public boolean create(Object dto) throws Exception {
-	SqlSession session = sqlMapper.openSession();
+	
+	@Override
+	public boolean create(Object dto) throws Exception {
 	boolean flag = false;
-	int cnt = session.insert("notice.create", dto);
+	int cnt = mybatis.insert("notice.create", dto);
+	System.out.println("cnt:"+cnt);
 	if(cnt>0)flag = true;
-	session.commit();
-	session.close();
 	
 	return flag;
-}
+	}
 
-@Override
-public List list(Map map) throws Exception {
-	SqlSession session = sqlMapper.openSession();
-	List list = session.selectList("notice.list", map);
-	session.commit();
-	session.close();
+	
+	@Override
+	public List list(Map map) throws Exception {
+		
+	List list = mybatis.selectList("notice.list", map);
 	return list;
-}
+	}
 
-@Override
-public Object read(Object pk) throws Exception {
-	SqlSession session = sqlMapper.openSession();
-	NoticeDTO dto = session.selectOne("notice.read", pk);
-	session.commit();
-	session.close();
+	@Override
+	public Object read(Object pk) throws Exception {
+	NoticeDTO dto = mybatis.selectOne("notice.read", pk);
 	return dto;
-}
+	}
 
-@Override
-public boolean update(Object dto) throws Exception {
-	SqlSession session = sqlMapper.openSession();
-	boolean flag = false;
-	int cnt = session.update("notice.update", dto);
-	if(cnt>0)flag = true;
-	session.commit();
-	session.close();
-	return flag;
-}
-
-@Override
-public boolean delete(Object pk) throws Exception {
-	SqlSession session = sqlMapper.openSession();
-	boolean flag = false;
-	int cnt = session.delete("notice.delete", pk);
-	if(cnt>0)flag = true;
-	session.commit();
-	session.close();
-	return flag;
-}
-
-@Override
-public int total(Map map) throws Exception {
-	// TODO Auto-generated method stub
-	return 0;
-}
-
-@Override
-public boolean passwdCheck(Map map) {
-	// TODO Auto-generated method stub
-	return false;
-}
 	
+	@Override
+	public boolean update(Object dto) throws Exception {
+		
+	boolean flag = false;
+	int cnt = mybatis.update("notice.update", dto);
+	if(cnt>0)flag = true;
+	return flag;
+	}
 
-   
-   }
 	
+	@Override
+	public boolean delete(Object pk) throws Exception {
+	boolean flag = false;
+	int cnt = mybatis.delete("notice.delete", pk);
+	if(cnt>0)flag = true;
+	return flag;
+	}
 
-
-
-
-
-
+	
+	@Override
+	public int total(Map map) throws Exception {
+	int cnt=(Integer)mybatis.selectOne("notice.total", map);
+	return cnt;
+	}
+}	

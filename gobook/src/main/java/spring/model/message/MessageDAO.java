@@ -3,86 +3,64 @@ package spring.model.message;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import www.dao.IDAO;
-import www.mybatis.MyAppSqlConfig;
+@Repository
+public class MessageDAO {
+	
+	@Autowired
+	private SqlSessionTemplate mybatis;
 
-public class MessageDAO implements IDAO {
-	
-	private static SqlSessionFactory sqlMapper;
-	
-	static {
-		sqlMapper = MyAppSqlConfig.getSqlMapInstance();
+	public void setMybatis(SqlSessionTemplate mybatis) {
+		this.mybatis = mybatis;
 	}
-
-	@Override
-	public boolean create(Object dto) throws Exception {
+	
+	public boolean create(MessageDTO dto) {
 		boolean flag = false;
-		SqlSession session = sqlMapper.openSession();
-		int cnt = session.delete("message.create", dto);
+		
+		int cnt = mybatis.insert("message.create", dto);
 		if(cnt>0) flag = true;
-		session.commit();
-		session.close();
+		
+		return flag;	
+	}
+	
+	public MessageDTO read(int num) {
+		return mybatis.selectOne("message.read", num);
+	}
+	
+	public boolean delete(int num) {
+		boolean flag = false;
+		
+		int cnt = mybatis.delete("message.delete", num);
+		if(cnt>0) flag = true;
+		
 		return flag;
 	}
 
-	@Override
-	public List list(Map map) throws Exception {
-		
-		return sqlMapper.openSession().selectList("message.list", map);
+	public void upreadcheck(int num) {
+		mybatis.update("message.upreadcheck", num);
 	}
 	
-	public List sendList(Map map) throws Exception {
-		
-		return sqlMapper.openSession().selectList("message.sendList", map);
-	}
-
-	@Override
-	public Object read(Object pk) throws Exception {
-		
-		return sqlMapper.openSession().selectOne("message.read", pk);
+	public int readchecktotal(String id) {
+		return mybatis.selectOne("message.readchecktotal", id);
 	}
 	
-	@Override
-	public boolean update(Object dto) throws Exception {
-		return false;
+	public List<MessageDTO> list(Map map) {
+		return mybatis.selectList("message.list", map);
 	}
 	
-	public boolean upReadCheck(int pk) throws Exception {
-		boolean flag = false;
-		SqlSession session = sqlMapper.openSession();
-		int cnt = session.update("message.upReadCheck", pk);
-		if(cnt>0) flag = true;
-		session.commit();
-		session.close();
-		return flag;
-	}
-
-	@Override
-	public boolean delete(Object pk) throws Exception {
-		boolean flag = false;
-		int cnt = sqlMapper.openSession().delete("message.delete", pk);
-		if(cnt>0) flag = true;
-		return flag;
-	}
-
-	@Override
-	public int total(Map map) throws Exception {
-		int total = (Integer) sqlMapper.openSession().selectOne("message.total", map);
-		return total;
+	public List<MessageDTO> sendlist(Map map) {
+		return mybatis.selectList("message.sendlist", map);
 	}
 	
-	public int sendTotal(Map map) throws Exception {
-		int total = (Integer) sqlMapper.openSession().selectOne("message.sendTotal", map);
-		return total;
+	public int total(Map map) {
+		return mybatis.selectOne("message.total", map);
 	}
-
-	@Override
-	public boolean passwdCheck(Map map) {
-		// TODO Auto-generated method stub
-		return false;
+	
+	public int sendtotal(Map map) {
+		return mybatis.selectOne("message.sendtotal", map);
 	}
 
 }

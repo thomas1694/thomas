@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
    	<insert id="create" parameterType="faqDTO">
    	INSERT INTO faq(faq_num, faq_category, faq_title, faq_content, faq_wdate, a_id)
-   	VALUES(#{faq_num},#{faq_category},#{faq_title}, #{faq_content},sysdate,#{a_id}) 
+   	VALUES((SELECT NVL(MAX(faq_num),0) + 1 FROM faq),#{faq_category,jdbcType=VARCHAR},#{faq_title,jdbcType=VARCHAR}, #{faq_content,jdbcType=VARCHAR},sysdate,#{a_id,jdbcType=VARCHAR}) 
    	</insert> 
    	 
    	<update id="update" parameterType="faqDTO">
@@ -25,13 +25,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    	 WHERE faq_num = #{faq_num}
    	</delete>
 
-   	<select id="list" resultType="faqDTO">
-   	SELECT faq_num, faq_category, faq_title, faq_content, faq_wdate, a_id FROM faq
-   	ORDER BY faq_num
+   	<select id="list" parameterType="map" resultType="faqDTO">
+   	SELECT faq_num, faq_category, faq_title, faq_content, faq_wdate, a_id , r
+   	FROM(select faq_num, faq_category, faq_title, faq_content, faq_wdate, a_id, rownum r
+   		 FROM(SELECT faq_num, faq_category, faq_title, faq_content, faq_wdate, a_id
+   		      FROM faq
+   			  <where>
+			<choose>
+				<when test="col=='faq_category'">
+				faq_category like '%'||#{word}||'%'
+				</when>
+				<when test="col=='faq_title'">
+				faq_title like '%'||#{word}||'%'
+				</when>
+					
+			</choose>
+			</where>
+   			  ORDER BY faq_num
+   			  ))
+   	<![CDATA[
+	where r>=#{sno} and r<=#{eno}
+	]]>
    	</select>
   
-   	<select id="total">
-   	SELECT COUNT(*) FROM faq;
+   	<select id="total" resultType="int" parameterType="map">
+   	SELECT COUNT(*) FROM faq
+   	<where>
+			<choose>
+				<when test="col=='faq_category'">
+				faq_category like '%'||#{word}||'%'
+				</when>
+				<when test="col=='faq_title'">
+				faq_title like '%'||#{word}||'%'
+				</when>
+					
+			</choose>
+			</where>
    	</select>
  
 </mapper>

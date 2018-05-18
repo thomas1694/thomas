@@ -1,5 +1,6 @@
 package spring.model.s_member;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -61,7 +62,33 @@ public class S_MemberDAO implements S_IDAO {
 	
 	public boolean passwdCheck(Map map) {
 		boolean flag=false;
-		int cnt=mybatis.selectOne("passwdCheck", map);
+		int cnt=mybatis.selectOne("s_member.passwdCheck", map);
+		if(cnt>0)flag=true;
+		return flag;
+		
+	}
+
+	public boolean s_member_updateImg(Map map) {
+		boolean flag=false;
+		int cnt=mybatis.update("s_member.updateImg", map);
+		if(cnt>0)flag=true;
+		return flag;
+		
+	}
+
+	public boolean s_MemberCheck(String s_id) {
+		boolean flag=false;
+		int cnt=mybatis.selectOne("s_member.memberCheck", s_id);
+		if(cnt>0)flag=true;
+		return flag;
+	}
+
+	public boolean adminCheck(String id, String passwd) {
+		boolean flag=false;
+		Map map=new HashMap();
+		map.put("id", id);
+		map.put("passwd", passwd);
+		int cnt=mybatis.selectOne("s_member.adminCheck", map);
 		if(cnt>0)flag=true;
 		return flag;
 	}

@@ -1,0 +1,78 @@
+/* list.jsp의 시작 */
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+/*******************
+SELECTION STYLING
+*******************/
+
+::selection {
+	color: #fff;
+	background: #70866f; /* Safari */
+}
+::-moz-selection {
+	color: #fff;
+	background: #70866f; /* Firefox */
+}
+
+/*******************
+BODY STYLING
+*******************/
+
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+/* 왼쪽에 검정 바 들어갈 거니까 .바디 간격 조정 */
+body .body{
+	/* background: url(../images/bg.png) repeat; */
+	width: 65%;
+	margin-right:8%;
+	margin-top:8%;
+	font-family:"NanumGothic",sans-serif;
+	font-weight:300;
+	text-align: left;
+	text-decoration: none;
+}
+
+.title{
+	color:#5a6a57;
+}
+	
+.s_list{width:100%;border-top:2px solid #5a6a57;border-bottom:2px solid #5a6a57;font-family:"NanumGothic",sans-serif;}
+.s_list tr{border-top:1px solid #70866f;}
+.s_list tr:first-child{border-top:0;}
+.s_list th{background:#f6f6f6; width:20%;text-align:left; padding-left:3%; color:#3c473a;}
+.s_list td{text-align:left;background:#fff;padding-top:1%!important;padding-bottom:1%!important;color:#5c5c5c;font-size:15px;line-height:26px;padding-left:3%}
+
+.search{
+	text-align:right;
+}
+
+.search input[type="search"],
+.search select{
+	margin-right:1%;color:#5c5c5c;line-height:12px;
+	font-size:14px;font-family:"NanumGothic",sans-serif;background:#f6f6f6;
+	vertical-align:middle;border:1px solid #cdcdcd;padding:1%;
+	}
+
+.search .button{
+	color:#fff; 
+	margin-right:1%;
+	line-height:12px;
+	font-size:14px;
+	font-family:"NanumGothic",sans-serif;
+	background:#5e5e5e;
+	vertical-align:middle;
+	border:1px solid #5e5e5e;
+	padding:8px 10px; 
+	cursor:pointer;
+	}
+	
+.search .button:hover{
+	background:#70866f;
+	border:1px solid #70866f;
+	color:#fff;
+}
+/* list.jsp의 끝 */

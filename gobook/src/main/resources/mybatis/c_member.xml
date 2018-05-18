@@ -11,13 +11,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			c_interest, c_rdate, c_nickname)
 		values(#{c_id}, #{c_passwd}, #{c_name}, #{c_birth}, #{c_gender}, 
 			#{c_tel}, #{c_email}, #{c_zipcode}, #{c_address1}, #{c_address2}, 
-			#{c_interest}, sysdate, #{c_nickname})	
+			#{c_interest, jdbcType=VARCHAR}, sysdate, #{c_nickname, jdbcType=VARCHAR})	
 	</insert>
 	
 	<select id="emailCheck" parameterType="String" resultType="int">
 		select count(*)
 		from c_member
-		where c_email = #{c_email}
+		where c_email = #{email}
 	</select>
 	
 	<select id="idCheck" parameterType="String" resultType="int">
@@ -29,13 +29,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="read" parameterType="String" resultType="c_memberDTO">
 		select c_id, c_name, c_birth, c_gender, c_tel, c_email, c_zipcode, c_address1, c_address2, c_interest, c_rdate, c_nickname
 		from c_member
-		where c_id = #{c_id}
+		where c_id = #{id}
 	</select>
 	
 	<update id="update" parameterType="String">
 		update c_member
 		set c_tel=#{c_tel}, c_email=#{c_email}, c_zipcode=#{c_zipcode}, 
-		c_address1=#{c_address1}, c_address2=#{c_address2}, c_interest=#{c_interest}, c_nickname=#{c_nickname}
+		c_address1=#{c_address1}, c_address2=#{c_address2}, c_interest=#{c_interest, jdbcType=VARCHAR}, c_nickname=#{c_nickname, jdbcType=VARCHAR}
 		WHERE c_id = #{c_id}
 	</update>
 	

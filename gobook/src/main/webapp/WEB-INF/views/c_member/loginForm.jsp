@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="root" value="${pageContext.request.contextPath }"></c:set>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
@@ -15,7 +17,7 @@ www.amitjakhu.com
 <title>Login Form</title>
 
 <!--STYLESHEETS-->
-<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<link href="${root}/resources/ksy/css/style.css" rel="stylesheet" type="text/css" />
 
 <!--SCRIPTS-->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
@@ -57,10 +59,10 @@ $(document).ready(function() {
 
 </head>
 <body>
-
+<div id="mw">
 <!--WRAPPER-->
-<div id="wrapper">
-
+<div id="login_wrapper" class="content-box";>
+ 
 	<!--SLIDE-IN ICONS-->
     <div class="user-icon"></div>
     <div class="pass-icon"></div>
@@ -73,7 +75,7 @@ $(document).ready(function() {
 	</div>
 
 <!--LOGIN FORM-->
-<form name="login-form" class="login-form" action="" method="post">
+<form name="login-form" class="login-form" action="./login" method="post">
 
 	<!--HEADER-->
     <div class="header">
@@ -86,8 +88,19 @@ $(document).ready(function() {
 	
 	<!--CONTENT-->
     <div class="content">
-	<!--USERNAME--><input name="username" type="text" class="input username" value="Username" onfocus="this.value=''" /><!--END USERNAME-->
-    <!--PASSWORD--><input name="password" type="password" class="input password" value="Password" onfocus="this.value=''" /><!--END PASSWORD-->
+	<!--USERNAME-->
+	<input name="id" type="text" class="input username" onfocus="this.value=''" value='${cc_id_val }'/>
+		<c:choose>
+			<c:when test="${cc_id == 'Y' }">
+				<input type='checkbox' name='cc_id' value='Y' checked='checked'/> ID 저장 
+			</c:when>
+			<c:otherwise>
+				<input type='checkbox' name='cc_id' value='Y' /> ID 저장 
+			</c:otherwise>
+		</c:choose>
+	
+	<!--END USERNAME-->
+    <!--PASSWORD--><input name="passwd" type="password" class="input password" onfocus="this.value=''" /><!--END PASSWORD-->
     </div>
     <!--END CONTENT-->
     
@@ -105,6 +118,6 @@ $(document).ready(function() {
 <!--END WRAPPER-->
 
 <!--GRADIENT--><div class="gradient"></div><!--END GRADIENT-->
-
+</div>
 </body>
 </html>

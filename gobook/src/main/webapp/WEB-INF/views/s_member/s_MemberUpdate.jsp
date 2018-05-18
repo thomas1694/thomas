@@ -98,7 +98,7 @@ $j144(document).ready(function($){
 			range : true,
 			min : 0,
 			max : 24,
-			values : [ 9, 17 ],
+			values : [ ${dto.s_hour1} ],
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time").val("휴일");
@@ -114,7 +114,7 @@ $j144(document).ready(function($){
 			range : true,
 			min : 0,
 			max : 24,
-			values : [ 9, 17 ],
+			values : [ ${dto.s_hour2} ],
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time2").val("휴일");
@@ -130,7 +130,7 @@ $j144(document).ready(function($){
 			range : true,
 			min : 0,
 			max : 24,
-			values : [ 9, 17 ],
+			values : [ ${dto.s_hour3} ],
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time3").val("휴일");
@@ -146,7 +146,7 @@ $j144(document).ready(function($){
 			range : true,
 			min : 0,
 			max : 24,
-			values : [ 9, 17 ],
+			values : [ ${dto.s_hour4} ],
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time4").val("휴일");
@@ -162,7 +162,7 @@ $j144(document).ready(function($){
 			range : true,
 			min : 0,
 			max : 24,
-			values : [ 9, 17 ],
+			values : [ ${dto.s_hour5} ],
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time5").val("휴일");
@@ -178,7 +178,7 @@ $j144(document).ready(function($){
 			range : true,
 			min : 0,
 			max : 24,
-			values : [ 9, 17 ],
+			values : [ ${dto.s_hour6} ],
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time6").val("휴일");
@@ -194,7 +194,7 @@ $j144(document).ready(function($){
 			range : true,
 			min : 0,
 			max : 24,
-			values : [ 9, 17 ],
+			values : [ ${dto.s_hour7} ],
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time7").val("휴일");
@@ -259,7 +259,112 @@ $j144(document).ready(function($){
 </script>
 <!-- recaptcha -->
 <script src='https://www.google.com/recaptcha/api.js'></script>
+<!-- 다음 지도 api -->
+<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=47844deb89b482d0297165cccbc1dd67&libraries=services"></script>
+<script>
+var $d = jQuery.noConflict(); 
 
+$d(document).ready(function($){ 
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성합니다    
+var map = new daum.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new daum.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch("${dto.s_address1}", function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === daum.maps.services.Status.OK) {
+
+        var coords = new daum.maps.LatLng(${dto.s_location});
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new daum.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new daum.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+        
+        marker.setDraggable(true); 
+        daum.maps.event.addListener(marker, 'dragend', function() {
+        	infowindow.close();
+        	infowindow = new daum.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+            });
+            infowindow.open(map, marker);
+            document.getElementById("s_location").value=marker.getPosition().toString();
+        });
+        document.getElementById("s_location").value=marker.getPosition().toString();
+    } 
+});     
+});
+
+
+$d(document).change(function($){ 
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성합니다    
+var map = new daum.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new daum.maps.services.Geocoder();
+
+var address1=document.getElementById('sample6_address').value;
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch(address1, function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === daum.maps.services.Status.OK) {
+
+        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new daum.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new daum.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+        
+        marker.setDraggable(true); 
+        daum.maps.event.addListener(marker, 'dragend', function() {
+        	infowindow.close();
+        	infowindow = new daum.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+            });
+            infowindow.open(map, marker);
+            document.getElementById("s_location").value=marker.getPosition().toString();
+        });
+        document.getElementById("s_location").value=marker.getPosition().toString();
+    } 
+});    });
+</script>
 </head>
 
 <body>
@@ -273,9 +378,7 @@ $j144(document).ready(function($){
 			<caption class="qtit">(<img src="../images/star.png"/>은 필수 입력사항)</caption>
 			<tr>
 				<th class="th" scope="row"><img src="../images/star.png"/>회사ID</th>
-				<td>
-					<input type="text" name="s_Id" title="회사 ID를 입력하세요" class="wid20" placeholder="회사 ID를 입력하세요" />
-					<button class="button" onclick="idCheck(document.frm.id.value)">ID 중복확인</button>
+				<td>${dto.s_id }
 				</td>
 			</tr>
 			<tr>
@@ -288,19 +391,19 @@ $j144(document).ready(function($){
 			</tr>
 			<tr>
 				<th class="th" scope="row"><img src="../images/star.png"/>회사명</th>
-				<td><input type="text" name="s_Name" size="25" placeholder="실명을 입력해 주세요"></td>
+				<td><input type="text" name="s_Name" value="${dto.s_name }" size="25" placeholder="실명을 입력해 주세요"></td>
 			</tr>
 			
 			
 			
 			<TR>
 				<th class="th" scope="row"><img src="../images/star.png"/>전화번호</TH>
-				<TD><input type="text" name="tel" size="25" placeholder="예: 010-0000-0000"></TD>
+				<TD><input type="text" name="tel" value="${dto.s_tel }" size="25" placeholder="예: 010-0000-0000"></TD>
 			</TR>
 			<TR>
 				<TH rowspan="2" class="th" scope="row"><img src="../images/star.png"/>이메일</TH>
 				<TD>
-					<input type="email" name="email" size="30" maxlength="4" placeholder="예 : gobook@xxxxx.com"> <!--  타입이 email이면 submit 시에 @가 있는지 확인한다. -->
+					<input type="email" value="${dto.s_email }" name="email" size="30" maxlength="4" placeholder="예 : gobook@xxxxx.com"> <!--  타입이 email이면 submit 시에 @가 있는지 확인한다. -->
 					<button type="button" class="button" onclick="emailCheck(document.frm.email.value)">e-mail 인증</button>
 					<!-- 이메일 인증 버튼을 누르면 우선 중복확인을 한 뒤 인증 이메일이 보내진다. -->
 				</TD>
@@ -314,15 +417,15 @@ $j144(document).ready(function($){
 			<TR>
 				<TH class="th" scope="row"><img src="../images/star.png"/>우편번호</TH>
 				<TD>
-					<input type="text" name="zipcode" size="10" id="sample6_postcode" placeholder="우편번호">
+					<input type="text" value="${dto.s_zipcode }" name="zipcode" size="10" id="sample6_postcode" placeholder="우편번호">
 					<button type="button" class="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">주소검색</button>
 				</TD>
 			</TR>
 			<TR>
 				<TH class="th" scope="row"><img src="../images/star.png"/>회사 주소</TH>
 				<TD>
-					<input type="text" name="address1" size="80" id="sample6_address" placeholder="주소"> 
-					<input type="text" name="address2" size="40" id="sample6_address2" placeholder="상세주소">
+					<input type="text" name="address1" value="${dto.s_address1 }" size="80" id="sample6_address" placeholder="주소"> 
+					<input type="text" name="address2" value="${dto.s_address2 }" size="40" id="sample6_address2" placeholder="상세주소">
 				</TD>
 			</TR>
 			<TR>
@@ -339,7 +442,7 @@ $j144(document).ready(function($){
 			<tr>
 				<th class="th" scope="row">회사설명</th>
 				<td>
-					<textarea rows="20" cols="20"></textarea>
+					<textarea rows="20" cols="20">${dto.s_info }</textarea>
 				</td>
 			</tr>
 			<tr>
@@ -381,6 +484,14 @@ $j144(document).ready(function($){
 		<div id="slider-range7" style="width:30%;text-align: center;margin: auto;"></div>
 				</td>
 			</tr>
+			<tr>
+				<TH class="th" scope="row"><img src="../images/star.png"/>회사 위치</TH>
+				<td>
+					<div id="map" style="width:100%;height:350px;"></div>
+					<input type="text" id="s_location" name="s_location" value="">
+				</td>
+			</tr>
+			
 			<tr>
 				<th class="th" scope="row"></th>
 				<td><center>

@@ -1,5 +1,7 @@
 package spring.model.freeboard;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class FreeboardDTO {
 	private int f_num;
 	private String f_content;
@@ -12,6 +14,7 @@ public class FreeboardDTO {
 	private String f_filename;
 	private int f_filesize;
 	private String f_title;
+	private MultipartFile filenameMF;
 
 	public String getF_title() {
 		return f_title;
@@ -80,5 +83,13 @@ public class FreeboardDTO {
 	public void setF_filesize(int f_filesize) {
 		this.f_filesize = f_filesize;
 	}
+	public MultipartFile getFilenameMF() {
+		return filenameMF;
+	}
+
+	public void setFilenameMF(MultipartFile filenameMF) {
+		this.filenameMF = filenameMF;
+	}
+	
 	
 }

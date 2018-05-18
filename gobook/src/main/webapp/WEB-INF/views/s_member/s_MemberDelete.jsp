@@ -7,6 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-s_member delete 페이지입니다.
+<form action="./delete" method="post">
+정말 삭제 할꺼야?ㅠㅠ
+<input type="hidden" name="s_id" value="${param.s_id }">
+<button>삭제하기</button>
+</form>
+
 </body>
 </html>

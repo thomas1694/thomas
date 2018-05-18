@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="root" value="${pageContext.request.contextPath }"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +23,7 @@
 	
 
 	<!-- Main Content -->
-	<div class="content-box">
+	<div class="content-box" style="margin-top: -150px;">
 		<!-- Hero Section -->
 		<section class="section section-hero">
 			<div class="hero-box">
@@ -32,12 +33,13 @@
 						<p>From our site Gobook!</p>
 					</div>
 
-					<form class="destinations-form">
+					<form class="destinations-form" method="get" action="./s_member/list">
 						<div class="input-line">
-							<input style="background-color: #ffffff;" type="text" name="destination" value=""
+							<input type="hidden" name="col" value="id">
+							<input style="background-color: #ffffff;" type="text" name="word" value=""
 								class="form-input check-value" placeholder="검색해봐." />
-							<button type="button" name="destination-submit"
-								class="form-submit btn btn-special" onclick="location.href='${root}/gobook/s_member/list'">Find a Gobook</button>
+							<button type="submit" 
+								class="form-submit btn btn-special">Find a Gobook</button>
 						</div>
 					</form>
 				</div>
@@ -47,22 +49,22 @@
 			<div class="container">
 				<div class="statistics-box">
 					<div class="statistics-item">
-						<span class="value">2,400</span>
+						<span class="value">${stotal }</span>
 						<p class="title">등록된 스토어수</p>
 					</div>
 
 					<div class="statistics-item">
-						<span class="value">1,000</span>
+						<span class="value">추후 업데이트</span>
 						<p class="title">일 스토어 방문자 수</p>
 					</div>
 
 					<div class="statistics-item">
-						<span class="value">350,000</span>
+						<span class="value">추후 업데이트</span>
 						<p class="title">평균 방문자 수</p>
 					</div>
 
 					<div class="statistics-item">
-						<span class="value">500,000</span>
+						<span class="value">${total }</span>
 						<p class="title">총 회원수</p>
 					</div>
 				</div>
@@ -72,14 +74,14 @@
 
 
 		<!-- Scripts -->
-		<script src="bottom/js/jquery.js"></script>
-		<script src="bottom/js/functions.js"></script>
+		<script src="${root }/resources/pmw/bottom/js/jquery.js"></script>
+		<script src="${root }/resources/pmw/bottom/js/functions.js"></script>
 		
-		<script src="bottom/js/jquery.min.js"></script>
-		<script src="bottom/js/skel.min.js"></script>
-		<script src="bottom/js/util.js"></script>
+		<script src="${root }/resources/pmw/bottom/js/jquery.min.js"></script>
+		<script src="${root }/resources/pmw/bottom/js/skel.min.js"></script>
+		<script src="${root }/resources/pmw/bottom/js/util.js"></script>
 		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-		<script src="bottom/js/main.js"></script>
+		<script src="${root }/resources/pmw/bottom/js/main.js"></script>
 </body>
 </html>
 

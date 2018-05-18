@@ -7,6 +7,7 @@ public class Freeboard_replyDTO {
 	private	String fr_wdate;
 	private int f_num;
 	private String id;
+	
 	public int getFr_num() {
 		return fr_num;
 	}

@@ -10,10 +10,11 @@ public class C_MemberDTO {
 	private String c_zipcode;
 	private String c_address1;
 	private String c_address2;
-	private String c_interest;
 	private String c_nickname;
 	private String c_rdate;
 	private String c_name;
+	
+	private String c_interest; 
 	
 	public String getC_id() {
 		return c_id;

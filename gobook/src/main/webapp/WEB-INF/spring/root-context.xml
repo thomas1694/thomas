@@ -24,7 +24,7 @@
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
        <tx:attributes>
           <tx:method name="delete" rollback-for="Exception"/>
-          <tx:method name="reply" rollback-for="Exception"/>
+          <tx:method name="s_memberCreate" rollback-for="Exception"/>
        </tx:attributes>
     </tx:advice>
  
@@ -101,5 +101,23 @@
         </property> 
         <property name="order"><value>1</value></property>
     </bean> 
-    	
+     
+     <!-- 이메일 관련 -->
+	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	    <property name="host" value="smtp.gmail.com" />
+	    <property name="port" value="587" />
+	    <property name="username" value="nosqljava@gmail.com" />
+	    <property name="password" value="python2016" />
+	    <property name="javaMailProperties">
+	        <props>
+	            <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+	            <prop key="mail.smtp.starttls.enable">true</prop>
+	            <prop key="mail.smtp.auth">true</prop>
+	        </props>
+	    </property>
+	</bean>
+	<bean id="mailService" class="spring.model.c_member.MailServiceImpl">
+	    <property name="javaMailSender" ref="javaMailSender" />
+	</bean>
+      <bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
 </beans>

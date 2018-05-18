@@ -1,42 +1,37 @@
 package spring.model.c_member;
-package 
-;
 
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import www.dao.IDAO;
-import www.mybatis.MyAppSqlConfig;
-
-public class C_MemberDAO implements IDAO {
+@Repository
+public class C_MemberDAO implements IC_MemberDAO {
 	
-	private static SqlSessionFactory sqlMapper;
+	@Autowired
+	private SqlSessionTemplate mybatis;
 	
-	static{
-		sqlMapper = MyAppSqlConfig.getSqlMapInstance();
+	public void setMybatis(SqlSessionTemplate mybatis) {
+		this.mybatis = mybatis;
 	}
-	
+
 	@Override
 	public boolean create(Object dto) throws Exception {
-		SqlSession session = sqlMapper.openSession();
 		boolean flag=false;
-		int cnt=session.insert("c_member.create", dto);
+		System.out.println("@@@@@@@@@@@@@@@dao_create@@@@@@@@@@@@@@@@@@@");
+		int cnt=mybatis.insert("c_member.create", dto);
+		
 		if(cnt>0)flag=true;
-		
-		session.commit();
-		session.close();
-		
+
 		return flag;
 	}
 	
-	public boolean emailCheck(String c_email) {
-		SqlSession session = sqlMapper.openSession();
+	public boolean emailCheck(String email) {
 		boolean flag = true; //중복임
 		
-		int cnt = session.selectOne("c_member.emailCheck", c_email);
+		int cnt = mybatis.selectOne("c_member.emailCheck", email);
 		if(cnt == 0) {
 			flag = false; //사용가능
 		}
@@ -44,11 +39,22 @@ public class C_MemberDAO implements IDAO {
 		return flag;
 	}
 	
+	public String emailCheck2(String email) {
+		String flag = "true"; //중복임
+		
+		int cnt = mybatis.selectOne("c_member.emailCheck", email);
+		if(cnt == 0) {
+			flag = "false"; //사용가능
+		}
+		
+		return flag;
+	}
+	
 	public boolean idCheck(String c_id) {
-		SqlSession session = sqlMapper.openSession();
+
 		boolean flag = true; //중복임
 		
-		int cnt = session.selectOne("c_member.idCheck", c_id);
+		int cnt = mybatis.selectOne("c_member.idCheck", c_id);
 		if(cnt == 0) {
 			flag = false; //사용가능
 		}
@@ -59,49 +65,43 @@ public class C_MemberDAO implements IDAO {
 	@Override
 	public C_MemberDTO read(Object pk) throws Exception {
 
-		return sqlMapper.openSession().selectOne("c_member.read", pk);
+		return mybatis.selectOne("c_member.read", pk);
 	}
 	
 	@Override
 	public List list(Map map) throws Exception {
 		
-		return sqlMapper.openSession().selectList("c_member.list", map);
+		return mybatis.selectList("c_member.list", map);
 	}
 
 	@Override
 	public boolean update(Object dto) throws Exception {
-		SqlSession session = sqlMapper.openSession();
 		boolean flag = false;
 		
-		int cnt = session.update("c_member.update", dto);
+		int cnt = mybatis.update("c_member.update", dto);
 		if(cnt > 0)flag = true;
-		session.commit();
-		session.close();
 		
 		return flag;
 	}
 	
 	/* map에는 c_id, c_passwd, c_new_passwd가 들어간다 */
 	public boolean updatePasswd(Map map) throws Exception {
-		SqlSession session = sqlMapper.openSession();
+
 		boolean flag = false;
 		
 		if(passwdCheck(map)) {
-			int cnt = session.update("c_member.updatePasswd", map);
+			int cnt = mybatis.update("c_member.updatePasswd", map);
 			if(cnt > 0)flag = true;
-			session.commit();
 		}	
-		session.close();
 		
 		return flag;
 	}
 	
-	@Override
 	public boolean passwdCheck(Map map) {
-		SqlSession session = sqlMapper.openSession();
+
 		boolean flag = false;
 		
-		int cnt = session.selectOne("c_member.passwdCheck", map);
+		int cnt = mybatis.selectOne("c_member.passwdCheck", map);
 		if(cnt == 1) {
 			flag = true;
 		}
@@ -110,23 +110,27 @@ public class C_MemberDAO implements IDAO {
 	}
 
 	
-
 	@Override
 	public boolean delete(Object pk) throws Exception {
-		SqlSession session = sqlMapper.openSession();
 		boolean flag = false;
+		//안쓰는 메소드. 아래에 delete2를 사용한다.
+		return flag;
+	}
+	
+	public String delete2(Object pk) throws Exception {
+		String flag = "false";
 		
 		//예약정보가 있다면 삭제 못하게.
-		int res_cnt = session.selectOne("c_member.count_reservation", pk);
+		int res_cnt = mybatis.selectOne("c_member.count_reservation", pk);
 		int cnt = 0;
 		
 		if(res_cnt == 0) {
-			cnt = session.delete("c_member.delete", pk);
+			cnt = mybatis.delete("c_member.delete", pk);
+			
+			if(cnt > 0)flag = "true";
+		}else {
+			flag = "have_false"; //예약정보가 있어서 삭제하지 않은 경우
 		}
-		
-		if(cnt > 0)flag = true;
-		session.commit();
-		session.close();
 		
 		return flag;
 	}
@@ -136,6 +140,15 @@ public class C_MemberDAO implements IDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-
+	
+	public boolean loginCheck(Map map) throws Exception{
+		boolean flag = false;
+		
+		int cnt = mybatis.selectOne("c_member.passwdCheck", map);
+		if(cnt == 1) {
+			flag = true;
+		}
+		
+		return flag;		
+	}
 }

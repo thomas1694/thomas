@@ -2,6 +2,8 @@ package spring.model.s_member;
 
 public class S_MemberDTO {
 	
+	
+	
 	private String s_id;
 	private String s_email;
 	private String s_tel;
@@ -19,14 +21,15 @@ public class S_MemberDTO {
 	private String s_address2;
 	
 	
-	private String s_time;
-	private String s_time2;
-	private String s_time3;
-	private String s_time4;
-	private String s_time5;
-	private String s_time6;
-	private String s_time7;
+	private String s_hour1;
+	private String s_hour2;
+	private String s_hour3;
+	private String s_hour4;
+	private String s_hour5;
+	private String s_hour6;
+	private String s_hour7;
 	
+	private double rating;
 	
 	public String getS_zipcode() {
 		return s_zipcode;
@@ -46,50 +49,51 @@ public class S_MemberDTO {
 	public void setS_address2(String s_address2) {
 		this.s_address2 = s_address2;
 	}
-	public String getS_time() {
-		return s_time;
-	}
-	public void setS_time(String s_time) {
-		this.s_time = s_time;
-	}
-	public String getS_time2() {
-		return s_time2;
-	}
-	public void setS_time2(String s_time2) {
-		this.s_time2 = s_time2;
-	}
-	public String getS_time3() {
-		return s_time3;
-	}
-	public void setS_time3(String s_time3) {
-		this.s_time3 = s_time3;
-	}
-	public String getS_time4() {
-		return s_time4;
-	}
-	public void setS_time4(String s_time4) {
-		this.s_time4 = s_time4;
-	}
-	public String getS_time5() {
-		return s_time5;
-	}
-	public void setS_time5(String s_time5) {
-		this.s_time5 = s_time5;
-	}
-	public String getS_time6() {
-		return s_time6;
-	}
-	public void setS_time6(String s_time6) {
-		this.s_time6 = s_time6;
-	}
-	public String getS_time7() {
-		return s_time7;
-	}
-	public void setS_time7(String s_time7) {
-		this.s_time7 = s_time7;
-	}
 	
 	
+	
+	public String getS_hour1() {
+		return s_hour1;
+	}
+	public void setS_hour1(String s_hour1) {
+		this.s_hour1 = s_hour1;
+	}
+	public String getS_hour2() {
+		return s_hour2;
+	}
+	public void setS_hour2(String s_hour2) {
+		this.s_hour2 = s_hour2;
+	}
+	public String getS_hour3() {
+		return s_hour3;
+	}
+	public void setS_hour3(String s_hour3) {
+		this.s_hour3 = s_hour3;
+	}
+	public String getS_hour4() {
+		return s_hour4;
+	}
+	public void setS_hour4(String s_hour4) {
+		this.s_hour4 = s_hour4;
+	}
+	public String getS_hour5() {
+		return s_hour5;
+	}
+	public void setS_hour5(String s_hour5) {
+		this.s_hour5 = s_hour5;
+	}
+	public String getS_hour6() {
+		return s_hour6;
+	}
+	public void setS_hour6(String s_hour6) {
+		this.s_hour6 = s_hour6;
+	}
+	public String getS_hour7() {
+		return s_hour7;
+	}
+	public void setS_hour7(String s_hour7) {
+		this.s_hour7 = s_hour7;
+	}
 	public String getS_filename() {
 		return s_filename;
 	}
@@ -162,4 +166,11 @@ public class S_MemberDTO {
 	public void setS_rdate(String s_rdate) {
 		this.s_rdate = s_rdate;
 	}
+	public double getRating() {
+		return rating;
+	}
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
+	
 }

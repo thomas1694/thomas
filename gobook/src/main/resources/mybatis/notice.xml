@@ -4,6 +4,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="notice">
 
+	<select id="read1" resultType="noticeDTO" parameterType="int">
+    	select * from notice
+    	where n_num = #{n_num}
+    </select>
+
     <select id="read" resultType="noticeDTO" parameterType="int">
     	select * from notice
     	where n_num = #{n_num}
@@ -11,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
    	 <insert id="create" parameterType="noticeDTO">
    	 	INSERT INTO notice(n_num, n_title, n_content, n_wdate, a_id)
-   	 	VALUES(#{n_num}, #{n_title}, #{n_content}, sysdate, #{a_id})
+   	 	VALUES((SELECT NVL(MAX(n_num),0) + 1 FROM notice), #{n_title,jdbcType=VARCHAR}, #{n_content,jdbcType=VARCHAR}, sysdate, #{a_id,jdbcType=VARCHAR})
    	 </insert>
    	 
    	 <update id="update" parameterType="noticeDTO">
@@ -25,13 +30,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    	 	WHERE n_num = #{n_num}
    	 </delete>
    	 
-   	 <select id="list" resultType="noticeDTO">
-   	 SELECT n_num, n_title, n_content, n_wdate, a_id FROM notice
-   	 ORDER BY n_num
+   	 <select id="list" parameterType="map" resultType="noticeDTO">
+   	 select n_num, n_title, n_content, n_wdate, a_id ,r
+   	 from (select n_num, n_title, n_content, n_wdate, a_id , rownum r
+   	 	   from (SELECT n_num, n_title, n_content, n_wdate, a_id 
+   	 	  	     FROM notice
+   	 	  	  <where>
+			<choose>
+				<when test="col=='n_title'">
+				n_title like '%'||#{word}||'%'
+				</when>
+				<when test="col=='a_id'">
+				a_id like '%'||#{word}||'%'
+				</when>
+			</choose>
+			</where>
+   	 	  	     
+   	 	  	     
+   	             ORDER BY n_num)
+   	      )
+   	 <![CDATA[
+	where r>=#{sno} and r<=#{eno}
+	]]>
    	 </select>
    	 
-   	 <select id="total">
-   	 SELECT COUNT(*) FROM notice;
+   	 <select id="total" resultType="int" parameterType="map">
+   	 SELECT COUNT(*) FROM notice
+   	 	  <where>
+			<choose>
+				<when test="col=='n_title'">
+				n_title like '%'||#{word}||'%'
+				</when>
+				<when test="col=='a_id'">
+				a_id like '%'||#{word}||'%'
+				</when>
+			</choose>
+			</where>
    	 </select>
    	 
  

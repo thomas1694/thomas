@@ -1,57 +1,59 @@
 package spring.model.service_image;
 
 import java.util.List;
+import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import www.mybatis.MyAppSqlConfig;
 
+@Repository
 public class Service_imageDAO {
 	
-private static SqlSessionFactory sqlMapper;
-	
-	static{
+@Autowired	
+private SqlSessionTemplate mybatis;
 
-		sqlMapper = MyAppSqlConfig.getSqlMapInstance();
-	}
-	
-   public Service_imageDTO read(int simg_num) {
+public void setMybatis(SqlSessionTemplate mybatis) {
+	this.mybatis = mybatis;
+}
+
+public Service_imageDTO read(int simg_num) {
 		
-		return sqlMapper.openSession().selectOne("service_image.read", simg_num);
+		return mybatis.selectOne("service_image.read", simg_num);
 	}
+
+   public String getFilename(int sv_num) {
+	return mybatis.selectOne("service_image.getFilename", sv_num);
+   }
 
    public boolean create(Service_imageDTO dto) {
-       boolean flag= false;
-	   SqlSession session = sqlMapper.openSession();
-	   int cnt = session.insert("service_image.create", dto);
+       boolean flag = false;
+	   int cnt = mybatis.insert("service_image.create", dto);
+	   System.out.println(cnt);
        if(cnt>0)flag=true;
-       session.commit();
-       session.close();
+   
        return flag;
    }
    
    public List<Service_imageDTO> list() {
-	   return sqlMapper.openSession().selectList("service_image.list");
+	   return mybatis.selectList("service_image.list");
    }
    
-   public boolean update(Service_imageDTO dto) {
+   public boolean updatefile(Map map) {
        boolean flag= false;
-	   SqlSession session = sqlMapper.openSession();
-	   int cnt = session.update("service_image.update", dto);
+	
+	   int cnt = mybatis.update("service_image.updatefile", map);
        if(cnt>0)flag=true;
-       session.commit();
-       session.close();
+     
        return flag;
    }
    
    public boolean delete(int simg_num) {
        boolean flag= false;
-	   SqlSession session = sqlMapper.openSession();
-	   int cnt = session.delete("service_image.delete", simg_num);
+	   int cnt = mybatis.delete("service_image.delete", simg_num);
        if(cnt>0)flag=true;
-       session.commit();
-       session.close();
+  
        return flag;
    }
 }
