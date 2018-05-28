@@ -16,7 +16,7 @@
 <body >
 <div class="container">
 <h2><span class="glyphicon glyphicon-list"></span>회원 목록</h2>
-<form style="text-align: center;margin: auto;" action="./member" method="get">
+<form style="text-align: center;margin: auto;" action="./list" method="get">
 <div>
 <select name="col" style="width: 20%;display: inline;">
 			<option value="id">ID

@@ -8,20 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-	table{
-	width: 100%;
-	}
-	table,th,td{
-	
-	border: 1px solid black;
-	border-collapse: collapse;
-	}
-	th{
-	background-color: #A4A4A4;
-	}
-	
-</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 <!-- Latest compiled and minified JavaScript -->
@@ -39,18 +28,18 @@
 <form style="text-align: center;margin: auto;" action="./list" method="get">
 <div>
 <input type="hidden" name="col" value="id">
-<input style="margin-left:15px;margin-right:15px;  font: 30px;height: 40px;" value="${param.word }" type="search" name="word" placeholder="다시 검색하기"><button type="submit" style="height: 40px;font:30px;width: 60px;">검색</button>
+<input style="display: inline;width: 30%;"  value="${param.word }" type="text" name="word" placeholder="다시 검색하기"><button type="submit" class="btn btn-Default btn-md" style="width: 90px;height: 40px;">검색</button>
 </div>
 </form>
 <br><br>
-<table style="vertical-align: middle;">
-	<tr height="50px">
-		<th style="padding: 0;vertical-align: middle;">비지니스카테고리</th>
-		<th style="padding: 0;vertical-align: middle;">회사ID</th>
-		<th style="padding: 0;vertical-align: middle;">회사명</th>
-		<th style="padding: 0;vertical-align: middle;">회사사진</th>
-		<th style="padding: 0;vertical-align: middle;">평점</th>
-		<th style="padding: 0;vertical-align: middle;">비고</th>
+<table   class="table table-hover" style="vertical-align: middle;">
+	<tr style="text-align: center;">
+		<th style="text-align: center;width:10%;vertical-align: middle;">비지니스카테고리</th>
+		<th style="text-align: center;width:15%;vertical-align: middle;">회사ID</th>
+		<th style="text-align: center;width:15%;vertical-align: middle;">회사명</th>
+		<th style="text-align: center;width:25%;vertical-align: middle;">회사사진</th>
+		<th style="text-align: center;width:25%;vertical-align: middle;">평점</th>
+		<th style="text-align: center;width:10%;vertical-align: middle;">비고</th>
 	</tr>
 	<c:choose>
 		<c:when test="${empty list }">
@@ -62,10 +51,10 @@
 		<c:otherwise>
 			<c:forEach var="dto" items="${list }"> 
 	<tr height="200px;">
-		<td style="padding: 0;vertical-align: middle;"><a href="#">${dto.s_category }</a></td>
-		<td style="padding: 0;vertical-align: middle;"><a href="#">${dto.s_id }</a></td>
-		<td style="padding: 0;vertical-align: middle;"><a href="#">${dto.s_name }</a></td>
-		<td style="padding: 0;vertical-align: middle;">${dto.s_filename }</td>
+		<td style="padding: 0;vertical-align: middle;">${dto.s_category }</td>
+		<td style="padding: 0;vertical-align: middle;">${dto.s_id }</td>
+		<td style="padding: 0;vertical-align: middle;">${dto.s_name }</td>
+		<td style="padding: 0;vertical-align: middle;"><img src="${root}/storage/member/img/${dto.s_filename }" width="200px" ></td>
 		<td style="padding: 0;vertical-align: middle;"><div id="${dto.s_id }"  style="margin: auto;" >${dto.rating} 
 		<script type="text/javascript">
 		var $j232 = jQuery.noConflict();   
@@ -82,13 +71,16 @@
 		</script>
 		
 		</div><div>(${dto.rating})</div></td>
-		<td style="padding: 0;vertical-align: middle;"><button onclick="gobook('${dto.s_id}')">예약하러가기</button></td>
+		<td style="padding: 0;vertical-align: middle;"><button class="btn btn-Default btn-md" style="width: 150px;height: 40px;" onclick="gobook('${dto.s_id}')">예약하러가기</button></td>
 	</tr>
 	</c:forEach>
 	</c:otherwise>
 	</c:choose>
 	
 </table>
+	<div style="text-align: center;margin-bottom: 50px;">
+	${paging}
+	</div>
 </div>
 </body>
 </html>

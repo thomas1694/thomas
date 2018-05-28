@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import spring.model.c_member.MailService;
 import spring.model.member.MemberDAO;
 import spring.model.member.MemberDTO;
+import spring.model.notice.NoticeDTO;
 import spring.model.s_member.S_MemberDAO;
 import spring.model.s_member.S_MemberDTO;
 import spring.model.s_member.S_MemberService;
@@ -59,11 +60,37 @@ public class s_MemberController {
 	@RequestMapping(value = "/s_member/list", method = RequestMethod.GET)
 	public String list(HttpServletRequest request, Model model) {
 		Map map=new HashMap();
-		map.put("col", request.getParameter("col"));
-		map.put("word", request.getParameter("word"));
-		try {
-			List list=sdao.list(map);
-			model.addAttribute("list", list);
+		String col = Utility.checkNull(request.getParameter("col"));
+		String word = Utility.checkNull(request.getParameter("word"));
+		map.put("col", col );
+		map.put("word", word);
+		
+		//페이징 관련
+			int nowPage = 1;	
+			int recordPerPage = 5;
+			
+			if(request.getParameter("nowPage")!=null&&request.getParameter("nowPage")!="")
+				nowPage = Integer.parseInt(request.getParameter("nowPage"));
+			
+			int sno = ((nowPage-1) * recordPerPage) + 1;
+			int eno = nowPage * recordPerPage;
+			
+			map.put("sno", sno);
+			map.put("eno", eno);
+			
+			List<NoticeDTO> list;
+			try {
+				list = sdao.list(map);
+				
+				int total = sdao.total(map);
+				String paging = Utility.paging3(total, nowPage, recordPerPage, col, word);
+				
+				request.setAttribute("list", list);
+				request.setAttribute("paging", paging);
+				request.setAttribute("col", col);
+				request.setAttribute("word", word);
+				request.setAttribute("nowPage", nowPage);
+				
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

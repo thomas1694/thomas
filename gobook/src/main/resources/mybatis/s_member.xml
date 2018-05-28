@@ -38,12 +38,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
     
     <select id="list" resultType="s_memberDTO" parameterType="map">
-    	select sid as s_id,s_name,s_category,s_filename,(select avg(re_rating) from review where s_id=sid group by s_id) as rating
-		from (SELECT s_id as sid ,s_name,s_category,s_filename FROM s_member)
+    	select s_id,s_name,s_category,s_filename,r,rating
+    	from(select sid as s_id,s_name,s_category,s_filename,rownum r,(select avg(re_rating) from review where s_id=sid group by s_id) as rating
+		from (SELECT s_id as sid ,s_name,s_category,s_filename FROM s_member
     	<where>
     		<choose>
     			<when test="col=='id'">
-    				sid like '%'||#{word}||'%'
+    				s_id like '%'||#{word}||'%'
     						OR
     			
     				s_name like '%'||#{word}||'%'
@@ -53,11 +54,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     			</when>
     		</choose>
     	</where>
-    	order by nvl(rating,0) desc
+    	)
+   	      order by nvl(rating,0) desc)
+   	 <![CDATA[
+	where r>=#{sno} and r<=#{eno}
+	]]>
     </select>
     
     <select id="total" resultType="int" parameterType="map">
     	SELECT count(*) FROM s_member
+    	 <where>
+			<choose>
+				<when test="col=='id'">
+				s_category like '%'||#{word}||'%'
+				or s_id like '%'||#{word}||'%'
+				or s_name like '%'||#{word}||'%'
+				</when>
+			</choose>
+			</where>
     </select>
     
     <select id="memberCheck" resultType="int" parameterType="string">

@@ -48,8 +48,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
     </select>
     
-    <select id="total" resultType="int">
+    <select id="total" resultType="int" parameterType="map">
     	select count(*) from member
+    	 <where>
+			<choose>
+				<when test="col=='id'">
+				id like '%'||#{word}||'%'
+				</when>
+				<when test="col=='grade'">
+				grade like '%'||#{word}||'%'
+				</when>
+			</choose>
+			</where>
     </select>
 </mapper>
 
