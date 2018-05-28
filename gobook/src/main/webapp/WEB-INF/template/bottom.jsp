@@ -45,11 +45,11 @@
 						<div class="widget widget_links">
 							<h5 class="widget-title">category</h5>
 							<ul>
-								<li><a href="${root }/s_member/list?col=id&word=restaurant">레스토랑</a></li>
-								<li><a href="${root }/s_member/list?col=id&word=hospital">병원</a></li>
-								<li><a href="${root }/s_member/list?col=id&word=studycafe">스터디카페</a></li>
-								<li><a href="${root }/s_member/list?col=id&word=beauty">뷰티</a></li>
-								<li><a href="${root }/s_member/list?col=id&word=etc">기타</a></li>
+								<li><a href="${root }/s_member/list?col=id&word=레스토랑">레스토랑</a></li>
+								<li><a href="${root }/s_member/list?col=id&word=병원">병원</a></li>
+								<li><a href="${root }/s_member/list?col=id&word=스터디카페">스터디카페</a></li>
+								<li><a href="${root }/s_member/list?col=id&word=뷰티">뷰티</a></li>
+								<li><a href="${root }/s_member/list?col=id&word=기타">기타</a></li>
 							</ul>
 						</div>
 					</div>

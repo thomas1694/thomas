@@ -132,7 +132,6 @@
 	<div style="text-align: center; font-size: 20px;">
 	<button type="button" onclick="update_mimg()">대표이미지변경</button>
 	<button type="button" onclick="update_smember()">회원정보수정</button>
-	<button type="button" onclick="update_passwd()">패스워드변경</button>
 	<button type="button" onclick="delete_smember()">회원탈퇴</button>
 	</div>
 	<div>

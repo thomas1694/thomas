@@ -29,9 +29,6 @@ public class ReviewDAO implements IReviewDAO {
    public boolean create(Object dto)throws Exception{
 		boolean flag = false;
 		ReviewDTO rdto =(ReviewDTO)dto;
-		System.out.println(rdto.getRe_title());
-		rdto.setC_id("ctest");
-		
 		int cnt = mybatis.insert("review.create",rdto);
 		System.out.println(cnt);
 		if(cnt>0)flag = true;

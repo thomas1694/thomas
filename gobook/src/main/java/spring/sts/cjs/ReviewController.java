@@ -200,6 +200,8 @@ public class ReviewController {
 		dto.setFilename(filename);
 		dto.setFilesize(filesize);
 		dto.setS_id(id);
+		System.out.println(dto.getS_id());
+		System.out.println(dto.getC_id());
 		if(dao.create(dto)) {
 			return "redirect:/"+id+"/review/list";
 		}else {

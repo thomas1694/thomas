@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
     
     <select id="read" resultType="service_imageDTO" parameterType="int">
-    	select*from service_image where simg_num =#{simg_num}
+    	select*from service_image where sv_num =#{simg_num}
     </select>
     
     <select id ="getFilename" resultType="String" parameterType="int">

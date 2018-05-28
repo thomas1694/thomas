@@ -36,7 +36,7 @@
 								<li><a href="${root }/cscenter">Customer Center</a></li>
 								<c:if test="${sessionScope.grade=='S' }">
 								<li><a href="${root }/s_member/settings">Settings</a></li>
-								<li><a href="${root }/${SessionScope.id}">My Home</a></li>
+								<li><a href="${root }/${sessionScope.id}">My Home</a></li>
 								</c:if>
 								<c:if test="${sessionScope.grade=='C' }">
 								<li><a href="${root }/reservationM/list">My Book</a></li>

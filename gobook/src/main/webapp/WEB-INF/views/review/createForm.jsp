@@ -82,8 +82,7 @@ function incheck(f){
 	action='./create'
 	onsubmit="return incheck(this)"
 	enctype="multipart/form-data"> 
-	<input type="hidden" name="c_id" value="ctest">
-	<input type="hidden" name="s_id" value="stest">
+	<input type="hidden" name="c_id" value="${sessionScope.id }">
   <TABLE class="table table-bordered">
   <tr>
       <TH>제목</TH>

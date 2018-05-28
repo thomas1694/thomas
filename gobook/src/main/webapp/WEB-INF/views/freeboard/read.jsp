@@ -7,7 +7,13 @@
 <meta charset="UTF-8"> 
 <title></title> 
 <script type="text/javascript">
+function fileDown(filename) {
+	var url = "${root}/download";
+	url += "?filename=" + filename;
+	url += "&dir=/freeboard/storage";
 
+	location.href = url;
+}
 function reply(f_num){
 	var url = "./reply";
 	url += "?f_num="+f_num;
@@ -162,8 +168,8 @@ margin: 20px auto;
       <c:when test="${empty dto.f_filename}">파일없음
       </c:when>
       <c:otherwise>
-      <a href="javascript:fileDown('${dto.f_filename}')">
-      ${dto.f_filename}(${dto.f_filesize})</a>
+      <a href="${root }/storage/freeboard/file/${dto.f_filename }"
+										download>${dto.f_filename }</a>
       </c:otherwise>
       </c:choose>
       </td>

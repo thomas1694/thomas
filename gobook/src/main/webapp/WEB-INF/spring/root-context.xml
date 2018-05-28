@@ -25,6 +25,7 @@
        <tx:attributes>
           <tx:method name="delete" rollback-for="Exception"/>
           <tx:method name="s_memberCreate" rollback-for="Exception"/>
+          <tx:method name="create" rollback-for="Exception"/>
        </tx:attributes>
     </tx:advice>
  
@@ -119,4 +120,8 @@
 	<bean id="mailService" class="spring.model.c_member.MailServiceImpl">
 	    <property name="javaMailSender" ref="javaMailSender" />
 	</bean>
+	
+	<!-- 사이트 방문자 정보 관련 -->
+	
+	<bean id="visitCountDAO" class="spring.model.visitor.VisitCountDAO"></bean>
 </beans>

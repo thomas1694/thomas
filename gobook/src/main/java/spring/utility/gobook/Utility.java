@@ -528,41 +528,40 @@ public class Utility {
 		 
 		 
 		 public String getDateDay(String date, String dateType) throws Exception {
-			 
-		     
+		     	
 			    String day = "" ;
 			     
 			    SimpleDateFormat dateFormat = new SimpleDateFormat(dateType) ;
 			    Date nDate = dateFormat.parse(date) ;
-			     
 			    Calendar cal = Calendar.getInstance() ;
 			    cal.setTime(nDate);
+			    System.out.println(nDate.toString());
 			     
 			    int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
-			     
+			    System.out.println("데이넘"+dayNum); 
 			     
 			     
 			    switch(dayNum){
 			        case 1:
-			            day = "Mon";
+			            day = "Sun";
 			            break ;
 			        case 2:
-			            day = "Tue";
+			            day = "Mon";
 			            break ;
 			        case 3:
-			            day = "Wed";
+			            day = "Tue";
 			            break ;
 			        case 4:
-			            day = "Thu";
+			            day = "Wed";
 			            break ;
 			        case 5:
-			            day = "Fri";
+			            day = "Thu";
 			            break ;
 			        case 6:
-			            day = "Sat";
+			            day = "Fri";
 			            break ;
 			        case 7:
-			            day = "Sun";
+			            day = "Sat";
 			            break ;
 			             
 			    }

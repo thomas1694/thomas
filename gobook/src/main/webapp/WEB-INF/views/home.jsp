@@ -54,12 +54,12 @@
 					</div>
 
 					<div class="statistics-item">
-						<span class="value">추후 업데이트</span>
+						<span class="value">${sessionScope.todayCount}</span>
 						<p class="title">일 스토어 방문자 수</p>
 					</div>
 
 					<div class="statistics-item">
-						<span class="value">추후 업데이트</span>
+						<span class="value">${sessionScope.totalCount}</span>
 						<p class="title">평균 방문자 수</p>
 					</div>
 

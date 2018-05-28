@@ -13,6 +13,13 @@
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	function onlyNumber(obj) {
+	    $(obj).keyup(function(){
+	         $(this).val($(this).val().replace(/[^0-9]/g,""));
+	    }); 
+	}
+	</script>
 </head>
 <body>
  
@@ -44,11 +51,11 @@
    </TR>
     <TR>
       <TH>서비스가격</TH>
-      <TD><input type="text" name="sv_price"></TD>
+      <TD><input type="text" onkeydown="onlyNumber(this)" name="sv_price"></TD>
     </TR>
      <TR>
       <TH>타임당 예약인원수</TH>
-      <TD><input type="text" name="sv_timeperson"></TD>
+      <TD><input type="text" onkeydown="onlyNumber(this)" name="sv_timeperson"></TD>
     </TR>
     
   </TABLE>

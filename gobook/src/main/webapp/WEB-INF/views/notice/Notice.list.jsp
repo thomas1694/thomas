@@ -107,7 +107,7 @@ margin:auto;
 	</div>
 	<br><br>
 	<div style="text-align: center; margin-bottom: 50px;">
-	<button class="btn btn-Default btn-md" type="button" name="" onclick="main">메인으로</button>
+	
 	<c:if test="${sessionScope.grade=='A' }">
 	<button class="btn btn-Default btn=md" type="button" name="" onclick="ncreate('${dto.n_num}')">글 작성</button> 
 	</c:if>	

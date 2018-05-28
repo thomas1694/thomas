@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import org.junit.runner.Request;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,25 +75,30 @@ public class ReservationController {
 			String compare=itr.next();
 			if(compare.contains(resdate.trim())) {
 				restime[k]=compare.substring(12);
+				
 				k++;
 			}
 		}
 		S_MemberDTO dto=(S_MemberDTO) sdao.read(id);
 		String[] s_hour=dto.getS_hour().split(";");
 		Utility util=new Utility();
-		String hour_compare=util.getDateDay(resdate, "yyyy. mm. dd");
+		String hour_compare=util.getDateDay(resdate, "yyyy. MM. dd");
 		int start=0;
 		int end=0;
+		
 		for(int j=0;j<7;j++) {
+			System.out.println(s_hour[j]);
+			System.out.println(hour_compare);
 			if(s_hour[j].contains(hour_compare)) {
 				String a=s_hour[j].substring(4);
 				String[] b=a.split(",");
 				start=Integer.parseInt(b[0]);
 				end=Integer.parseInt(b[1]);
-				
 			}
 		}
-		int[] hour=new int[end-start];
+		
+		int[] hour=new int[(end-start)];
+		
 		for(int i=0;start<end;start++) {
 			hour[i]=start;
 			
@@ -102,37 +108,60 @@ public class ReservationController {
 		List fail=new ArrayList<>();
 		System.out.println(restime.length);
 		if(k==0)k=1;
-		if(restime.length!=0&&restime[0]!=null) {
-		for(int y=0;y<k;y++) {
+		StringBuffer resultString=new StringBuffer();
 		
-			for(int l=0;l<hour.length;l++) {
-				if(hour[l]==Integer.parseInt(restime[y])) {
-					timeperson=timeperson-1;
+		if(hour.length!=0) {
+			
+			if(restime.length!=0&&restime[0]!=null) {
+				for(int y=0;y<k;y++) {
+				for(int l=0;l<hour.length;l++) {
+					if(hour[l]==Integer.parseInt(restime[y])) {
+						timeperson=timeperson-1;
+					}
+					if(timeperson==0) {
+						fail.add(hour[l]);
+					}else {
+						result.add(hour[l]);
+					}
+					}
 				}
-				if(timeperson==0) {
-					fail.add(hour[l]);
-				}else {
+			}else {
+				for(int l=0;l<hour.length;l++) {
 					result.add(hour[l]);
 				}
-		}}
+			}
+			
+
+			//result,fail 중복제거
+			List<Integer> finalResult=new ArrayList<Integer>();
+			List<Integer> finalFail=new ArrayList<Integer>();
+			for(int x=0;x<result.size();x++) {
+				if(!finalResult.contains(result.get(x))) {
+					finalResult.add((Integer) result.get(x));
+				}
+			}
+			for(int x=0;x<fail.size();x++) {
+				if(!finalFail.contains(fail.get(x))) {
+					finalFail.add((Integer) fail.get(x));
+				}
+			}
+			
+			
+			for(int i=0;i<finalResult.size();i++) {
+				resultString.append("<input type='submit' class='btn btn-Default btn-md' style='width: 100px;height: 50px; margin:10px;' value='"+finalResult.get(i)+":00' onclick=\"tt('"+finalResult.get(i)+"')\"/>");
+				if(i!=0&&i%5==0) {
+					resultString.append("<br>");
+				}
+			}
+			for(int i=0;i<fail.size();i++) {
+				resultString.append("<input type='button' class='btn btn-Default btn-md' style='background-color:white; width: 100px;height: 50px; margin:10px;' value='"+finalFail.get(i)+":00 예약완료' onclick=\"\"/>");
+				if(i!=0&&i%5==0) {
+					resultString.append("<br>");
+				}
+			}
 		}else {
-			for(int l=0;l<hour.length;l++) {
-				result.add(hour[l]);
-			}
+			resultString.append("휴일입니다");
 		}
-		StringBuffer resultString=new StringBuffer();
-		for(int i=0;i<result.size();i++) {
-		resultString.append("<input type='submit' class='btn btn-Default btn-md' style='width: 100px;height: 50px; margin:10px;' value='"+result.get(i)+":00' onclick=\"tt('"+result.get(i)+"')\"/>");
-		if(i!=0&&i%5==0) {
-			resultString.append("<br>");
-		}
-		}
-		for(int i=0;i<fail.size();i++) {
-			resultString.append("<input type='button' class='btn btn-Default btn-md' style='background-color:white; width: 100px;height: 50px; margin:10px;' value='"+fail.get(i)+":00 예약완료' onclick=\"\"/>");
-			if(i!=0&&i%5==0) {
-				resultString.append("<br>");
-			}
-			}
 		return resultString.toString();
 	}
 	

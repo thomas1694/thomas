@@ -2,6 +2,8 @@
 <!-- top, bottom 필요함 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="root" value="${pageContext.request.contextPath }"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,65 +18,180 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!--STYLESHEETS-->
-<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<link href="${root }/resources/ksy/css/style.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
+var mw = jQuery.noConflict();
+mw(document).ready(function() {
+	$(".joincode").css("display", "none");
+});
+
+
 function inCheck(f){                      //얘는submit 할때 검증되는 함수임
-	if(f.id.value==""){
+	if(f.s_id.value==""){
 		alert("아이디를 입력해 주세요");
-		f.id.focus();
+		f.s_id.focus();
 		return false;
 	}
-	if(f.passwd.value==""){
+	if(f.s_passwd.value==""){
 		alert("패스워드를 입력해 주세요");
-		f.passwd.focus();
+		f.s_passwd.focus();
 		return false;
 	}
-	if(f.repasswd.value==""){
+	if(f.s_repasswd.value==""){
 		alert("비밀번호 확인을 입력해 주세요");
-		f.repasswd.focus();
+		f.s_repasswd.focus();
 		return false;
 	}
-	if(f.repasswd.value!=f.passwd.value){
+	if(f.s_repasswd.value!=f.s_passwd.value){
 		alert("비밀번호가 일치하지 않습니다. 다시 입력해 주세요.");
-		f.repasswd.focus();
+		f.s_repasswd.focus();
 		return false;
 	}
-	if(f.mname.value==""){
-		alert("이름을 입력해 주세요");
-		f.mname.focus();
+	if(f.s_name.value==""){
+		alert("회사명을 입력해 주세요");
+		f.s_name.focus();
 		return false;
 	}
-	if(f.email.value==""){
+	if(f.s_tel.value==""){
+		alert("전화번호를 입력해 주세요");
+		f.s_tel.focus();
+		return false;
+	}
+	if(f.s_email.value==""){
 		alert("이메일을 입력해 주세요");
-		f.email.focus();
+		f.s_email.focus();
 		return false;
 	}
+	if(f.s_zipcode.value==""){
+		alert("주소 검색을 해 주세요");
+		return false;
+	}
+	if(f.s_address1.value==""){
+		alert("주소 검색을 해 주세요");
+		return false;
+	}
+	if(f.s_address2.value==""){
+		alert("상세주소를 입력해 주세요");
+		f.s_address2.focus();
+		return false;
+	}
+
+	
+
+	
+	
+	if($(".joincode").is(':visible') == false ){
+
+		alert("이메일 중복확인 검사를 해 주세요");
+		f.s_email.focus();
+		return false;
+	}
+	if(f.email_code.value==""){
+		alert("이메일 인증코드를 입력해 주세요");
+		f.email_code.focus();
+		return false;
+	}
+	if($("#em1").text()==""){
+		alert("인증코드 확인을 눌러주세요");
+		return false;
+	}
+	if(Code==false){
+		alert("인증코드가 틀렸습니다. 다시 입력 해 주세요");
+		f.email_code.focus();
+		return false;
+	}
+	if(f.s_info.value==""){
+		alert("회사 설명을 입력해 주세요");
+		f.s_address2.focus();
+		return false;
+	}
+	
+	if(grecaptcha.getResponse()==""){
+		alert("스팸방지코드를 확인해 주세요");
+		return false;
 }
-function idCheck(id){
-	if(id==""){
+	
+}
+
+function idCheck(s_id){
+	if(s_id==""){
 		alert("아이디를 입력해 주세요");
-		document.frm.id.focus();
+		document.frm.s_id.focus();
 	}else{
 		var url = "./id_proc"
-		url += "?id="+id;
+		url += "?s_id="+s_id;
 		
-		wr = window.open(url, "아이디 검색", "width=500,height=500"); /*  window.open : 새창  wr는 새창을 말한다.*/
+		wr = window.open(url, "아이디 검색", "width=500,height=500"); /*  window.open : 새창  wr는 새창을 말한다.*/		
 		wr.moveTo((window.screen.width-500)/2,(window.screen.height-500)/2);              /* x좌표와 y좌표를 나타낸다 */
 	}
 }
-function emailCheck(email){
+function emailCheck(){
+	var email = document.getElementById("s_email").value;
+	
 	if(email==""){
 		alert("이메일을 입력해 주세요");
-		document.frm.email.focus();
-	}else{
-		var url = "./email_proc"
-		url += "?email="+email;
-		
-		wr = window.open(url, "이메일 검색", "width=500,height=500"); /*  window.open : 새창  wr는 새창을 말한다.*/
-		wr.moveTo((window.screen.width-500)/2, (window.screen.height-500)/2);              /* x좌표와 y좌표를 나타낸다 */
+		document.frm.s_email.focus();
+		return false;
 	}
+
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function(){
+		if(xhttp.readyState == 4){
+			var data = JSON.parse(xhttp.responseText);
+			if(data == "true"){
+				alert("이미 가입한 메일입니다.");
+				$(".joincode").css("display", "none");
+			}else{
+				sendMail(email);
+				$(".joincode").css("display", "");
+			}
+		}
+	};	
+	xhttp.open("POST", 'emailCheck/', true);	
+	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+	xhttp.send('email=' + email);
 }
+function sendMail(email){
+
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function(){
+		if(xhttp.readyState == 4){
+			if(xhttp.status == 200)
+				alert("메일을 정상적으로 보냈습니다.");
+			else{
+				
+				alert(xhttp.status+"올바른 메일 형식이 아닙니다.");
+			}
+		}
+	};
+	xhttp.open("POST", 'sendMail/', true);
+	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+	xhttp.send('email=' + email);
+}
+
+function emailNumCheck(){
+	var emailcode = document.getElementById("emailcode").value;
+	
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function(){
+		if(xhttp.readyState == 4){
+			Code = JSON.parse(xhttp.responseText);
+			if(Code==true){
+				$("#em1").text("인증코드 일치");
+				
+			}else{
+				$("#em1").text("인증코드 불일치");
+				
+			}
+		}
+	};	
+	xhttp.open("POST", 'codeCheck/', true);	
+	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+	xhttp.send('emailcode=' + emailcode);
+}
+
+
 </script>
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -102,14 +219,16 @@ $j144(document).ready(function($){
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time").val("휴일");
+					$("#s_hour1").val("Mon/"+ui.values[0]+","+ ui.values[1]);
 				}else{
 					$("#s_time").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
+					$("#s_hour1").val("Mon/"+ui.values[0]+","+ ui.values[1]);
 				}
 				}
 		});
 		$("#s_time").val( $("#slider-range").slider("values", 0) +
 			" : 00 ~ " + $("#slider-range").slider("values", 1) +" : 00");
-	
+		$("#s_hour1").val("Mon/"+$("#slider-range").slider("values", 0)+","+$("#slider-range").slider("values", 1));
 		$("#slider-range2").slider({
 			range : true,
 			min : 0,
@@ -118,14 +237,16 @@ $j144(document).ready(function($){
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time2").val("휴일");
+					$("#s_hour2").val("Tue/"+ui.values[0]+","+ ui.values[1]);
 				}else{
 					$("#s_time2").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
+					$("#s_hour2").val("Tue/"+ui.values[0]+","+ ui.values[1]);
 				}
 				}
 		});
 		$("#s_time2").val( $("#slider-range2").slider("values", 0) +
 			" : 00 ~ " + $("#slider-range2").slider("values", 1) +" : 00");
-		
+		$("#s_hour2").val("Tue/"+$("#slider-range2").slider("values", 0)+","+$("#slider-range2").slider("values", 1));
 		$("#slider-range3").slider({
 			range : true,
 			min : 0,
@@ -134,14 +255,16 @@ $j144(document).ready(function($){
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time3").val("휴일");
+					$("#s_hour3").val("Wed/"+ui.values[0]+","+ ui.values[1]);
 				}else{
 					$("#s_time3").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
+					$("#s_hour3").val("Wed/"+ui.values[0]+","+ ui.values[1]);
 				}
 				}
 		});
 		$("#s_time3").val( $("#slider-range3").slider("values", 0) +
 			" : 00 ~ " + $("#slider-range3").slider("values", 1) +" : 00");
-		
+		$("#s_hour3").val("Wed/"+$("#slider-range3").slider("values", 0)+","+$("#slider-range3").slider("values", 1));
 		$("#slider-range4").slider({
 			range : true,
 			min : 0,
@@ -150,14 +273,16 @@ $j144(document).ready(function($){
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time4").val("휴일");
+					$("#s_hour4").val("Thu/"+ui.values[0]+","+ ui.values[1]);
 				}else{
 					$("#s_time4").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
+					$("#s_hour4").val("Thu/"+ui.values[0]+","+ ui.values[1]);
 				}
 				}
 		});
 		$("#s_time4").val( $("#slider-range4").slider("values", 0) +
 			" : 00 ~ " + $("#slider-range4").slider("values", 1) +" : 00");
-		
+		$("#s_hour4").val("Thu/"+$("#slider-range4").slider("values", 0)+","+$("#slider-range4").slider("values", 1));
 		$("#slider-range5").slider({
 			range : true,
 			min : 0,
@@ -166,14 +291,16 @@ $j144(document).ready(function($){
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time5").val("휴일");
+					$("#s_hour5").val("Fri/"+ui.values[0]+","+ ui.values[1]);
 				}else{
 					$("#s_time5").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
+					$("#s_hour5").val("Fri/"+ui.values[0]+","+ ui.values[1]);
 				}
 				}
 		});
 		$("#s_time5").val( $("#slider-range5").slider("values", 0) +
 			" : 00 ~ " + $("#slider-range5").slider("values", 1) +" : 00");
-		
+		$("#s_hour5").val("Fri/"+$("#slider-range5").slider("values", 0)+","+$("#slider-range5").slider("values", 1));
 		$("#slider-range6").slider({
 			range : true,
 			min : 0,
@@ -182,14 +309,16 @@ $j144(document).ready(function($){
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time6").val("휴일");
+					$("#s_hour6").val("Sat/"+ui.values[0]+","+ ui.values[1]);
 				}else{
 					$("#s_time6").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
+					$("#s_hour6").val("Sat/"+ui.values[0]+","+ ui.values[1]);
 				}
 				}
 		});
 		$("#s_time6").val( $("#slider-range6").slider("values", 0) +
 			" : 00 ~ " + $("#slider-range6").slider("values", 1) +" : 00");
-		
+		$("#s_hour6").val("Sat/"+$("#slider-range6").slider("values", 0)+","+$("#slider-range6").slider("values", 1));
 		$("#slider-range7").slider({
 			range : true,
 			min : 0,
@@ -198,14 +327,16 @@ $j144(document).ready(function($){
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time7").val("휴일");
+					$("#s_hour7").val("Sun/"+ui.values[0]+","+ ui.values[1]);
 				}else{
 					$("#s_time7").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
+					$("#s_hour7").val("Sun/"+ui.values[0]+","+ ui.values[1]);
 				}
 				}
 		});
 		$("#s_time7").val( $("#slider-range7").slider("values", 0) +
 			" : 00 ~ " + $("#slider-range7").slider("values", 1) +" : 00");
-	
+		$("#s_hour7").val("Sun/"+$("#slider-range7").slider("values", 0)+","+$("#slider-range7").slider("values", 1));
 	});
 });
 </script>
@@ -260,7 +391,7 @@ $j144(document).ready(function($){
 <!-- recaptcha -->
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <!-- 다음 지도 api -->
-<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=47844deb89b482d0297165cccbc1dd67&libraries=services"></script>
+<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=cbc9a44495a229ba6b4ecd67265a238a&libraries=services"></script>
 <script>
 var $d = jQuery.noConflict(); 
 
@@ -370,125 +501,152 @@ geocoder.addressSearch(address1, function(result, status) {
 <body>
 
 	<!-- Form -->
-	<FORM name='frm' method='POST' action='./createProc'
+	<FORM name='frm' method='POST' action='./update'
 		onsubmit="return inCheck(this)">
+		<input type="hidden" name="s_hour1" id="s_hour1">
+		<input type="hidden" name="s_hour2" id="s_hour2">
+		<input type="hidden" name="s_hour3" id="s_hour3">
+		<input type="hidden" name="s_hour4" id="s_hour4">
+		<input type="hidden" name="s_hour5" id="s_hour5">
+		<input type="hidden" name="s_hour6" id="s_hour6">
+		<input type="hidden" name="s_hour7" id="s_hour7">
+		<input type="hidden" name="s_id" value="${dto.s_id }">
 	<div class="container">
 	<h2 class='title'>판매자 회원정보 수정</h2>
 		<table class="question">
-			<caption class="qtit">(<img src="../images/star.png"/>은 필수 입력사항)</caption>
+			<caption class="qtit">(<img src="${root }/resources/ksy/images/star.png"/>은 필수 입력사항)</caption>
 			<tr>
-				<th class="th" scope="row"><img src="../images/star.png"/>회사ID</th>
+				<th class="th" scope="row"><img src="${root }/resources/ksy/images/star.png"/>회사ID</th>
 				<td>${dto.s_id }
 				</td>
 			</tr>
 			<tr>
-				<th class="th"><img src="../images/star.png"/>비밀번호</th>
+				<th class="th"><img src="${root }/resources/ksy/images/star.png"/>비밀번호</th>
 				<td><input type="password" name="s_passwd" size="20"></td>
 			</tr>
 			<tr>
-				<th class="th"><img src="../images/star.png"/>비밀번호 확인</th>
+				<th class="th"><img src="${root }/resources/ksy/images/star.png"/>비밀번호 확인</th>
 				<td><input type="password" name="s_repasswd" size="20"></td>
 			</tr>
 			<tr>
-				<th class="th" scope="row"><img src="../images/star.png"/>회사명</th>
-				<td><input type="text" name="s_Name" value="${dto.s_name }" size="25" placeholder="실명을 입력해 주세요"></td>
+				<th class="th" scope="row"><img src="${root }/resources/ksy/images/star.png"/>회사명</th>
+				<td><input type="text" name="s_name" value="${dto.s_name }" size="25" placeholder="실명을 입력해 주세요"></td>
 			</tr>
 			
 			
 			
 			<TR>
-				<th class="th" scope="row"><img src="../images/star.png"/>전화번호</TH>
-				<TD><input type="text" name="tel" value="${dto.s_tel }" size="25" placeholder="예: 010-0000-0000"></TD>
+				<th class="th" scope="row"><img src="${root }/resources/ksy/images/star.png"/>전화번호</TH>
+				<TD><input type="text" name="s_tel" value="${dto.s_tel }" size="25" placeholder="예: 010-0000-0000"></TD>
 			</TR>
 			<TR>
-				<TH rowspan="2" class="th" scope="row"><img src="../images/star.png"/>이메일</TH>
+				<TH rowspan="2" class="th" scope="row"><img src="${root }/resources/ksy/images/star.png"/>이메일</TH>
 				<TD>
-					<input type="email" value="${dto.s_email }" name="email" size="30" maxlength="4" placeholder="예 : gobook@xxxxx.com"> <!--  타입이 email이면 submit 시에 @가 있는지 확인한다. -->
-					<button type="button" class="button" onclick="emailCheck(document.frm.email.value)">e-mail 인증</button>
+					<input type="email" value="${dto.s_email }" id="s_email" name="s_email" size="30" maxlength="4" placeholder="예 : gobook@xxxxx.com"> <!--  타입이 email이면 submit 시에 @가 있는지 확인한다. -->
+					<button type="button" class="button" onclick="emailCheck()">e-mail 인증</button>
 					<!-- 이메일 인증 버튼을 누르면 우선 중복확인을 한 뒤 인증 이메일이 보내진다. -->
 				</TD>
 			</TR>
 			<TR>
-				<TD>
-					인증코드 &nbsp <input type="password" name="email_code" size="8">
-					<button type="button" class="button" onclick="emailNumCheck(document.frm.email_code.value)">확인</button>
+				<TD class="joincode">
+					인증코드 &nbsp 
+					<input type="password" name="email_code" class="wid20" style="display:inline;" id="emailcode" size="8" maxlength="5">
+					<input type="button" class="button" onclick="emailNumCheck()" value="확인"/>
+					<em id="em1"></em>
 				</TD>
 			</TR>
 			<TR>
-				<TH class="th" scope="row"><img src="../images/star.png"/>우편번호</TH>
+				<TH class="th" scope="row"><img src="${root }/resources/ksy/images/star.png"/>우편번호</TH>
 				<TD>
-					<input type="text" value="${dto.s_zipcode }" name="zipcode" size="10" id="sample6_postcode" placeholder="우편번호">
+					<input type="text" value="${dto.s_zipcode }" name="s_zipcode" size="10" id="sample6_postcode" placeholder="우편번호">
 					<button type="button" class="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">주소검색</button>
 				</TD>
 			</TR>
 			<TR>
-				<TH class="th" scope="row"><img src="../images/star.png"/>회사 주소</TH>
+				<TH class="th" scope="row"><img src="${root }/resources/ksy/images/star.png"/>회사 주소</TH>
 				<TD>
-					<input type="text" name="address1" value="${dto.s_address1 }" size="80" id="sample6_address" placeholder="주소"> 
-					<input type="text" name="address2" value="${dto.s_address2 }" size="40" id="sample6_address2" placeholder="상세주소">
+					<input type="text" name="s_address1" value="${dto.s_address1 }" size="80" id="sample6_address" placeholder="주소"> 
+					<input type="text" name="s_address2" value="${dto.s_address2 }" size="40" id="sample6_address2" placeholder="상세주소">
 				</TD>
 			</TR>
 			<TR>
-				<th class="th" scope="row"><img src="../images/star.png"/>비지니스 카테고리</TH>
+				<th class="th" scope="row"><img src="${root }/resources/ksy/images/star.png"/>비지니스 카테고리</TH>
 				<TD>
-					<select>
-						<option value="restaurant">레스토랑
-						<option value="hospital">병원
-						<option value="studycafe">스터디카페
-						<option value="beauty">뷰티
+					<select name="s_category">
+						<option value="레스토랑"
+				<c:if test="${dto.s_category=='레스토랑' }">selected</c:if>
+						>레스토랑
+						<option value="병원"
+				<c:if test="${dto.s_category=='병원' }">selected</c:if>
+						>병원
+						<option value="스터디카페"
+				<c:if test="${dto.s_category=='스터디카페' }">selected</c:if>
+						>스터디카페
+						<option value="어린이놀이방"
+				<c:if test="${dto.s_category=='어린이놀이방' }">selected</c:if>
+						>어린이놀이방
+						<option value="카페"
+				<c:if test="${dto.s_category=='카페' }">selected</c:if>
+						>카페
+						<option value="뷰티"
+				<c:if test="${dto.s_category=='뷰티' }">selected</c:if>
+						>뷰티
+						<option value="기타"
+				<c:if test="${dto.s_category=='기타' }">selected</c:if>
+						>기타
 					</select>
 				</TD>
 			</TR>
 			<tr>
 				<th class="th" scope="row">회사설명</th>
 				<td>
-					<textarea rows="20" cols="20">${dto.s_info }</textarea>
+					<textarea rows="20" name="s_info" cols="20">${dto.s_info }</textarea>
 				</td>
 			</tr>
 			<tr>
 				<th class="th" scope="row">영업시간</th>
 				<td>
 					<label for="s_time">월요일 영업시간:</label>
-  			<input type="text" id="s_time" readonly style="border:0; color:#f6931f; font-weight:bold;">
+  			<input type="text" name="s_time" id="s_time" readonly style="border:0; color:#f6931f; font-weight:bold;">
 		
 		<div id="slider-range" style="width:30%;text-align: center;margin: auto;"></div>
 		
 		<label for="s_time2">화요일 영업시간:</label>
-  			<input type="text" id="s_time2" readonly style="border:0; color:#f6931f; font-weight:bold;">
+  			<input type="text" name="s_time2" id="s_time2" readonly style="border:0; color:#f6931f; font-weight:bold;">
 		
 		<div id="slider-range2" style="width:30%;text-align: center;margin: auto;"></div>
  		
  		<label for="s_time3">수요일 영업시간:</label>
-  			<input type="text" id="s_time3" readonly style="border:0; color:#f6931f; font-weight:bold;">
+  			<input type="text" name="s_time3" id="s_time3" readonly style="border:0; color:#f6931f; font-weight:bold;">
 		
 		<div id="slider-range3" style="width:30%;text-align: center;margin: auto;"></div>
 		
 		<label for="s_time4">목요일 영업시간:</label>
-  			<input type="text" id="s_time4" readonly style="border:0; color:#f6931f; font-weight:bold;">
+  			<input type="text" name="s_time4" id="s_time4" readonly style="border:0; color:#f6931f; font-weight:bold;">
 		
 		<div id="slider-range4" style="width:30%;text-align: center;margin: auto;"></div>
 		
 		<label for="s_time5">금요일 영업시간:</label>
-  			<input type="text" id="s_time5" readonly style="border:0; color:#f6931f; font-weight:bold;">
+  			<input type="text" name="s_time5" id="s_time5" readonly style="border:0; color:#f6931f; font-weight:bold;">
 		
 		<div id="slider-range5" style="width:30%;text-align: center;margin: auto;"></div>
 		
 		<label for="s_time6">토요일 영업시간:</label>
-  			<input type="text" id="s_time6" readonly style="border:0; color:#f6931f; font-weight:bold;">
+  			<input type="text" name="s_time6" id="s_time6" readonly style="border:0; color:#f6931f; font-weight:bold;">
 		
 		<div id="slider-range6" style="width:30%;text-align: center;margin: auto;"></div>
 		
 		<label for="s_time7">일요일 영업시간:</label>
-  			<input type="text" id="s_time7" readonly style="border:0; color:#f6931f; font-weight:bold;">
+  			<input type="text" name="s_time7" id="s_time7" readonly style="border:0; color:#f6931f; font-weight:bold;">
 		
 		<div id="slider-range7" style="width:30%;text-align: center;margin: auto;"></div>
 				</td>
 			</tr>
 			<tr>
-				<TH class="th" scope="row"><img src="../images/star.png"/>회사 위치</TH>
+				<TH class="th" scope="row"><img src="${root }/resources/ksy/images/star.png"/>회사 위치</TH>
 				<td>
 					<div id="map" style="width:100%;height:350px;"></div>
-					<input type="text" id="s_location" name="s_location" value="">
+					<input type="hidden" id="s_location" name="s_location" value="">
 				</td>
 			</tr>
 			

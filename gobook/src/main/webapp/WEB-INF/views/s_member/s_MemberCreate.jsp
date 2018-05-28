@@ -222,6 +222,7 @@ $j144(document).ready(function($){
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time").val("휴일");
+					$("#s_hour1").val("Mon/"+ui.values[0]+","+ ui.values[1]);
 				}else{
 					$("#s_time").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
 					$("#s_hour1").val("Mon/"+ui.values[0]+","+ ui.values[1]);
@@ -239,6 +240,7 @@ $j144(document).ready(function($){
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time2").val("휴일");
+					$("#s_hour2").val("Tue/"+ui.values[0]+","+ ui.values[1]);
 				}else{
 					$("#s_time2").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
 					$("#s_hour2").val("Tue/"+ui.values[0]+","+ ui.values[1]);
@@ -256,6 +258,7 @@ $j144(document).ready(function($){
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time3").val("휴일");
+					$("#s_hour3").val("Wed/"+ui.values[0]+","+ ui.values[1]);
 				}else{
 					$("#s_time3").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
 					$("#s_hour3").val("Wed/"+ui.values[0]+","+ ui.values[1]);
@@ -273,6 +276,7 @@ $j144(document).ready(function($){
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time4").val("휴일");
+					$("#s_hour4").val("Thu/"+ui.values[0]+","+ ui.values[1]);
 				}else{
 					$("#s_time4").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
 					$("#s_hour4").val("Thu/"+ui.values[0]+","+ ui.values[1]);
@@ -290,6 +294,7 @@ $j144(document).ready(function($){
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time5").val("휴일");
+					$("#s_hour5").val("Fri/"+ui.values[0]+","+ ui.values[1]);
 				}else{
 					$("#s_time5").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
 					$("#s_hour5").val("Fri/"+ui.values[0]+","+ ui.values[1]);
@@ -307,6 +312,7 @@ $j144(document).ready(function($){
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time6").val("휴일");
+					$("#s_hour6").val("Sat/"+ui.values[0]+","+ ui.values[1]);
 				}else{
 					$("#s_time6").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
 					$("#s_hour6").val("Sat/"+ui.values[0]+","+ ui.values[1]);
@@ -324,6 +330,7 @@ $j144(document).ready(function($){
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time7").val("휴일");
+					$("#s_hour7").val("Sun/"+ui.values[0]+","+ ui.values[1]);
 				}else{
 					$("#s_time7").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
 					$("#s_hour7").val("Sun/"+ui.values[0]+","+ ui.values[1]);
@@ -560,11 +567,14 @@ geocoder.addressSearch(address1, function(result, status) {
 				<th class="th" scope="row"><img src="${root }/resources/pmw/img/star.png"/>비지니스 카테고리</TH>
 				<TD>
 					<select name="s_category">
-						<option value="restaurant">레스토랑
-						<option value="hospital">병원
-						<option value="studycafe">스터디카페
-						<option value="beauty">뷰티
-						<option value="etc">기타
+						<option value="레스토랑">레스토랑
+						<option value="병원">병원
+						<option value="스터디카페">스터디카페
+						<option value="어린이놀이방">어린이놀이방
+						<option value="카페">카페
+						<option value="뷰티">뷰티
+
+						<option value="기타">기타
 					</select>
 				</TD>
 			</TR>

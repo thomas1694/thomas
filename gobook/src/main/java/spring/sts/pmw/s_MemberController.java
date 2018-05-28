@@ -190,11 +190,41 @@ public class s_MemberController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			String error="회원 정보 수정에 실패했습니다.";
+			model.addAttribute("error", error);
+			return "/error";
 		}
-		String error="회원 정보 수정에 실패했습니다.";
-		model.addAttribute("error", error);
-		return "/error";
+	}
 		
+		@RequestMapping(value = "/s_member/update", method = RequestMethod.POST)
+		public String updateProc(S_MemberDTO dto, Model model) {
+			boolean flag=false;
+			try {
+				dto.setS_hour(dto.getS_hour1()+";"+
+						dto.getS_hour2()+";"+
+						dto.getS_hour3()+";"+
+						dto.getS_hour4()+";"+
+						dto.getS_hour5()+";"+
+						dto.getS_hour6()+";"+
+						dto.getS_hour7()
+						);
+				dto.setS_location(dto.getS_location().substring(1, dto.getS_location().length()-1));
+				flag=sdao.update(dto);
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				String error="회원 정보 수정에 실패했습니다.";
+				model.addAttribute("error", error);
+				return "/error";
+			}
+			if(flag==false) {
+				String error="회원 정보 수정에 실패했습니다.";
+				model.addAttribute("error", error);
+				return "/error";
+			}else {
+				return "redirect:/member/read";
+			}
 		
 	}
 	@RequestMapping(value = "/s_member/delete", method = RequestMethod.GET)

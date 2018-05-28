@@ -28,6 +28,8 @@ import spring.model.notice.NoticeDTO;
 import spring.model.page_image.Page_ImageDAO;
 import spring.model.s_member.S_MemberDAO;
 import spring.model.s_member.S_MemberDTO;
+import spring.model.statistics.StaticDAO;
+import spring.model.statistics.StaticDTO;
 import spring.utility.gobook.Utility;
 
 /**
@@ -47,6 +49,9 @@ public class HomeController {
 	
 	@Autowired
 	private Page_ImageDAO pdao;
+	
+	@Autowired
+	private StaticDAO stdao;
 	
 	
 	
@@ -177,6 +182,22 @@ public class HomeController {
 				Map map=new HashMap();
 				map.put("s_id", id);
 				List plist=pdao.list(map);
+				
+				//통계관련 시작~
+				StaticDTO stdto = new StaticDTO();
+				stdto.setStat_ip(request.getRemoteAddr());
+				stdto.setS_id(id);
+				stdto.setC_id((String)request.getSession().getAttribute("id"));
+				System.out.println(stdto.getC_id());
+				boolean stflag = stdao.create(stdto);
+				
+				if(!stflag) {
+					String error="어쩌구저쩌구 에러";
+					request.setAttribute("error", error);
+					return "/error";
+				}								
+				//통계관련 ~끝
+				
 				model.addAttribute("sdto", sdto);
 				model.addAttribute("plist", plist);
 				return "/c_home";

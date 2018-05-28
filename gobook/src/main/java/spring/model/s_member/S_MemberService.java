@@ -20,8 +20,6 @@ public class S_MemberService {
 		
 		mdto.setId(dto.getS_id());
 		mdto.setGrade("S");
-		System.out.println(mdto.getId().length());
-		System.out.println(mdto.getGrade().length());
 		mdao.create(mdto);
 		
 		boolean flag=sdao.create(dto);
