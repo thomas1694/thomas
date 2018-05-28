@@ -51,7 +51,7 @@ public class ReservationController {
 		System.out.println(resdate);
 		System.out.println(sv_num);
 		List list=svdao.resdate(id);
-		int[] svnum = new int[3];
+		int[] svnum = new int[9];
 		for(int i=0;i<list.size();i++) {
 			svnum[i]=(Integer)list.get(i);
 		}
@@ -60,6 +60,12 @@ public class ReservationController {
 		map.put("sv_num", svnum[0]);
 		map.put("sv_num2", svnum[1]);
 		map.put("sv_num3", svnum[2]);
+		map.put("sv_num4", svnum[3]);
+		map.put("sv_num5", svnum[4]);
+		map.put("sv_num6", svnum[5]);
+		map.put("sv_num7", svnum[6]);
+		map.put("sv_num8", svnum[7]);
+		map.put("sv_num9", svnum[8]);
 		List rlist=dao.resdate(map);
 		String [] restime=new String[rlist.size()];
 		Iterator<String> itr=rlist.iterator();
