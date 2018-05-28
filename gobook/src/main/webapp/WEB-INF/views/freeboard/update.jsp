@@ -60,7 +60,7 @@ function incheck(){
   <TABLE>
     <TR>
       <TH>성명</TH>
-      <TD><input type="text" name="id" value="${dto.id}"></TD>
+      <TD>${dto.id }</TD>
     </TR>
     
     <TR>

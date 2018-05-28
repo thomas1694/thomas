@@ -23,13 +23,13 @@
 	location.href=url;
 } */
 function updatePw(){
-	var url="./updatePasswd";
+	var url="${root}/c_member/updatePasswd";
 	url += "?c_id=${c_id}";
 	
 	location.href=url;
 }
 function cupdate(){
-	var url = "./update";
+	var url = "${root}/c_member/update";
 	url += "?c_id=${c_id}";
 	url += "&col=${param.col}";
 	url += "&word=${param.word}";
@@ -38,7 +38,7 @@ function cupdate(){
 	location.href=url;
 }
 function cdelete(){
-	var url = "./delete";
+	var url = "${root}/c_member/delete";
 	url += "?c_id=${c_id}";
 	url += "&col=${param.col}";
 	url += "&word=${param.word}";
@@ -60,10 +60,14 @@ function cdelete(){
 			</TD>
 		</TR>
 		<TR>
-			<TH>닉네임</TH>
+			<TH>이름
+			<c:if test="${not empty dto.c_nickname}">
+			(닉네임)
+			</c:if>
+			</TH>
 			<TD>
 				${dto.c_name}
-				<c:if test="not empty ${dto.c_nickname}">
+				<c:if test="${not empty dto.c_nickname}">
 					(${dto.c_nickname})
 				</c:if>				
 			</TD>

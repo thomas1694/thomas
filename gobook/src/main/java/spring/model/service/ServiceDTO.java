@@ -12,7 +12,7 @@ public class ServiceDTO {
 	private String s_id;
 	private int sv_price;
 	private String sv_content;
-	private String sv_template;
+	private String simg_filename;
 	
 	private Service_imageDTO serdto;
 	
@@ -20,7 +20,7 @@ public class ServiceDTO {
 		super();
 	}
 	public ServiceDTO(int sv_num, int sv_num_upper, int sv_timeperson , String sv_title, String s_id,
-	int sv_price, String sv_content, String sv_template) {
+	int sv_price, String sv_content) {
 		super();
 		this.sv_num = sv_num;
 		this.sv_num_upper = sv_num_upper;
@@ -29,7 +29,6 @@ public class ServiceDTO {
 		this.s_id = s_id;
 		this.sv_price = sv_price;
 		this.sv_content = sv_content;
-		this.sv_template = sv_template;
 	}
 	
 	public int getSv_num() {
@@ -74,17 +73,18 @@ public class ServiceDTO {
 	public void setSv_content(String sv_content) {
 		this.sv_content = sv_content;
 	}
-	public String getSv_template() {
-		return sv_template;
-	}
-	public void setSv_template(String sv_template) {
-		this.sv_template = sv_template;
-	}
+	
 	public Service_imageDTO getSerdto() {
 		return serdto;
 	}
 	public void setSerdto(Service_imageDTO serdto) {
 		this.serdto = serdto;
+	}
+	public String getSimg_filename() {
+		return simg_filename;
+	}
+	public void setSimg_filename(String simg_filename) {
+		this.simg_filename = simg_filename;
 	}
 	
 	

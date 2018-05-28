@@ -4,16 +4,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import spring.model.c_member.MailService;
 import spring.model.member.MemberDAO;
 import spring.model.member.MemberDTO;
 import spring.model.s_member.S_MemberDAO;
@@ -35,6 +40,21 @@ public class s_MemberController {
 	
 	@Autowired
 	private S_MemberService sService;
+	
+	@Autowired
+	private MailService mailService;
+	 
+	public void setMailService(MailService mailService) {
+		this.mailService = mailService;
+	}
+	
+	@RequestMapping(value="/s_member/settings")
+	public String settings(HttpServletRequest request) {
+		String id=(String) request.getSession().getAttribute("id");
+		String grade=(String) request.getSession().getAttribute("grade");
+		if(id==null||grade==null||!grade.equals("S"))return "redirect:/member/login";
+		return "/s_member/settings";
+	}
 	
 	@RequestMapping(value = "/s_member/list", method = RequestMethod.GET)
 	public String list(HttpServletRequest request, Model model) {
@@ -58,14 +78,17 @@ public class s_MemberController {
 		return "/s_member/s_login";
 	}
 	
-	@RequestMapping(value = "/s_member/create", method = RequestMethod.GET)
-	public String create() {
-		
+	@RequestMapping(value = "/s_member/create")
+	public String create(HttpServletRequest request) {
+		if(request.getSession().getAttribute("id")!=null) {
+			String error="접근 권한이 없습니다.";
+			request.setAttribute("error", error);
+			return "/error";}
 		
 		return "/s_member/create";
 	}
 	
-	@RequestMapping(value = "/s_member/create", method = RequestMethod.POST)
+	@RequestMapping(value = "/s_member/createProc", method = RequestMethod.POST)
 	public String create(S_MemberDTO dto, Model model) {
 		dto.setS_hour(dto.getS_hour1()+";"+
 				dto.getS_hour2()+";"+
@@ -76,14 +99,16 @@ public class s_MemberController {
 				dto.getS_hour7()
 				);
 		dto.setS_location(dto.getS_location().substring(1, dto.getS_location().length()-1));
-		
+		if(dto.getS_info()==null)dto.setS_info("   ");
 		
 		try {
 			
 			if(sService.s_memberCreate(dto)) {
-				return "redirect:/s_member/success";
+				return "redirect:/member/login";
 			}else {
-				return "redirect:/s_member/error";
+				String error="회원가입에 실패했습니다.";
+				model.addAttribute("error", error);
+				return "/error";
 			}
 			
 		} catch (Exception e) {
@@ -108,6 +133,8 @@ public class s_MemberController {
 			model.addAttribute("s_id", s_id);
 			return "redirect:/member/read";
 		}else {
+			String error="이미지 업데이트에 실패했습니다.";
+			request.setAttribute("error", error);
 			return "/error";
 		}
 		
@@ -137,6 +164,8 @@ public class s_MemberController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		String error="회원 정보 수정에 실패했습니다.";
+		model.addAttribute("error", error);
 		return "/error";
 		
 		
@@ -158,9 +187,77 @@ public class s_MemberController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		String error="삭제에 실패했습니다.";
+		model.addAttribute("error", error);
 		return "/error";
 	}
 	
+	@RequestMapping("/s_member/agree")
+	public String agree(HttpServletRequest request) {
+		if(request.getSession().getAttribute("id")!=null) {
+			String error="접근 권한이 없습니다.";
+			request.setAttribute("error", error);
+			return "/error";}
+		return "/s_member/agree";
+	}
+	
+	@RequestMapping("/s_member/id_proc")
+	public String id_proc(HttpServletRequest request) {
+		
+		String s_id = request.getParameter("s_id");
+		
+		boolean flag= sdao.idCheck(s_id);
+		
+		request.setAttribute("flag", flag);
+		
+		return "s_member/id_proc";
+	}
+	
+	@RequestMapping("/s_member/id_form")
+	public String id_form() {
+		
+		return "/s_member/id_form";
+	}
+	
+	// 회원가입 이메일 인증
+    @RequestMapping(value="/s_member/emailCheck/", method=RequestMethod.POST, produces = "application/text;charset=utf8" )
+    @ResponseBody
+    private String emailCheck(@RequestParam String email) {
+    	String flag = sdao.emailCheck(email);
 
+    	//false면 사용가능한 것
+    	return flag;
+    }
+   
+    // 회원가입 이메일 인증
+    @RequestMapping(value="/s_member/sendMail/", method=RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=utf8")
+    @ResponseBody
+    public void sendMailAuth(HttpSession session, @RequestParam String email) {
+        int ran = new Random().nextInt(100000) + 10000; // 10000 ~ 99999
+       
+        String joinCode = String.valueOf(ran);
+        session.setAttribute("joinCode", joinCode);
+ 
+        System.out.println(joinCode);
+        String subject = "회원가입 인증 코드 발급 안내 입니다.";
+        StringBuilder sb = new StringBuilder();
+        sb.append("회원가입 인증 코드는 " + joinCode + " 입니다.");
+        mailService.send(subject, sb.toString(), "nosqljava@gmail.com", email);
+    }	
+    
+    // 회원가입 이메일 코드확인
+    @RequestMapping(value="/s_member/codeCheck/", method=RequestMethod.POST, produces = "application/text;charset=utf8" )
+    @ResponseBody
+    private String codeCheck(HttpSession session, @RequestParam String emailcode) {
+    	String flag = "false";
+    	
+    	String joinCode = (String) session.getAttribute("joinCode");
+    	System.out.println(joinCode);
+    	if(joinCode.equals(emailcode)) {
+    		flag = "true";
+    	}
+    	//true면 사용가능한 것
+    	return flag;
+    }
+	
 }

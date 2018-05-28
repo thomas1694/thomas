@@ -35,19 +35,25 @@ public class FreeboardController {
 	
 	@RequestMapping("/freeboard/rupdate")
 	public String rupdate(Freeboard_replyDTO dto, Model model, String nowPage, 
-			String col, String word, String nPage) {
-		
-		if(rdao.update(dto)) {
-			model.addAttribute("f_num", dto.getF_num());
-			model.addAttribute("nowPage", nowPage);
-			model.addAttribute("col", col);
-			model.addAttribute("word", word);
-			model.addAttribute("nPage", nPage);
-		
-			return "redirect:/freeboard/read";
-	}else {
-		return "/freeboard/error";
-	}
+			String col, String word, String nPage,HttpServletRequest request) {
+		Freeboard_replyDTO cdto=rdao.read(dto.getFr_num());
+		if(cdto.getId().equals(dto.getId())||request.getAttribute("grade").equals("A")){
+			if(rdao.update(dto)) {
+				model.addAttribute("f_num", dto.getF_num());
+				model.addAttribute("nowPage", nowPage);
+				model.addAttribute("col", col);
+				model.addAttribute("word", word);
+				model.addAttribute("nPage", nPage);
+			
+				return "redirect:/freeboard/read";
+			}else {
+				return "/freeboard/error";
+			}
+		}else{
+			String error="댓글 수정 권한이 없습니다";
+			request.setAttribute("error", error);
+			return "/error";
+		}
 }
 	
 
@@ -74,8 +80,11 @@ public class FreeboardController {
 	
 	@RequestMapping("/freeboard/rdelete")
 	public String rdelete(int fr_num, int f_num, String nowPage,
-			int nPage, String col, String word, Model model) {
-		
+			int nPage, String col, String word, Model model,HttpServletRequest request) {
+		Freeboard_replyDTO rdto=rdao.read(fr_num);
+		String grade=(String) request.getSession().getAttribute("grade");
+		if(grade==null)grade="error";
+		if(rdto.getId().equals(request.getSession().getAttribute("id"))||grade.equals("A")) {
 		int total = rdao.total(f_num);
 		int totalPage = (int)(Math.ceil((double)total/3));
 		
@@ -93,7 +102,11 @@ public class FreeboardController {
 		}else {
 			return "/freeboard/error/";
 		}
-		
+		}else {
+			String error="댓글 삭제 권한이 없습니다.";
+			request.setAttribute("error", error);
+			return "/error";
+		}
 	}
 	@RequestMapping(value = "/freeboard/list")
 	public String list(Locale locale, Model model,HttpServletRequest request) throws Exception {
@@ -137,15 +150,20 @@ public class FreeboardController {
 		return "/freeboard/list";
 	}
 	@RequestMapping(value = "/freeboard/create", method = RequestMethod.GET)
-	public String create(Locale locale, Model model) {
-		
+	public String create(HttpServletRequest request,Model model) {
+		if(request.getSession().getAttribute("id")!=null) {
 		return "/freeboard/create";
+		}else {
+			String error="자유게시판 글은 회원만 작성가능합니다.";
+			request.setAttribute("error", error);
+			return "/error";
+		}
 	}
 	
 	
 	@RequestMapping(value = "/freeboard/create", method = RequestMethod.POST)
 	public String create(FreeboardDTO dto, HttpServletRequest request) throws Exception {
-
+		if(request.getSession().getAttribute("id")!=null) {
 		String basePath = request.getRealPath("/storage/freeboard/file");
 		
 		String filename = Utility.saveFileSpring30(dto.getFilenameMF(), basePath);
@@ -155,12 +173,19 @@ public class FreeboardController {
 		dto.setF_filesize(filesize);
 
 
-		if (dao.create(dto)) {
-			return "redirect:/freeboard/list";
-		} else {
-			return "/freeboard/error";
+			if (dao.create(dto)) {
+				return "redirect:/freeboard/list";
+			} else {
+				String error="자유게시판 글 등록 실패";
+				request.setAttribute("error", error);
+				return "/error";
+			}
+		
+		}else {
+			String error="자유게시판 글은 회원만 작성가능합니다.";
+			request.setAttribute("error", error);
+			return "/error";
 		}
-
 	}
 	
 	
@@ -255,11 +280,20 @@ public class FreeboardController {
 	
 	
 	@RequestMapping(value = "/freeboard/update", method = RequestMethod.GET)
-	public String update(Locale locale, Model model, int f_num) {
-		
-		model.addAttribute("dto", dao.read(f_num));
-		
-		return "/freeboard/update";
+	public String update(HttpServletRequest request, Model model, int f_num) {
+		FreeboardDTO dto=dao.read(f_num);
+		String id=(String) request.getSession().getAttribute("id");
+		String grade=(String) request.getSession().getAttribute("grade");
+		if(id==null)id="";
+		if(grade==null)grade="";
+		if(id.equals(dto.getId())||grade.equals("A")) {
+			model.addAttribute("dto", dto);
+			return "/freeboard/update";
+		}else {
+			String error="접근권한이 없습니다.";
+			request.setAttribute("error", error);
+			return "/error";
+		}
 	}
 	
 	
@@ -270,7 +304,7 @@ public class FreeboardController {
 		String filename = Utility.saveFileSpring30(dto.getFilenameMF(), basePath);
 		
 		int filesize = (int) dto.getFilenameMF().getSize();
-
+		dto.setId((String)request.getSession().getAttribute("id"));
 		dto.setF_filename(filename);
 		dto.setF_filesize(filesize);
 
@@ -289,44 +323,48 @@ public class FreeboardController {
 	
 	@RequestMapping(value="/freeboard/reply", method=RequestMethod.POST)
 	public String reply(FreeboardDTO dto,HttpServletRequest request,Model model) {
-		
-		String basePath =request.getRealPath("/storage/freeboard/file");
-		String filename = Utility.saveFileSpring30(dto.getFilenameMF(), basePath);
-		int filesize =(int)dto.getFilenameMF().getSize();
-		
-		dto.setF_filename(filename);
-		dto.setF_filesize(filesize);
-		
-		try {
+		if(request.getSession().getAttribute("id")!=null) {
+			String basePath =request.getRealPath("/storage/freeboard/file");
+			String filename = Utility.saveFileSpring30(dto.getFilenameMF(), basePath);
+			int filesize =(int)dto.getFilenameMF().getSize();
 			
-			mgr.reply(dto);
-		
+			dto.setF_filename(filename);
+			dto.setF_filesize(filesize);
 			
-			model.addAttribute("col", request.getParameter("col"));
-			model.addAttribute("word", request.getParameter("word"));
-			model.addAttribute("nowPage", request.getParameter("nowPage"));
-			return "redirect:/freeboard/list";
+			try {
+				
+				mgr.reply(dto);
 			
-		}catch(Exception e) {
-			e.printStackTrace();
-			return "/error/error";
-			}
+				
+				model.addAttribute("col", request.getParameter("col"));
+				model.addAttribute("word", request.getParameter("word"));
+				model.addAttribute("nowPage", request.getParameter("nowPage"));
+				return "redirect:/freeboard/list";
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+				return "/error/error";
+				}
+		}else {
+			String error="자유게시판 답변은 회원만 작성가능합니다.";
+			request.setAttribute("error", error);
+			return "/error";
+		}
 		
 	}
 
 	@RequestMapping(value = "/freeboard/reply", method = RequestMethod.GET)
-	public String reply( Model model,int f_num) {
+	public String reply(HttpServletRequest request, Model model,int f_num) {
 //		FreeboardDTO dto = dao.read(f_num);
+		if(request.getSession().getAttribute("id")!=null) {
 		model.addAttribute("dto", dao.readReply(f_num));
 		
 		return "/freeboard/reply";
-	}
-	
-	
-	@RequestMapping(value = "/freeboard_reply/create", method = RequestMethod.GET)
-	public String create1(Locale locale, Model model) {
-		
-		return "/freeboard_reply/create";
+		}else {
+			String error="자유게시판 답변은 회원만 작성가능합니다.";
+			request.setAttribute("error", error);
+			return "/error";
+		}
 	}
 	
 	

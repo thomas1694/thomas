@@ -66,13 +66,13 @@ function incheck(f){
   	  <input type="hidden" name="f_grpno" value="${dto.f_grpno}">
   	  <input type="hidden" name="f_indent" value="${dto.f_indent}">
   	  <input type="hidden" name="f_ansnum" value="${dto.f_ansnum}">
-      <input type="hidden" name="id" value="ctest">
+      <input type="hidden" name="id" value="${sessionScope.id }">
   	  <TABLE class ="table table-bordered">
   	  
 
     <TR>
       <TH>성명</TH>
-      <TD>ctest</TD>
+      <TD>${sessionScope.id }</TD>
     </TR>
     
     <TR>

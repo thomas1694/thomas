@@ -18,6 +18,8 @@
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<script src="${root }/resources/pmw/top/assets/js/jquery.min.js"></script>
+	
+	
 	</head>
 	<body>
 
@@ -32,24 +34,34 @@
 							<ul style="margin-top:45px;">
 								<li><a href="${root }/freeboard/list">FreeBoard</a></li>
 								<li><a href="${root }/cscenter">Customer Center</a></li>
-								 <c:if test="${not empty sessionScope.id && not empty sessionScope.grade}">
-       							 <li><a href="${root }/member/logout">LogOut</a></li>
-       							 </c:if>	
+								<c:if test="${sessionScope.grade=='S' }">
+								<li><a href="${root }/s_member/settings">Settings</a></li>
+								<li><a href="${root }/${SessionScope.id}">My Home</a></li>
+								</c:if>
+								<c:if test="${sessionScope.grade=='C' }">
+								<li><a href="${root }/reservationM/list">My Book</a></li>
+								</c:if>
+								<c:if test="${sessionScope.grade=='A' }">
+								<li><a href="${root }/member/list">Member</a></li>
+								</c:if>
+								<c:if test="${sessionScope.grade=='A'&&sessionScope.id=='admin' }">
+								<li><a href="${root }/admin/list">Admin Manage</a></li>
+								</c:if>
 							</ul>
 						</nav>
 						<nav class="main" >
 							<ul>
 								<li class="search" style="display: inline;">
 									<a style="margin-top: 40px;" class="fa-search" href="#search">Search</a>
-									<form style="margin-top:40px;"  id="search" method="get" action="${root }/s_member/list">
-										<input type="text" name="word" placeholder="Search" />
+									<form style="margin-top:60px;"  id="search" method="get" action="${root }/s_member/list">
+										<input type="text" id="sp" name="word" placeholder="검색어 입력후 엔터!" />
 										<input type="hidden" name="col" value="id"/>
 									</form>
 								</li>
 								<% if(session.getAttribute("id")!=null) { %> 
 								<li class="message">
 								<span id="span_count" style="z-index: 2;"></span>
-									<a style="margin-top:65px; z-index: 1;" class="fa fa-envelope-o" href="javascript:messageop()">Message</a>
+									<a style="margin-top:67px; z-index: 1;" class="fa fa-envelope-o" href="javascript:messageop()">Message</a>
 									<div id="message_div">
 										<div id="message_nav">
 											<div class="message_navbtn" id="listbtn" onclick="newmlist()">받은쪽지함</div>
@@ -64,8 +76,13 @@
 								<li class="user">
 									<a style="margin-top:40px;" class="fa-user" href="#user">User</a>
 									<form style="margin-top:40px;"  id="user" method="get" action="${root }/s_member/list">
-										<div><input type="button" name="1" value="정보보기" style="width:100%; background-color: #70866F; color: white; text-align: center;"><br>
-										<input type="button" name="2" value="로그아웃" style="width:100%;background-color: #70866F; color: white; text-align: center;"></div>
+									<div>
+									<% if(session.getAttribute("grade").equals("A")){ %>
+										<input type="button" onclick="location.href='${root}/admin/read'" name="1" value="정보보기" style="width:100%; background-color: #70866F; color: white; text-align: center;"><br>
+									<%}else{ %>
+										<input type="button" onclick="location.href='${root}/member/read'" name="1" value="정보보기" style="width:100%; background-color: #70866F; color: white; text-align: center;"><br>
+										<%} %>
+										<input type="button" name="2" onclick="location.href='${root}/member/logout'" value="로그아웃" style="width:100%;background-color: #70866F; color: white; text-align: center;"></div>
 									</form>
 								</li>
 								<% }else{ %>
@@ -89,7 +106,7 @@
 
 			</div>
 		<!-- Scripts -->
-			<script src="${root}/resources/syh/js/message.js"/></script>
+			<script src="${root }/resources/syh/js/message.js"/></script>
 		<!-- Scripts -->
 			
 			<script src="${root }/resources/pmw/top/assets/js/skel.min.js"></script>

@@ -16,7 +16,6 @@
 	background-color: rgb(244, 244, 244);
 	opacity:0.6;
 	transition:0.5s;
-	
 }
 
 #message_div:hover {
@@ -68,6 +67,7 @@
 #message_etc {
 	text-align: center;
 	color: #a5a5a5;
+	line-height: 1;
 }
 
 #message_nav {

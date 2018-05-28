@@ -27,7 +27,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
     
     <select id="list" resultType="memberDTO" parameterType="map">
-    	select * from member
+    	
+    	 select id,grade ,r
+   		   from (select id,grade , rownum r
+   	 	   from (select * from member
     	<where>
     		<choose>
     			<when test="col=='id'">
@@ -38,7 +41,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     			</when>
     		</choose>
     	</where>
-    	order by id
+    	  ORDER BY id)
+   	      )
+   	 <![CDATA[
+	where r>=#{sno} and r<=#{eno}
+	]]>
     </select>
     
     <select id="total" resultType="int">

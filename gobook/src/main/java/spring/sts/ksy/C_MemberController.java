@@ -1,7 +1,6 @@
 package spring.sts.ksy;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -23,8 +22,6 @@ import spring.model.c_member.C_MemberDTO;
 import spring.model.c_member.C_MemberMgr;
 import spring.model.c_member.MailService;
 import spring.model.member.MemberDAO;
-import spring.model.member.MemberDTO;
-import spring.utility.gobook.Utility;
 
 
 
@@ -179,23 +176,15 @@ public class C_MemberController {
 	public String update(C_MemberDTO dto, HttpSession session, 
 			Model model, HttpServletRequest request) throws Exception {
 		
-		String grade = (String)session.getAttribute("grade");
 		
 		System.out.println("################");
 		boolean flag = dao.update(dto);
 		System.out.println("@@@@@@@@@@@@@@@@");
 		if(flag) {
-			if(grade.equals("S")) {
-				model.addAttribute("col", request.getParameter("col"));
-				model.addAttribute("word", request.getParameter("word"));
-				model.addAttribute("nowPage", request.getParameter("nowPage"));
+			
 				
-				return "redirect:/admin/list";
-			}else {
-				model.addAttribute("id", dto.getC_id());
-				
-				return "redirect:/c_member/read";
-			}
+				return "redirect:/member/read";
+			
 		}else {
 			return "/c_member/error";
 		}
@@ -238,8 +227,11 @@ public class C_MemberController {
 	}
 	
 	@RequestMapping("/c_member/create")
-	public String create() {
-		
+	public String create(HttpServletRequest request) {
+		if(request.getSession().getAttribute("id")!=null) {
+			String error="접근 권한이 없습니다.";
+			request.setAttribute("error", error);
+			return "/error";}
 		return "/c_member/create";
 	}
 	
@@ -262,7 +254,7 @@ public class C_MemberController {
 			try {
 				mgr.create(dto);
 				
-				url = "redirect:/c_member/login";
+				url = "redirect:/member/login";
 			}catch(Exception e) {
 				e.printStackTrace();
 				
@@ -273,8 +265,12 @@ public class C_MemberController {
 	}
 	
 	@RequestMapping("/c_member/agree")
-	public String agree() {
-		return "/c_member/agreement";
+	public String agree(HttpServletRequest request) {
+		if(request.getSession().getAttribute("id")!=null) {
+			String error="접근 권한이 없습니다.";
+			request.setAttribute("error", error);
+			return "/error";}
+		return "/c_member/agree";
 	}
 	
 	@RequestMapping("/c_member/email_form")
@@ -313,13 +309,38 @@ public class C_MemberController {
 		return "c_member/id_proc";
 	}
 	
+	@RequestMapping("/c_member/updatePasswdProc")
+	public String updatePasswd(HttpServletRequest request,String id,String oldpasswd,String newpasswd1) throws Exception {
+			
+		boolean flag = false;   //변경성공
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("c_id", id);
+		map.put("c_passwd", oldpasswd);
+		
+		if(dao.passwdCheck(map)){
+			Map<String, String> map2 = new HashMap<String, String>();
+			map2.put("c_id", id);
+			map2.put("c_new_passwd", newpasswd1);
+			
+			flag = dao.updatePasswd(map2);
+		}else{
+			return "/member/passwdError";
+		}
+
+		if(flag) {
+			return "redirect:/member/read";
+		}else {
+			String error="비밀번호 변경에 실패했습니다.";
+			request.setAttribute("error", error);
+			return "/error";
+		}
+	}
+	
 	@RequestMapping("/c_member/updatePasswd")
 	public String updatePasswd() {
 		
 		return "/c_member/updatePasswd";
 	}
-	
-	
 	
 	@Autowired
 	private MailService mailService;

@@ -53,10 +53,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     			</when>
     		</choose>
     	</where>
-    	order by rating asc
+    	order by nvl(rating,0) desc
     </select>
     
-    <select id="total" resultType="int">
+    <select id="total" resultType="int" parameterType="map">
     	SELECT count(*) FROM s_member
     </select>
     
@@ -77,9 +77,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      s_filesize=#{s_filesize}
      where s_id=#{s_id}
     </update>
+    
     <select id="adminCheck" parameterType="map" resultType="int">
     select count(*) from admin_member
     where a_id=#{id} and a_passwd=#{passwd}
     </select>
+   
+    <select id="idCheck" parameterType="string" resultType="int">
+    select count(*) from member
+    where id=#{s_id}
+    </select>
+    
+    <select id="emailCheck" parameterType="String" resultType="int">
+		select count(*)
+		from s_member
+		where s_email = #{email}
+	</select>
+    
 </mapper>
 

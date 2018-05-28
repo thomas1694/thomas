@@ -4,31 +4,36 @@
 <%
 	request.setCharacterEncoding("utf-8");
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>서비스 체크</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="${root }/resources/ltj/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="${root }/resources/ltj/js/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="${root }/resources/ltj/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-	function fn_reserread(){
-		var sv_num = "";
-		if(document.frm.RowCheck[i].checked==true){
-		var serviceChk = document.getElementsByName("RowCheck");
-		serviceChk.action = "reservation/read?sv_num=${sv_num}";
-		serviceChk.submit();
-		}else{
-		 alert("서비스를 선택 해주세요.")
-		 return;
-	 }
+// 	function fn_reserread(){
+// 		var sv_num = "";
+// 			var size = document.getElementsByName("RowCheck").length;
+// 			 var url = "./{id}/reservation";
+// 		    for(var i = 0; i < size; i++){
+// 		        if(document.getElementsByName("RowCheck")[i].checked == true){
+// 		         sv_num = document.getElementsByName("RowCheck")[i].value;
+// 		    		a += sv_num;
+// 		    		a = a+ ",";
+// 		        }else{
+// 		   		 alert("서비스를 선택 해주세요.")
+// 				 return;
+// 			 }
+// 		    }	
+// 		    url += "?sv_numlist="+a;
+// 		    location.href = url;
+// 	}
+	function create(){
+		var url ="./create";
+		location.href = url;
 	}
 	function Dread(sv_num) {
 		var url = "./Dread"
@@ -40,69 +45,93 @@
 		url += "?sv_num=" + sv_num;
 		location.href = url;
 	}
+	function sopen(num){
+		var a=document.getElementsByClassName(num);
+		
+		for(var i=0;i<3;i++){
+		if(a[i].style.display=='none'||a[i].style.display==''){
+	 		a[i].style.display='block';
+		}else{
+			a[i].style.display='none';
+		}
+	}
+	}
+	
 </script>
-<style type="text/css">
-.container123 {
-	top: 70px;
-	left: 300px;
-	position: relative;
-	margin-top: -130px;
-	margin-bottom:100px;
-	margin-right:100px;
-	width:50%;
-}
 
-</style>
 </head>
 <body>
 
-	<form name="frm" action="/list" method="post">
-		<div class="container123">
-			<div id="service">
+		<div class="container ">
 				<h2>서비스</h2>
-				<input type="button" value="추가">
 
-				<table class="table table-striped" width="30%">
-							<th></th>
-							<th class="hh" width="500">서비스를 선택해주세요</th>
+				<table class="table table-hover table-bordered" style="text-align:center;">
+						<tr>
+							<th style="text-align:center; background-color: rgba(160, 160, 160, 0.075);">서비스를 선택해주세요</th>
 						</tr>
-					</thead>
 
+					<c:choose>
+						<c:when test="${empty list }">
+						<tr>
+							<td >등록된 서비스가 없습니다 추가해주세요</td>
+						</tr>
+						</c:when>
+						<c:otherwise>
+						<c:forEach var="mlist" items="${list }">
+						
+					<c:forEach var="dto" items="${mlist}">
 
-					<c:forEach var="dto" items="${list}">
-
-						<tbody>
-							<tr>
-								<th class="header" width="1%"><input type="checkbox"
-									name="RowCheck" value="${dto.sv_num}"></th>
+						
+							
+								
 								<c:choose>
-									<c:when
-										test="${dto.sv_num_upper==1||dto.sv_num_upper==dto.sv_num}">
-										<th width="10%"><a
-											href="javascript:read('${dto.sv_num}')">${dto.sv_title}</a><input
-											type="button" value="펼치기" style="float: right;"></th>
+									<c:when	test="${dto.sv_num_upper==''}">
+									<tr>
+										<td>
+										<span style="padding-left: 70px;">
+										<button class="btn btn-Default btn-md" style="width: 900px;height: 40px;" onclick="read('${dto.sv_num}')">${dto.sv_title}</button>
+										</span>
+										<span style="float: right;">
+										<input type="button" class="btn btn-Default" style="width: 70px; height: 40px;" value="펼치기" onclick="sopen('${dto.sv_num}')" style="float: right;">
+										</span>
+										</td>
+									</tr>
 									</c:when>
 									<c:otherwise>
-										<th width="10%"><a
-											href="javascript:Dread('${dto.sv_num}')">${dto.sv_title}</a><input
-											type="button" value="펼치기" style="float: right;"></th>
+									<tr>
+										<td class="${dto.sv_num_upper }" style="text-align:center;margin:auto;" >
+										<span>
+										<button class="btn btn-Default btn-md" style="width: 600px;height: 40px;"	onclick="Dread('${dto.sv_num}')">${dto.sv_title}</button>
+										<script type="text/javascript">
+										var $j232 = jQuery.noConflict();   
+
+										$j232(document).ready(function ($) {
+											 $(".${dto.sv_num_upper}").hide();
+											});
+										</script>
+										
+										</span>
+											</td>
+									</tr>
 									</c:otherwise>
 								</c:choose>
-							</tr>
+							
 
-						</tbody>
+					
 					</c:forEach>
+					</c:forEach>
+						</c:otherwise>
+					</c:choose>
 
 
 				</table>
-
-
+				<div style="text-align: center; margin-bottom: 50px;">
+				<input type="button"  class="btn btn-Default btn-md" style="width: 80px;height: 50px;" value="추가" onclick="create()">
+				</div>
 			</div>
 
-			<input type="button" value="적용" onclick="fn_reserread()">
 
-		</div>
-	</form>
+
 
 </body>
 </html>

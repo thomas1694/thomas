@@ -83,13 +83,24 @@ function inCheck(f){                     //얘는submit 할때 검증되는 함�
 		f.c_email.focus();
 		return false;
 	}
-	if(f.c_email.value==""){
+	if($(".joincode").is(':visible') == false ){
+
 		alert("이메일 중복확인 검사를 해 주세요");
 		f.c_email.focus();
 		return false;
 	}
 	if(f.c_email_code.value==""){
 		alert("이메일 인증코드를 입력해 주세요");
+		f.c_email_code.focus();
+		
+		return false;
+	}
+	if($("#em1").text()==""){
+		alert("인증코드 확인을 눌러주세요");
+		return false;
+	}
+	if(Code==false){
+		alert("인증코드가 틀렸습니다. 다시 입력 해 주세요");
 		f.c_email_code.focus();
 		return false;
 	}
@@ -156,11 +167,13 @@ function emailNumCheck(){
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function(){
 		if(xhttp.readyState == 4){
-			var Code = JSON.parse(xhttp.responseText);
+			Code = JSON.parse(xhttp.responseText);
 			if(Code==true){
 				$("#em1").text("인증코드 일치");
+				
 			}else{
 				$("#em1").text("인증코드 불일치");
+				
 			}
 		}
 	};	
@@ -274,7 +287,7 @@ function emailNumCheck(){
 					<!-- 이메일 인증 버튼을 누르면 우선 중복확인을 한 뒤 인증 이메일이 보내진다. -->
 				</TD>
 			</TR>
-			<TR class="joincode">
+			<TR>
 				<TD class="joincode">
 					인증코드 &nbsp <em id="em1"></em>
 					<input type="password" name="c_email_code" id="emailcode" size="8" maxlength="5">

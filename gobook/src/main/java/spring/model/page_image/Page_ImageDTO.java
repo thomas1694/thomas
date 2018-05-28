@@ -5,6 +5,7 @@ public class Page_ImageDTO {
 	private String pg_filename;
 	private int pg_filesize;
 	private String s_id;
+	private String pg_content;
 	
 	public int getPg_num() {
 		return pg_num;
@@ -29,6 +30,12 @@ public class Page_ImageDTO {
 	}
 	public void setS_id(String s_id) {
 		this.s_id = s_id;
+	}
+	public String getPg_content() {
+		return pg_content;
+	}
+	public void setPg_content(String pg_content) {
+		this.pg_content = pg_content;
 	}
 	
 	

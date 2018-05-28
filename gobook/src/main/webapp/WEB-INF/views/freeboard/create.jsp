@@ -54,11 +54,11 @@ method='POST'
  	  action='./create'
   	  onsubmit="return incheck(this)"
   	  enctype="multipart/form-data">
-  	  <input type="hidden" name="id" value="ctest">
+  	  <input type="hidden" name="id" value="${sessionScope.id }">
   <TABLE class ="table table-bordered">
     <TR>
       <TH>성명</TH>
-      <TD>ctest</TD>
+      <TD>${sessionScope.id }</TD>
     </TR>
     
     <TR>

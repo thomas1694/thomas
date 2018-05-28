@@ -16,6 +16,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 var $jjj2=jQuery.noConflict(); 
 $jjj2(document).ready(function ($) {
@@ -36,12 +38,13 @@ $jjj2(document).ready(function ($) {
   </script>
 <script type="text/javascript">
 function incheck(f){
-	if(f.title.value==""){
+	if(f.re_title.value==""){
 		alert("제목을 입력하세요");
-		f.title.focus();//커서를 옯긴다
-		
+		f.re_title.focus();//커서를 옯긴다
 		return false;
-	}/* 
+	}
+	
+	/* 
 	if(f.content.value==""){
 		alert("내용을 입력하세요");
 		f.content.focus();//커서를 옯긴다
@@ -53,6 +56,10 @@ function incheck(f){
 	      CKEDITOR.instances['re_content'].focus();
 	      return false;
 	
+	}
+	if(f.filenameMF.value==""){
+		alert("이미지를 등록하세요");
+		return false;
 	}
 }
 </script>
@@ -98,15 +105,15 @@ function incheck(f){
     
     
     <TR>
-      <TH>파일</TH>
-      <TD ><input type="file" name="filenameMF" ></TD>
+      <TH>이미지</TH>
+      <TD ><input type="file" name="filenameMF" accept="image/gif, image/jpeg, image/png" ></TD>
     </TR>
     
   </TABLE>
   
   <DIV style="text-align: center;">
-    <input type='submit' class="btn btn-default btn-md" value='등록' >
-    <input type='button' class="btn btn-default btn-md" value='취소' onclick="history.back()">
+    <input type='submit' class="btn btn-default" style="width: 70px;height: 40px;" value='등록' >
+    <input type='button' class="btn btn-default" style="width: 70px;height: 40px;" value='취소' onclick="history.back()">
   </DIV>
 </FORM>
  

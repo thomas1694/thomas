@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
@@ -27,7 +27,7 @@
   
   </style>
 </head>
-<body style="margin-top: -30px;">
+<body style="margin-top: -79px;">
   <div class="jumbotron" style="margin-bottom: 0px;text-align: center;background-color: #404040; color: white;transform:scale(1.5);">
     <h1 style="font-size: 230%">고북 고객 센터</h1>      
   </div>

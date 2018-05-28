@@ -93,7 +93,7 @@ public class QnaDAO implements IQnaDAO {
 	public boolean checkRefnum(int q_num) {
 		
 		boolean flag = false;
-		int cnt = mybatis.update("qna.checkRefnum",q_num);
+		int cnt = mybatis.selectOne("qna.checkRefnum",q_num);
 		if(cnt>0)flag = true;
 		
 		return flag;

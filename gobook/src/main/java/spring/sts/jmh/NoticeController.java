@@ -36,7 +36,7 @@ public class NoticeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping("/notice/list")
-	public String list(HttpServletRequest request, Model model) {
+	public String list(HttpServletRequest request) {
 		
 		//검색관련
 	    String col = Utility.checkNull(request.getParameter("col"));
@@ -82,7 +82,7 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value = "/notice/create", method = RequestMethod.POST)
-	public String create(NoticeDTO dto, Model model) throws Exception {
+	public String create(NoticeDTO dto) throws Exception {
 		
 		if(dao.create(dto)) {
 				return "redirect:/notice/list";
@@ -93,7 +93,7 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value = "/notice/create", method = RequestMethod.GET)
-	public String create(Locale locale, Model model) {
+	public String create( Model model) {
 		return "/notice/create";
 	}
 	
@@ -127,7 +127,7 @@ public class NoticeController {
 	
 	
 	@RequestMapping(value = "/notice/update", method = RequestMethod.GET)
-	public String update(int n_num, Locale locale, Model model,HttpServletRequest request) throws Exception {
+	public String update(int n_num, Model model,HttpServletRequest request) throws Exception {
 		
 		model.addAttribute("dto",dao.read(n_num));
 		model.addAttribute("col",request.getParameter("col"));
@@ -155,7 +155,7 @@ public class NoticeController {
 	
 	
 	@RequestMapping(value = "/notice/delete", method = RequestMethod.GET)
-	public String delete(Locale locale, Model model) {
+	public String delete() {
 		return "/notice/delete";
 	}
 }

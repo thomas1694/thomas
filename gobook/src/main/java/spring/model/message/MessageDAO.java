@@ -44,6 +44,7 @@ public class MessageDAO {
 	}
 	
 	public int readchecktotal(String id) {
+		if(id==null)id="";
 		return mybatis.selectOne("message.readchecktotal", id);
 	}
 	

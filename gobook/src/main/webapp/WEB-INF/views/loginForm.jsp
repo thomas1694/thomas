@@ -76,13 +76,11 @@ $ksy(document).ready(function($) {
 
 <!--LOGIN FORM-->
 <form name="login-form" class="login-form" action="./login" method="post">
-
+	<input type="hidden" name="uri" value="${uri }"/>
 	<!--HEADER-->
     <div class="header">
 	    <!--TITLE--><h1>로그인</h1><!--END TITLE-->
-	    <!--DESCRIPTION-->
-	    <span><a href="#" class="hover" style="text-decoration: none">아이디/비밀번호 찾기</a></span>
-	    <!--END DESCRIPTION-->
+	    
     </div>
     <!--END HEADER-->
 	
@@ -111,8 +109,8 @@ $ksy(document).ready(function($) {
     
     <!--FOOTER-->
     <div class="footer">
-    <!--LOGIN BUTTON--><input type="submit" name="submit" value="Login" class="button" onclick="location.href='./loginForm.jsp'"/><!--END LOGIN BUTTON-->
-    <!--REGISTER BUTTON--><input type="submit" name="register" value="Register" class="register" onclick="location.href='./agreement.html'"/><!--END REGISTER BUTTON-->
+    <!--LOGIN BUTTON--><input type="submit" name="submit" value="Login" class="button"/><!--END LOGIN BUTTON-->
+    <!--REGISTER BUTTON--><input type="button" name="register" value="Register" class="register" onclick="location.href='./select'"/><!--END REGISTER BUTTON-->
     </div>
     <!--END FOOTER-->
 

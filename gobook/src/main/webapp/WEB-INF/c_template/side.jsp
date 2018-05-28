@@ -14,10 +14,26 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="${root }/resources/pmw/c_template/assets/css/main.css" />
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		
-		
+		<script type="text/javascript">
+			function book(){
+				jQuery.noConflict();
+				if(${sessionScope.id==null}){
+					alert('예약을 하기 위해서는 로그인이 필요합니다. 로그인 페이지로 이동합니다.');
+					location.href="${root}/member/login";
+				}else if(${sessionScope.grade=="S"}){
+					alert('예약은 소비자 회원만 가능합니다.');
+				}else{	
+					jQuery("#res").css("color","white");
+					var url = "${root}/${sdto.s_id}/reservation"
+					wr = window.open(url, "예약하기", "width=1500,height=900"); /*  window.open : 새창  wr는 새창을 말한다.*/		
+					wr.moveTo((window.screen.width-1500)/2,(window.screen.height-1200)/2);
+					}              /* x좌표와 y좌표를 나타낸다 */
+			};
+		</script>
 	</head>
 	<body>
 
@@ -28,9 +44,9 @@
 
 					<!-- Logo -->
 						<div id="logo">
-							<span class="image avatar48"><img src="${root }/resources/pmw/c_template/images/img4.jpg" alt="" /></span>
-							<h1 id="title">${id }</h1>
-							<p>코막힘 전문 병원</p>
+							<span class="image avatar48"><img src="${root }/storage/member/img/${sdto.s_filename}" alt="" /></span>
+							<h1 id="title">${sdto.s_id }</h1>
+							<p>${sdto.s_category }</p>
 						</div>
 
 					<!-- Nav -->
@@ -49,17 +65,32 @@
 
 							-->
 							<ul>
-								<li><a href="#portfolio" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Intro</span></a></li>
-								<li><a href="#reservation" id="portfolio-link" class="skel-layers-ignoreHref"><span class="icon fa-th">Reservation</span></a></li>
-								<li><a href="#about" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-map-marker">Location</span></a></li>
-								<li><a href="#contact" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-comments-o">Contact me</span></a></li>
+								<li><a href="${root }/${sdto.s_id }#top" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Intro</span></a></li>
+								<li><a href="javascript:book()" id="portfolio-link" class="skel-layers-ignoreHref"><span id="res" class="icon fa-th">Reservation</span></a></li>
+								<li><a href="${root }/${sdto.s_id }/review/list" id="portfolio-link" class="skel-layers-ignoreHref"><span id="res" class="icon fa-th">Review</span></a></li>
+								<li><a href="${root }/${sdto.s_id }#about" id="about-link" class="skel-layers-ignoreHref"><span class="icon fa-map-marker">Location</span></a></li>
+								<li><a href="${root }/${sdto.s_id }#contact" id="contact-link" class="skel-layers-ignoreHref"><span class="icon fa-comments-o">Contact me</span></a></li>
 							</ul>
 						</nav>
 
 				</div>
 
 				<div class="bottom" style="text-align: center;">
-
+				<c:if test="${sessionScope.id==null }">
+					<ul>
+					<li><a href="${root}/member/login"  class="skel-layers-ignoreHref"><i class="fas fa-sign-in-alt"></i>Log In</a></li>
+					</ul>
+				</c:if>
+				<c:if test="${sessionScope.id!=null }">
+					<ul>
+					<li><a href="${root}/member/logout"  class="skel-layers-ignoreHref"><i class="fas fa-sign-out-alt"></i>Log Out</a></li>
+					</ul>
+				</c:if>
+				<c:if test="${sessionScope.id==sdto.s_id }">
+					<ul>
+					<li><a href="${root}/s_member/settings" class="skel-layers-ignoreHref"><i class="fas fa-cogs"></i> Settings</a></li>
+					</ul>
+				</c:if>
 					<!-- Social Icons -->
 					<!-- 	<ul class="icons">
 							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
@@ -69,7 +100,7 @@
 							<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
 						</ul>
 					-->
-					<a href="#"><img src="${root }/resources/pmw/top/images/goobookTitle.png" width="90%" ></a>
+					<a href="${root }"><img src="${root }/resources/pmw/top/images/goobookTitle.png" width="90%" ></a>
 				</div>
 
 			</div>

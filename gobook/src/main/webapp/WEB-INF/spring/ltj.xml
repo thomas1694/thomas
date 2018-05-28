@@ -11,21 +11,26 @@
          <put-attribute name="body" value="/WEB-INF/views/c_home.jsp" />  
       </definition>   
      
-     
-     <definition name="/reservation/reservation" extends="c_main"> 
-        <put-attribute name="title" value="서비스 목록" ></put-attribute> 
+     <definition name="/reservation/reservation" template="/WEB-INF/template/template.jsp"> 
+        <put-attribute name="header" value="" /> 
+        <put-attribute name="footer" value="" />
+        <put-attribute name="title" value="예약" ></put-attribute> 
         <put-attribute name="body" value="/WEB-INF/views/reservation/reservation.jsp" /> 
-    </definition>   
-    
-      <definition name="/reservation/reservation2" extends="c_main"> 
-        <put-attribute name="title" value="상세 서비스 목록" ></put-attribute> 
+    </definition>    
+     <definition name="/reservation/reservation2" template="/WEB-INF/template/template.jsp"> 
+        <put-attribute name="header" value="" /> 
+        <put-attribute name="footer" value="" />
+        <put-attribute name="title" value="예약" ></put-attribute> 
         <put-attribute name="body" value="/WEB-INF/views/reservation/reservation2.jsp" /> 
-    </definition>   
-    
-     <definition name="/reservation/reservation3" extends="c_main"> 
-        <put-attribute name="title" value="서비스 목록" ></put-attribute> 
+    </definition>  
+     <definition name="/reservation/reservation3" template="/WEB-INF/template/template.jsp"> 
+        <put-attribute name="header" value="" /> 
+        <put-attribute name="footer" value="" />
+        <put-attribute name="title" value="예약" ></put-attribute> 
         <put-attribute name="body" value="/WEB-INF/views/reservation/reservation3.jsp" /> 
-    </definition>   
+    </definition>  
+    
+   
     
     <definition name="/service_image" extends="main">  
         <put-attribute name="title" value="Prologue by HTML5 UP" ></put-attribute>  

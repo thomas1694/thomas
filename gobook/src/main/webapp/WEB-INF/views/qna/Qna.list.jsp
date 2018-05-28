@@ -26,7 +26,6 @@ margin:auto;
 
 </style>
 <script type="text/javascript">
-alert("${dto.q_indent}");
 	function read(q_num){
 		var url = "${root}/qna/read";
 		url += "?q_num="+q_num;
@@ -46,15 +45,11 @@ alert("${dto.q_indent}");
 </script>
 </head>
 <body>
-	<div class="qna">
-	<form name="qna1">
-</form>
-<div class="container">	
-		<h2><i class="	glyphicon glyphicon-pencil"></i>질문과 답변</h2>
+
+<div class="container" style="margin-top: -50px;">	
+		<h2><i class="	glyphicon glyphicon-pencil"></i>질문과 답변a</h2>
 		<br><br>
 			<form name="qnal" method="POST" action="./list" style="text-align: center;margin: auto;">
-
-		<br><br>
 		<select name="col" style="width: 15%;display:inline;"><!-- 검색할 컬럼 -->
 		<option value="q_title"
 		<c:if test="${col=='q_title' }">selected</c:if>
@@ -62,10 +57,11 @@ alert("${dto.q_indent}");
 		<option value="id"
 		<c:if test="${col=='id' }">selected</c:if>
 		>작성자</option>
-		<option value="total">전체출력</option>
+		<option value="total">전체출력</option></select>
 		<input type="text" name="word" value="${word}" size="20" style="width:30%;display:inline;"><!-- 검색어 -->
-		<button>검색</button>
-	</form>	
+		<button class="btn btn-Default btn-md" style="width: 70px;height: 40px;">검색</button>
+	</form>	<br><br>
+	
 		 <table class="table table-hover table-bordered" style="text-align:center;">
 		
 			<tr>
@@ -91,22 +87,26 @@ alert("${dto.q_indent}");
 					<c:forEach var="dto" items="${list}">
 					<tbody>	
 				<tr>
-				<td>${dto.q_num}</td>
-				<td>
+				<td width="15%">${dto.q_num}</td>
+				<td width="50%" style="text-align: left; padding-left: 20px;">
 				<c:if test="${dto.q_indent>0 }">
 				<c:forEach begin="1" end="${dto.q_indent }">
-					&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</c:forEach>
-   				<img src='${root}/resources/jmh/img/re.png' >
+   				<img src='${root}/resources/jmh/img/re.png' width="30px" >
 				</c:if>
-				<a href="javascript:read('${dto.q_num}')">${dto.q_title}</a>
+				<a href="javascript:read('${dto.q_num}')">
+				<c:if test="${dto.q_lock=='L' }">
+				<img src="${root }/resources/jmh/img/lock.png" width="30px">
+				</c:if>
+				${dto.q_title}</a>
 <%-- 				<c:if test="${util:newimg(dto.q_wdate) }"> --%>
 <!-- 				<img src='../img/new.jpg' > -->
 <%-- 				</c:if> --%>
 				
 				</td>
-				<td>${dto.id}</td>
-				<td>${dto.q_wdate}</td>
+				<td width="15%">${dto.id}</td>
+				<td width="20%">${dto.q_wdate}</td>
 				</tr>
 				</tbody>
 				</c:forEach>
@@ -117,11 +117,8 @@ alert("${dto.q_indent}");
 		<div style="text-align: center;">
 	 ${paging}
 	</div>
-	</div>
 	<br><br>
 	<div style="text-align: center;">
-	<button class="btn btn-Default btn-md" type="button" name="">메인으로</button>
-	<button class="btn btn-Default btn-md" type="button" name="" onclick="history.back()">뒤로가기</button>
 	<button class="btn btn-Default btn-md" type="button" name="" onclick="qcreate('${dto.q_num}')">글 작성</button>
 	</div>
 </body>

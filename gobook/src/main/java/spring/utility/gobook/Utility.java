@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -225,7 +226,7 @@ public class Utility {
 
 		int _nowPage = (nowGrp - 1) * pagePerBlock; // 10개 이전 페이지로 이동
 		if (nowGrp >= 2) {
-			str.append("<span class='span_box_1'><A href='./list.do?col=" + col + "&word=" + word + "&nowPage="
+			str.append("<span class='span_box_1'><A href='./list?col=" + col + "&word=" + word + "&nowPage="
 					+ _nowPage + "'>이전</A></span>");
 		}
 
@@ -237,14 +238,14 @@ public class Utility {
 			if (nowPage == i) {
 				str.append("<span class='span_box_2'>" + i + "</span>");
 			} else {
-				str.append("<span class='span_box_1'><A href='./list.do?col=" + col + "&word=" + word + "&nowPage=" + i
+				str.append("<span class='span_box_1'><A href='./list?col=" + col + "&word=" + word + "&nowPage=" + i
 						+ "'>" + i + "</A></span>");
 			}
 		}
 
 		_nowPage = (nowGrp * pagePerBlock) + 1; // 10개 다음 페이지로 이동
 		if (nowGrp < totalGrp) {
-			str.append("<span class='span_box_1'><A href='./list.do?col=" + col + "&word=" + word + "&nowPage="
+			str.append("<span class='span_box_1'><A href='./list?col=" + col + "&word=" + word + "&nowPage="
 					+ _nowPage + "'>다음</A></span>");
 		}
 		str.append("</DIV>");
@@ -290,7 +291,7 @@ public class Utility {
 
 		int _nowPage = (nowGrp - 1) * pagePerBlock; // 10개 이전 페이지로 이동
 		if (nowGrp >= 2) {
-			str.append("[<A href='./list.jsp?col=" + col + "&word=" + word + "&nowPage=" + _nowPage + "'>이전</A>]");
+			str.append("[<A href='./list?col=" + col + "&word=" + word + "&nowPage=" + _nowPage + "'>이전</A>]");
 		}
 
 		for (int i = startPage; i <= endPage; i++) {
@@ -301,14 +302,14 @@ public class Utility {
 			if (nowPage == i) { // 현재 페이지이면 강조 효과
 				str.append("<span style='font-size: 1.2em; font-weight: bold;'>" + i + "</span> ");
 			} else {
-				str.append("<A href='./list.jsp?col=" + col + "&word=" + word + "&nowPage=" + i + "'>" + i + "</A> ");
+				str.append("<A href='./list?col=" + col + "&word=" + word + "&nowPage=" + i + "'>" + i + "</A> ");
 			}
 
 		}
 
 		_nowPage = (nowGrp * pagePerBlock) + 1; // 10개 다음 페이지로 이동
 		if (nowGrp < totalGrp) {
-			str.append("[<A href='./list.jsp?col=" + col + "&word=" + word + "&nowPage=" + _nowPage + "'>다음</A>]");
+			str.append("[<A href='./list?col=" + col + "&word=" + word + "&nowPage=" + _nowPage + "'>다음</A>]");
 		}
 		str.append("</DIV>");
 
@@ -376,7 +377,7 @@ public class Utility {
 
 		int _nPage = (nowGrp - 1) * pagePerBlock; // 10개 이전 페이지로 이동
 		if (nowGrp >= 2) {
-			str.append("<span class='span_box_1'><A href='"+url+"?bbsno="+ bbsno +"&nPage="+_nPage+"&col=" + col + "&word=" + word + "&nowPage="
+			str.append("<span class='span_box_1'><A href='"+url+"?f_num="+ bbsno +"&nPage="+_nPage+"&col=" + col + "&word=" + word + "&nowPage="
 					+ nowPage + "'>이전</A></span>");
 		}
 
@@ -388,14 +389,14 @@ public class Utility {
 			if (nPage == i) {
 				str.append("<span class='span_box_2'>" + i + "</span>");
 			} else {
-				str.append("<span class='span_box_1'><A href='"+url+"?bbsno="+ bbsno +"&nowPage="+nowPage+"&col=" + col + "&word=" + word + "&nPage=" + i
+				str.append("<span class='span_box_1'><A href='"+url+"?f_num="+ bbsno +"&nowPage="+nowPage+"&col=" + col + "&word=" + word + "&nPage=" + i
 						+ "'>" + i + "</A></span>");
 			}
 		}
 
 		_nPage = (nowGrp * pagePerBlock) + 1; // 10개 다음 페이지로 이동
 		if (nowGrp < totalGrp) {
-			str.append("<span class='span_box_1'><A href='"+url+"?bbsno="+ bbsno +"&nPage="+_nPage+"&col=" + col + "&word=" + word + "&nowPage="
+			str.append("<span class='span_box_1'><A href='"+url+"?f_num="+ bbsno +"&nPage="+_nPage+"&col=" + col + "&word=" + word + "&nowPage="
 					+ nowPage + "'>다음</A></span>");
 		}
 		str.append("</DIV>");
@@ -523,5 +524,51 @@ public class Utility {
 			 
 			 return str.toString(); 
 		 }
-
+		 
+		 
+		 
+		 public String getDateDay(String date, String dateType) throws Exception {
+			 
+		     
+			    String day = "" ;
+			     
+			    SimpleDateFormat dateFormat = new SimpleDateFormat(dateType) ;
+			    Date nDate = dateFormat.parse(date) ;
+			     
+			    Calendar cal = Calendar.getInstance() ;
+			    cal.setTime(nDate);
+			     
+			    int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
+			     
+			     
+			     
+			    switch(dayNum){
+			        case 1:
+			            day = "Mon";
+			            break ;
+			        case 2:
+			            day = "Tue";
+			            break ;
+			        case 3:
+			            day = "Wed";
+			            break ;
+			        case 4:
+			            day = "Thu";
+			            break ;
+			        case 5:
+			            day = "Fri";
+			            break ;
+			        case 6:
+			            day = "Sat";
+			            break ;
+			        case 7:
+			            day = "Sun";
+			            break ;
+			             
+			    }
+			     
+			     
+			     
+			    return day ;
+			}
 }

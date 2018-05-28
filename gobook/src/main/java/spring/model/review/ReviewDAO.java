@@ -44,6 +44,12 @@ public class ReviewDAO implements IReviewDAO {
 
 		return mybatis.selectList("review.list",map);
 	}
+	
+	
+	public List alist(Map map) throws Exception {
+
+		return mybatis.selectList("review.alist",map);
+	}
 	 
 	@Override
 	public boolean update(Object dto) throws Exception {
@@ -84,6 +90,10 @@ public class ReviewDAO implements IReviewDAO {
 	public void re_like(int re_num)throws Exception{
 		
 		mybatis.update("review.upRe_like", re_num);
+	}
+
+	public int atotal(Map map) {
+		return mybatis.selectOne("review.atotal",map);
 	}
 
 		

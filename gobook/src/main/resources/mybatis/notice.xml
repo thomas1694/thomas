@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</where>
    	 	  	     
    	 	  	     
-   	             ORDER BY n_num)
+   	             ORDER BY n_num desc)
    	      )
    	 <![CDATA[
 	where r>=#{sno} and r<=#{eno}

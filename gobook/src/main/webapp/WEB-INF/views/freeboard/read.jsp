@@ -75,6 +75,7 @@ function rdelete(fr_num){
 }
 
 </script>
+
 <style type="text/css"> 
 *{ 
   font-family: gulim; 
@@ -113,13 +114,19 @@ margin: 20px auto;
 </style> 
 <%-- <link href="${root}/css/style.css" rel="Stylesheet" type="text/css"> --%>
 <link rel="Stylesheet" href="${root}/top/assets/css/main.css">
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head> 
 <!-- *********************************************** -->
-<body>
+<body style="margin-top: -50px;">
 
 <!-- *********************************************** -->
  
-<DIV class="title">조회</DIV>
+<h2><i class="glyphicon glyphicon-th-list"></i>조회</h2>
  
 
   <TABLE>
@@ -134,7 +141,8 @@ margin: 20px auto;
     </TR>
     
     <TR>
-      <TD colspan="2">${f_content}</TD>
+    	<TH>내용</TH>
+      <TD colspan="2">${content}</TD>
     </TR>
     
     <TR>
@@ -164,10 +172,15 @@ margin: 20px auto;
   </TABLE>
   
   <DIV class='bottom'>
-  	<button type="button" onclick="reply('${dto.f_num}')">답변</button>
-  	<button type="button" onclick="bdel()">삭제</button>
-  	<button type='button'  onclick="bupdate('${dto.f_num}')">수정</button>
-    <button type='button'  onclick="blist()">목록</button>
+  	<c:if test="${sessionScope.id!=null }">
+  	<button type="button" class="btn btn-Default btn-md"  onclick="reply('${dto.f_num}')">답변</button>
+  	</c:if>
+  	<c:if test="${sessionScope.id==dto.id ||sessionScope.grade=='A' }">
+  	<button type="button" class="btn btn-Default btn-md"  onclick="bdel()">삭제</button>
+  	<button type='button' class="btn btn-Default btn-md"   onclick="bupdate('${dto.f_num}')">수정</button>
+  	</c:if>
+    
+    <button type='button' class="btn btn-Default btn-md"   onclick="blist()">목록</button>
    
   </DIV>
   
@@ -177,7 +190,7 @@ margin: 20px auto;
    ${rdto.id}<br/>
    <p>${rdto.fr_content}</p>
    ${rdto.fr_wdate}
-   <c:if test="${rdto.id=='ctest' }">
+   <c:if test="${sessionScope.id==rdto.id ||sessionScope.grade=='A' }">
    <span style="float: right;">
    	<a href="javascript:rupdate('${rdto.fr_num }','${rdto.fr_content }')">수정</a>|
    	<a href="javascript:rdelete('${rdto.fr_num }')">삭제</a>
@@ -186,18 +199,19 @@ margin: 20px auto;
   </div>
   </c:forEach>
   
-  <div class="bottom">
+  <div class="bottom" style="margin-bottom: 50px;">
   ${paging }
   </div>
-  
+  <c:choose>
+  <c:when test="${sessionScope.id!=null }">
   <div class="rcreate">
   <form name="rform"
   action ="./rcreate"
   method ="post"
-  onsubmit = "return input(this)">
+  onsubmit = "return input(this)" style="margin-bottom: 0px;">
   <textarea rows="3" cols="28" name="fr_content"></textarea>
-  <input type="submit" name="rsubmit" value="등록">
-  <input type="hidden" name="id" value="ctest">
+  <input type="submit" class="btn btn-Default btn-md" style="width: 100%;height:40px; padding-top:0px;padding-bottom:0px; height:100%; margin-top: 20px;"  name="rsubmit" value="등록">
+  <input type="hidden" name="id" value="${sessionScope.id }">
   <input type="hidden" name="f_num" value="${dto.f_num}">
   <input type="hidden" name="nowPage" value="${param.nowPage}">
   <input type="hidden" name="col" value="${param.col}">
@@ -206,5 +220,12 @@ margin: 20px auto;
   <input type="hidden" name="nPage" value="${nPage}">
   </form>
   </div>
+  </c:when>
+  <c:otherwise>
+  	<div>회원만 댓글 등록이 가능합니다.<br>
+  		<input type="button" class="btn btn-Default btn-md" style="width: 70px;height: 40px;" onclick="location.href='${root}/member/login'" value="로그인">
+  	</div>
+  </c:otherwise>
+  </c:choose>
 </body>
 </html> 

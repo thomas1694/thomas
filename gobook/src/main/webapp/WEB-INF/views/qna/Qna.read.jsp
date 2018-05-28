@@ -80,11 +80,14 @@ margin:auto;
 </table>
 <br><br>
 <div style="text-align: center;">
-	<button class="btn btn-Default btn-md" type="button" name="" onclick="history.back()">뒤로가기</button>
-	<button class="btn btn-Default btn-md" type="button" name="" onclick="main()">메인으로</button>
+	<button class="btn btn-Default btn-md" type="button" name="" onclick="location.href='${root}/qna/list'">목록</button>
+	<c:if test="${dto.id==sessionScope.id || sessionScope.grade=='A' }">
 	<button class="btn btn-Default btn-md" type="button" name="" onclick="qupdate('${dto.q_num}')">수정</button>
 	<button class="btn btn-Default btn-md" type="button" name="" onclick="qdelete('${dto.q_num}')">삭제</button>
+	</c:if>
+	<c:if test="${sessionScope.grade=='A' }">
 	<button class="btn btn-Default btn-md" type="button" name="" onclick="qreply('${dto.q_num}')">답글</button>
+	</c:if>
 </div>
 </div>
 </body>

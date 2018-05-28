@@ -22,8 +22,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="idCheck" parameterType="String" resultType="int">
 		select count(*)
-		from c_member
-		where c_id = #{c_id}
+		from member
+		where id = #{c_id}
 	</select>
 	
 	<select id="read" parameterType="String" resultType="c_memberDTO">
@@ -39,10 +39,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE c_id = #{c_id}
 	</update>
 	
-	<update id="updatePasswd" parameterType="String">
+	<update id="updatePasswd" parameterType="map">
 		update c_member
 		set c_passwd=#{c_new_passwd}
-		WHERE c_id = #{c_id}
+		WHERE c_id=#{c_id}
 	</update>
 	
 	<select id="passwdCheck" parameterType="map" resultType="int">

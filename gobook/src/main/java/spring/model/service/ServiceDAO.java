@@ -45,15 +45,7 @@ public class ServiceDAO implements IService {
 	}
 
 	
-	public List<ServiceDTO> list() throws Exception {
-		
-		 List list = new ArrayList<ServiceDTO>(); 
-		  list = mybatis.selectList("service.list");
-		 
-		 System.out.println(list.get(0));
-		 
-		 return list;
-	}
+	
 
 	
 	@Override
@@ -99,7 +91,7 @@ public class ServiceDAO implements IService {
 	@Override
 	public int total(Map map) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return mybatis.selectOne("service.total",map);
 	}
 
 	@Override
@@ -111,9 +103,53 @@ public class ServiceDAO implements IService {
 
 	@Override
 	public List list(Map map) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		List list = new ArrayList<ServiceDTO>(); 
+		list = mybatis.selectList("service.list",map);
+		 
+		return list;
+	}
+	
+	public boolean MCcheck(Map map) throws Exception{
+		boolean flag=false;
+		int cnt=mybatis.selectOne("service.MCcheck", map);
+		if(cnt>=3) {
+			flag=true;
+		}
+		return flag;
+	}
+	
+	public List mwtotal(String id) throws Exception{
+		List list=mybatis.selectList("service.mwtotal", id);
+		return list;
+	}
+	
+	public List resdate(String id) throws Exception{
+		List list=mybatis.selectList("service.resdate", id);
+		return list;
+	}
+	
+	public List mwlist(Map map) throws Exception{
+		List list=mybatis.selectList("service.mwlist", map);
+		return list;
 	}
 
+	public boolean checkchild(int sv_num) {
+		boolean flag=false;
+		int cnt= mybatis.selectOne("service.checkchild",sv_num);
+		if(cnt>0)flag=true;
+		return flag;
+	}
 
+	public boolean checknumupper(int sv_num) {
+		boolean flag=false;
+		Object cnt=mybatis.selectOne("service.checknumupper",sv_num);
+		if(cnt==null)cnt=0;
+		if((Integer)cnt>0)flag=true;
+		return flag;
+	}
+
+	public int tp(int sv_num) {
+		
+		return mybatis.selectOne("service.tp",sv_num);
+	}
 }

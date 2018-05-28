@@ -24,66 +24,54 @@
 	
 
 		<!-- Footer -->
-		<footer class="main-footer" style="height: 250px; text-align:center;">
-			<div class="container">
+		<footer class="main-footer" style="height: 250px; ">
+		
+			<div class="container"  style="width: 1200px;margin: auto;">
 				<div class="row2">
-					<div class="col-md-5">
+					<div class="col-md-5" style="margin-right: 18%;">
 						<div class="widget widget_links">
 							<h5 class="widget-title">Gobook</h5>
 							<ul>
-								<li><a href="#">공지사항</a></li>
-								<li><a href="#">자유게시판</a></li>
-								<li><a href="#">후기게시판</a></li>
-								<li><a href="#">질문게시판</a></li>
-								<li><a href="#">자주하는질문</a></li>
+								<li><a href="${root }/notice/list">공지사항</a></li>
+								<li><a href="${root }/freeboard/list">자유게시판</a></li>
+								<li><a href="${root }/review/list">후기게시판</a></li>
+								<li><a href="${root }/qna/list">질문게시판</a></li>
+								<li><a href="${root }/faq/list">자주하는질문</a></li>
 							</ul>
 						</div>
 					</div>
 
-					<div class="col-md-5">
+					<div class="col-md-5" style="margin-right: 18%;">
 						<div class="widget widget_links">
 							<h5 class="widget-title">category</h5>
 							<ul>
-								<li><a href="#">Food</a></li>
-								<li><a href="#">Stay</a></li>
-								<li><a href="#">shopping</a></li>
-								<li><a href="#">Everyday life</a></li>
+								<li><a href="${root }/s_member/list?col=id&word=restaurant">레스토랑</a></li>
+								<li><a href="${root }/s_member/list?col=id&word=hospital">병원</a></li>
+								<li><a href="${root }/s_member/list?col=id&word=studycafe">스터디카페</a></li>
+								<li><a href="${root }/s_member/list?col=id&word=beauty">뷰티</a></li>
+								<li><a href="${root }/s_member/list?col=id&word=etc">기타</a></li>
 							</ul>
 						</div>
 					</div>
 
-					<div class="col-md-9">
-						<div class="widget widget_social">
-							<h5 class="widget-title">스토어 검색</h5>
-							<form class="subscribe-form">
-								<div class="input-line">
-									<input type="text" name="subscribe-email" value=""
-										placeholder="For example : Pizza" />
-								</div>
-								<button type="button" name="subscribe-submit"
-									class="btn btn-special no-icon">Search</button>
-							</form>
-
-							<ul class="clean-list social-block">
-								<li><a href="#"><i class="icon-facebook"></i></a></li>
-								<li><a href="#"><i class="icon-twitter"></i></a></li>
-								<li><a href="#"><i class="icon-google-plus"></i></a></li>
-							</ul>
-						</div>
-					</div>
+					
 
 					<div class="col-md-5">
 						<div class="widget widget_links">
 							<h5 class="widget-title">Contact us</h5>
 							<ul>
-								<li><a href="#">임시테이블</a></li>
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
+								<li>서울특별시 종로구 관철동 코아빌딩 5층 <br>솔데스크 3강의실</li>
+								
+							</ul>
+							<br><br>
+							<ul class="clean-list social-block">
+								<li><a href="https://www.facebook.com"><i class="icon-facebook"></i></a></li>
+								<li><a href="https://twitter.com/?lang=ko"><i class="icon-twitter"></i></a></li>
+								<li><a href="https://www.google.co.kr"><i class="icon-google-plus"></i></a></li>
 							</ul>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 		</footer>

@@ -12,7 +12,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <title>Gobook Review</title>
@@ -54,30 +53,26 @@ text-align: center;
 
 <!-- 검색어 -->
 
-<form action="./list" method="get">
-<center>
+<form action="./list" method="get" style="width:1000px;text-align:center; margin:auto; vertical-align: middle;" >
+
 					<select name="col" style="width: 10%; display: inline;">
 						<option value="re_title"
 							<c:if test="${col == 're_title' }">selected</c:if>>제목</option>
 						<option value="re_content"
 							<c:if test="${col == 're_content' }">selected</c:if>>내용</option>
 						<option value="total">전체출력</option>
-					</select> <input type="search" name="word" value="${word}" >
-					<button>검색</button>
-					<button type="button" onclick="location.href='./create'">등록</button>
+					</select> <input type="text" name="word" value="${word}" style="width: 20%;display: inline;">
+					<button class="btn btn-default" style="width: 70px;height: 40px;">검색</button>
+					<c:if test="${sessionScope.grade=='C' }">
+					<button class="btn btn-default" style="width: 70px;height: 40px;" type="button" onclick="location.href='./create'">등록</button>
+					</c:if>
 				</form>
-				</center>
+				
 
 
 <!-- 본문시작 -->
 <br>
-	<table class="w3-table" style="width:60%; height:50% ;margin:0 auto;">
-		
-		<tr>
-			<td colspan="3">
-		 	</td>
-		</tr>
-		
+	<table class="w3-table" style="width:90%; height:700px; margin:auto;">
 	<!-- 게시글 시작 -->	
 
 	<c:choose>
@@ -88,7 +83,6 @@ text-align: center;
 		 		</td>
 		 	</tr>
 		</c:when>
-	
 	
 	
 	<c:otherwise>
@@ -103,19 +97,18 @@ text-align: center;
 		</c:if>
 		
 			<td>
-				<div class="w3-card-4" style="width: 310px;">
+				<div class="w3-card-4" style="width: 310px; margin:auto;">
 					<div class="head">
 						<!-- 제목, id -->
-						<span style="float:left;"><h4><b>${dto.re_title }</b></h4></span>
+						
 							<c:if test="${util:newimg(dto.re_wdate)}">
-				    			<img src="${root }/storage/review/img/new.gif" width="20px">
+				    			<img src="${root }/storage/review/img/new.gif" height="39px;">
 				  			</c:if>
 						<span style="float:right;">
 	          					<span class="glyphicon glyphicon-thumbs-up">
 	          					
 	          					</span>
-	       					 </a>
-								추천수(${dto.re_like })
+								${dto.re_like }개
 						</span>
 					</div>
 					
@@ -127,19 +120,19 @@ text-align: center;
 				
 					      
 					      <div align="center" style="width:100%;">
-						      ${dto.re_content }
+						     <a href="javascript:read('${dto.re_num}')" rel=""><h4><b>${dto.re_title }</b></h4></a>
 					      </div>
 					      
 					      <div class="tcontent">
 					      
-					      <a href="javascript:read('${dto.re_num}')" rel="">by ${dto.s_id}${dto.c_id }님</a></span>
-							  <span class="glyphicon glyphicon-pencil"></span>
-							</a>
+					      
+							  <span class="glyphicon glyphicon-pencil"></span>by ${dto.c_id }님
+							
 							  &nbsp;
 							  <span style="float:right;">${dto.re_wdate }</span>
 					 	 </div>
 					 </div>
-				</div>
+				
 			</td>
 			
 			  <c:if test="${i%j == j-1 }">
@@ -151,13 +144,17 @@ text-align: center;
 			
 		</c:otherwise>
 	</c:choose>
-	</table>
-	
+	<tr>
+	<td colspan="3"> 
 	<br>
-	<DIV class='bottom'>
+	<DIV class='bottom' style="margin-top: -50px;">
     	${paging }
     </DIV>
     <br>
+    </td>
+    </tr>
+	</table>
+	
 	
 	
 

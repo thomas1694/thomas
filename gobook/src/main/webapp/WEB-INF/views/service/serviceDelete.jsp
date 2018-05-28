@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ include file="ssi.jsp"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -12,7 +13,7 @@
 <div class="title"></div>
     
       
-      <form name="frm" method="post" action="/service/delete">
+      <form name="frm" method="post" action="${root }/service/delete">
          <input type="hidden" name="sv_num" value="${sv_num}">
       <input type="hidden" name="simg_filename" value="${simg_filename}">
 
@@ -21,7 +22,7 @@
 <br><br>
 
 <button type="submit">삭제</button>
-<button type="button" onclick="mlist()">목록</button>
+<button type="button" onclick="history.back()">뒤로가기</button>
 </form>
 
 </body>

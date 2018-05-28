@@ -29,7 +29,9 @@
 </head>
 <body>
 <tiles:insertAttribute name="sidebar"/>
+<div id="c_main" style="margin-left: 300px;">
 <tiles:insertAttribute name="body"/>
+</div>
 <tiles:insertAttribute name="c_footer"/>
 </body>
 </html>

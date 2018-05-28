@@ -6,11 +6,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="list" resultType="reviewDTO" parameterType="Map">
     
-    select re_num, re_title,re_content,re_filename,re_count,re_rating, re_like,re_wdate, r 
+    select c_id, re_num, re_title,re_content,re_filename,re_count,re_rating, re_like,re_wdate, r 
     from(
-        select re_num, re_title,re_content,re_filename,re_count,re_rating, re_like,re_wdate, rownum r
+        select c_id, re_num, re_title,re_content,re_filename,re_count,re_rating, re_like,re_wdate, rownum r
         from(
-            select re_num, re_title,re_content,re_filename,re_count,re_rating, re_like, to_char(re_wdate, 'yyyy-mm-dd') re_wdate
+            select c_id, re_num, re_title,re_content,re_filename,re_count,re_rating, re_like, to_char(re_wdate, 'yyyy-mm-dd') re_wdate
              from review
    <where>
    		 s_id=#{id}
@@ -30,6 +30,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where r>=#{sno} and r<=#{eno}
 	]]>
 	</select>
+	
+	<select id="alist" resultType="reviewDTO" parameterType="Map">
+    
+    select s_id,c_id, re_num, re_title,re_content,re_filename,re_count,re_rating, re_like,re_wdate, r 
+    from(
+        select s_id,c_id, re_num, re_title,re_content,re_filename,re_count,re_rating, re_like,re_wdate, rownum r
+        from(
+            select s_id,c_id, re_num, re_title,re_content,re_filename,re_count,re_rating, re_like, to_char(re_wdate, 'yyyy-mm-dd') re_wdate
+             from review
+   <where>
+		<choose>
+						<when test="col=='re_title'">
+						and re_title like '%'||#{word}||'%'
+						</when>
+						<when test="col=='re_content'">
+						and re_content like '%'||#{word}||'%'
+						</when>
+				</choose>
+	</where>   
+	order by re_like desc, re_wdate desc   
+		)
+	)
+	<![CDATA[
+	where r>=#{sno} and r<=#{eno}
+	]]>
+	</select>
+	
 	
     <select id="create" parameterType="reviewDTO">
     	insert into review(re_num, re_title,re_content
@@ -69,7 +96,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="read" resultType="reviewDTO" parameterType="int">
      select
-		re_num, re_count, re_title, re_content, re_wdate, re_like,re_rating, re_filename, re_filesize
+		s_id,c_id,re_num, re_count, re_title, re_content, re_wdate, re_like,re_rating, re_filename, re_filesize
 		from
 		Review
 		where re_num = #{re_num}
@@ -78,17 +105,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    	<select id="total" resultType="int" parameterType="Map">
 		select count(*) from review
 		<where>
+				s_id=#{id}
 			<choose>
 				<when test="col=='re_title'">
-					re_title like '%'||#{word}||'%'
+					 and re_title like '%'||#{word}||'%'
 				</when>
 				<when test="col=='re_content'">
-					re_content like '%'||#{word}||'%'
+					 and re_content like '%'||#{word}||'%'
 				</when>
 			</choose>
 		</where>
 	</select>
-     
+    <select id="atotal" resultType="int" parameterType="Map">
+		select count(*) from review
+		<where>
+			<choose>
+				<when test="col=='re_title'">
+					 and re_title like '%'||#{word}||'%'
+				</when>
+				<when test="col=='re_content'">
+					 and re_content like '%'||#{word}||'%'
+				</when>
+			</choose>
+		</where>
+	</select> 
    
 </mapper>
 

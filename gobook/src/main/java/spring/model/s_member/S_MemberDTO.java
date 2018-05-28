@@ -29,6 +29,8 @@ public class S_MemberDTO {
 	private String s_hour6;
 	private String s_hour7;
 	
+	private String c_hour;
+	
 	private double rating;
 	
 	public String getS_zipcode() {
@@ -171,6 +173,15 @@ public class S_MemberDTO {
 	}
 	public void setRating(double rating) {
 		this.rating = rating;
+	}
+	public String getC_hour() {
+		return c_hour;
+	}
+	public void setC_hour() {
+		this.c_hour = s_hour;		
+		this.c_hour=c_hour.replaceAll("/", "=");
+		this.c_hour=c_hour.replaceAll(",", "시~");
+		this.c_hour=c_hour.replaceAll(";", "시<br>");
 	}
 	
 }

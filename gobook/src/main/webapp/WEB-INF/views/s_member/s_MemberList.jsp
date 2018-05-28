@@ -39,7 +39,7 @@
 <form style="text-align: center;margin: auto;" action="./list" method="get">
 <div>
 <input type="hidden" name="col" value="id">
-<input style="margin-left:15px;margin-right:15px;  font: 30px;height: 40px;" type="search" name="word" placeholder="다시 검색하기"><button type="submit" style="height: 40px;font:30px;width: 60px;">검색</button>
+<input style="margin-left:15px;margin-right:15px;  font: 30px;height: 40px;" value="${param.word }" type="search" name="word" placeholder="다시 검색하기"><button type="submit" style="height: 40px;font:30px;width: 60px;">검색</button>
 </div>
 </form>
 <br><br>
@@ -81,7 +81,7 @@
 			});
 		</script>
 		
-		</div></td>
+		</div><div>(${dto.rating})</div></td>
 		<td style="padding: 0;vertical-align: middle;"><button onclick="gobook('${dto.s_id}')">예약하러가기</button></td>
 	</tr>
 	</c:forEach>

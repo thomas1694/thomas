@@ -33,29 +33,15 @@ public class ReservationMController {
 	@Autowired
 	private ReservationDAO dao;
 
-	private static final Logger logger = LoggerFactory.getLogger(ReservationMController.class);
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "/reservationM", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
-
-		return "/home";
-	}
 
 	@RequestMapping(value = "/reservationM/list", method = RequestMethod.GET)
 	public String list(HttpServletRequest request) throws Exception {
 		request.setCharacterEncoding("utf-8");
-
+		String uri = request.getHeader("REFERER");
+		String id=(String) request.getSession().getAttribute("id");
+		String grade=(String) request.getSession().getAttribute("grade");
+		if(id==null||grade==null)return "redirect:"+uri;
 		int nowPage = 1; // 현재 보고있는 페이지
 		if (request.getParameter("nowPage") != null) {
 			nowPage = Integer.parseInt(request.getParameter("nowPage"));
@@ -64,10 +50,18 @@ public class ReservationMController {
 		System.out.println(nowPage);
 
 		int recordPerPage = 5; // 한페이지당 보여줄 레코드 갯수
-
 		String col = Utility.checkNull(request.getParameter("col"));
 		String word = Utility.checkNull(request.getParameter("word"));
-
+		String idcheck="";
+		String idcheckword="";
+		if(grade.equals("C")) {
+			idcheck="c_id";
+			idcheckword=id;
+		}
+		if(grade.equals("S")) {
+			idcheck="s_id";
+			idcheckword=id;
+		}
 		if (col.equals("total"))
 			word = "";
 
@@ -77,23 +71,27 @@ public class ReservationMController {
 		// -----------------------------------------------------
 
 		Map map = new HashMap();
+		map.put("idcheck", idcheck);
+		map.put("idcheckword", idcheckword);
 		map.put("col", col);
 		map.put("word", word);
-
 		map.put("sno", sno);
 		map.put("eno", eno);
-
+		System.out.println("idcheck:"+idcheck);
+		System.out.println("idcheckw:"+idcheckword);
+		System.out.println("c:"+col);
+		System.out.println("w:"+word);
 		List<ReservationMDTO> list = dao.mlist(map);
 
 		int total = dao.total(map);
-
+		if(total==0)total=1;
 		String paging = Utility.paging3(total, nowPage, recordPerPage, col, word);
 
 		request.setAttribute("list", list);
 		request.setAttribute("nowPage", nowPage);
 		request.setAttribute("col", col);
 		request.setAttribute("word", word);
-
+		request.setAttribute("paging", paging);
 		return "/reservationM/list";
 	}
 

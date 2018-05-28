@@ -1802,9 +1802,12 @@
 				font-weight: normal;
 				text-transform: none !important;
 			}
-
+		
+			#search input{
+			color:#ffffff !important;
+			}
 		 	form.search:before {
-				color: #aaaaaa;
+				color: #ffffff;
 				content: '\f002';
 				display: block;
 				height: 2.75em;
@@ -1981,6 +1984,31 @@
 
 	.formerize-placeholder {
 		color: #aaaaaa !important;
+		opacity: 1.0;
+	}
+	
+	#sp::-webkit-input-placeholder {
+		color: #ffffff !important;
+		opacity: 1.0;
+	}
+
+	#sp:-moz-placeholder {
+		color: #ffffff !important;
+		opacity: 1.0;
+	}
+
+	#sp::-moz-placeholder {
+		color: #ffffff !important;
+		opacity: 1.0;
+	}
+
+	#sp:-ms-input-placeholder {
+		color: #ffffff !important;
+		opacity: 1.0;
+	}
+
+	#sp.formerize-placeholder {
+		color: #ffffff !important;
 		opacity: 1.0;
 	}
 
@@ -2818,9 +2846,6 @@
 			border-right: 0;
 		}
 
-			 table tbody tr:nth-child(2n + 1) {
-				background-color: rgba(160, 160, 160, 0.075);
-			}
 
 		 table td {
 			padding: 0.75em 0.75em;

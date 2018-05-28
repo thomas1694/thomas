@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import spring.model.like_system.Like_systemDAO;
+import spring.model.like_system.Like_systemDTO;
 import spring.model.review.ReviewDAO;
 import spring.model.review.ReviewDTO;
+import spring.model.s_member.S_MemberDAO;
+import spring.model.s_member.S_MemberDTO;
 import spring.utility.gobook.Utility;
 
 @Controller
@@ -24,8 +28,17 @@ public class ReviewController {
 	@Autowired
 	private ReviewDAO dao;
 	
+	@Autowired
+	private S_MemberDAO sdao;
+	
+	@Autowired
+	private Like_systemDAO ldao;
+	
 	@RequestMapping("/{id}/review/read")
 	public String read(Model model,HttpServletRequest request,@PathVariable String id) throws Exception {
+		
+		S_MemberDTO sdto=(S_MemberDTO) sdao.read(id);
+		request.setAttribute("sdto", sdto);
 		
 		int re_num = Integer.parseInt(request.getParameter("re_num"));
 		dao.re_count(re_num);
@@ -43,6 +56,29 @@ public class ReviewController {
 		
 		
 		return "/review/read";
+	}
+	@RequestMapping("/review/read")
+	public String aread(Model model,HttpServletRequest request,String id) throws Exception {
+		
+		S_MemberDTO sdto=(S_MemberDTO) sdao.read(id);
+		request.setAttribute("sdto", sdto);
+		
+		int re_num = Integer.parseInt(request.getParameter("re_num"));
+		dao.re_count(re_num);
+		ReviewDTO dto = (ReviewDTO) dao.read(re_num);
+		String re_content = dto.getRe_content();
+		re_content = re_content.replaceAll("\r\n", "<br>");
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("re_content", re_content);
+	
+		String col = request.getParameter("col");
+		String word = request.getParameter("word");
+		int nowPage = Integer.parseInt(request.getParameter("nowPage"));
+	
+		
+		
+		return "/review/aread";
 	}
 	
 	
@@ -104,13 +140,18 @@ public class ReviewController {
 	
 	@RequestMapping("/{id}/review/list")
 	public String list(HttpServletRequest request,@PathVariable String id) throws Exception{
+		
+		S_MemberDTO sdto=(S_MemberDTO) sdao.read(id);
+		request.setAttribute("sdto", sdto);
+		
+		
 		//검색관련------------------------------------------
 	    String col = Utility.checkNull(request.getParameter("col"));
 		String word = Utility.checkNull(request.getParameter("word"));
 		if(col.equals("total")) word="";
 		
 		int nowPage = 1;//현재 보고있는 페이지
-		int recordPerPage = 5; //한페이지당 보여줄 레코드 갯수
+		int recordPerPage = 6; //한페이지당 보여줄 레코드 갯수
  
 		//paging 관련
 		if(request.getParameter("nowPage")!=null)
@@ -145,8 +186,9 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value="/{id}/review/create",method=RequestMethod.GET)
-	public String create(@PathVariable String id) {
-		
+	public String create(HttpServletRequest request,@PathVariable String id) throws Exception {
+		S_MemberDTO sdto=(S_MemberDTO) sdao.read(id);
+		request.setAttribute("sdto", sdto);
 		return "/review/create";
 	}
 	@RequestMapping(value="/{id}/review/create",method=RequestMethod.POST)
@@ -167,10 +209,70 @@ public class ReviewController {
 	}
 
 	@RequestMapping(value="/{id}/review/re_like", method=RequestMethod.POST)
-	@ResponseBody
-	public void uplike(int num, @PathVariable String id) throws Exception {
+	public @ResponseBody Object uplike(HttpServletRequest request,int num, @PathVariable String id) throws Exception {
+		String sid=(String)request.getSession().getAttribute("id");
+		Like_systemDTO dto=new Like_systemDTO();
+		dto.setRe_num(num);
+		dto.setVoteid(sid);
+		Map map=new HashMap<>();
+		boolean cflag=ldao.count_like(dto);
+		if(cflag) {
+			map.put("cflag", false);
+			return  map;
+			}else {
+		ldao.create(dto);
 		dao.re_like(num);
+			map.put("cflag", true);
+			return map;
+			}
+		
 	}
+	
+	@RequestMapping("/review/list")
+	public String alist(HttpServletRequest request) throws Exception{
+		
+		
+		
+		//검색관련------------------------------------------
+	    String col = Utility.checkNull(request.getParameter("col"));
+		String word = Utility.checkNull(request.getParameter("word"));
+		if(col.equals("total")) word="";
+		
+		int nowPage = 1;//현재 보고있는 페이지
+		int recordPerPage = 6; //한페이지당 보여줄 레코드 갯수
+ 
+		//paging 관련
+		if(request.getParameter("nowPage")!=null)
+			nowPage = Integer.parseInt(request.getParameter("nowPage"));
+		
+		
+		int sno = ((nowPage-1) * recordPerPage) + 1;
+		int eno = nowPage * recordPerPage;
+		
+		//----------------------------------------------------
+		
+		Map map = new HashMap();
+		map.put("col",col);
+		map.put("word",word);
+		map.put("sno", sno);
+		map.put("eno", eno);
+		List<ReviewDTO> list = dao.alist(map);
+		
+		//전체 레코드 갯수 가져오기
+		int totalRecord = dao.atotal(map);
+ 
+		String paging = Utility.paging(totalRecord, nowPage, recordPerPage, col, word);
+		
+		request.setAttribute("list", list);
+		request.setAttribute("paging", paging);
+		request.setAttribute("nowPage", nowPage);
+		request.setAttribute("col", col);
+		request.setAttribute("word", word);
+
+		return "/review/alist";
+	}
+	
+	
 	}
 	
 

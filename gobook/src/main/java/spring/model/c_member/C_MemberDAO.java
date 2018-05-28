@@ -61,6 +61,8 @@ public class C_MemberDAO implements IC_MemberDAO {
 		
 		return flag;
 	}
+	
+	
 
 	@Override
 	public C_MemberDTO read(Object pk) throws Exception {
@@ -88,12 +90,8 @@ public class C_MemberDAO implements IC_MemberDAO {
 	public boolean updatePasswd(Map map) throws Exception {
 
 		boolean flag = false;
-		
-		if(passwdCheck(map)) {
-			int cnt = mybatis.update("c_member.updatePasswd", map);
-			if(cnt > 0)flag = true;
-		}	
-		
+		int cnt = mybatis.update("c_member.updatePasswd", map);
+		if(cnt > 0)flag = true;
 		return flag;
 	}
 	
@@ -151,4 +149,6 @@ public class C_MemberDAO implements IC_MemberDAO {
 		
 		return flag;		
 	}
+	
+	
 }

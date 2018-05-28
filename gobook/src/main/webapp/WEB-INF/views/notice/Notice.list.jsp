@@ -47,10 +47,8 @@ margin:auto;
 </script>
 </head>
 <body>
-	<div class="jol1">
-	<form name="rtcForm">
-</form>
-<div class="container">
+	
+<div class="container" style="margin-top: -50px;">
 		<h2><i class="glyphicon glyphicon-th-list"></i>공지사항</h2>
 		<br><br>
 			<form name="qnal" method="POST" action="./list" style="text-align: center;margin: auto;">
@@ -64,16 +62,17 @@ margin:auto;
 		<c:if test="${col=='a_id' }">selected</c:if>
 		>작성자</option>
 		<option value="total">전체출력</option>
-		<input type="text" name="word" value="${word}" size="20"style="width:30%;display:inline;">
-		<button>검색</button>
-	</form>	
+		</select>
+		<input type="text" name="word" value="${word}" size="20"style="width:30%;display:inline;"/>
+		<button class="btn btn-Default btn-md" style="width: 70px;height: 40px;">검색</button>
+	</form>	<br><br>
 		 <table class="table table-hover table-bordered" style="text-align:center;">
 		
 			<tr>
-				<th class="active" style="text-align:center;"><STRONG><BIG>번호</BIG></STRONG>
-				<th class="active" style="text-align:center;"><STRONG><BIG>제목</BIG></STRONG></th>
-				<th class="active" style="text-align:center;"><STRONG><BIG>작성자</BIG></STRONG></th>
-				<th class="active" style="text-align:center;"><STRONG><BIG>작성일</BIG></STRONG></th>
+				<th width="15%" class="active" style="text-align:center;"><STRONG><BIG>번호</BIG></STRONG>
+				<th width="50%" class="active" style="text-align:center;"><STRONG><BIG>제목</BIG></STRONG></th>
+				<th width="15%" class="active" style="text-align:center;"><STRONG><BIG>작성자</BIG></STRONG></th>
+				<th width="20%" class="active" style="text-align:center;"><STRONG><BIG>작성일</BIG></STRONG></th>
 			</tr>
 			
 			
@@ -93,7 +92,7 @@ margin:auto;
 				<tbody>
 			<tr>
 				<td>${dto.n_num}</td>
-				<td><a href="javascript:read('${dto.n_num}')">${dto.n_title}</a></td>
+				<td style="text-align: left; padding-left: 20px;"><a href="javascript:read('${dto.n_num}')">${dto.n_title}</a></td>
 				<td>${dto.a_id}</td>
 				<td>${dto.n_wdate}</td>
 			</tr>
@@ -106,22 +105,12 @@ margin:auto;
 		<div style="text-align: center;">
 	${paging}
 	</div>
-	</div>
 	<br><br>
-	<div style="text-align: center;">
+	<div style="text-align: center; margin-bottom: 50px;">
 	<button class="btn btn-Default btn-md" type="button" name="" onclick="main">메인으로</button>
-	<button class="btn btn-Default btn-md" type="button" name="" onclick="history.back()">뒤로가기</button>
-	
+	<c:if test="${sessionScope.grade=='A' }">
 	<button class="btn btn-Default btn=md" type="button" name="" onclick="ncreate('${dto.n_num}')">글 작성</button> 
-	
-	<input type="hidden" name="n_num" value="${param.n_num}">
-	<input type="hidden" name="n_title" value="${param.n_title}">
-	<input type="hidden" name="n_content" value="${param.n_content}">
-	<input type="hidden" name="n_wdate" value="${param.n_wdate}">
-	<input type="hidden" name="a_id" value="${param.a_id}">
-	<input type="hidden" name="col" value="${param.col}">
-	<input type="hidden" name="word" value="${param.word}">
-	<input type="hidden" name="nowPage" value="${param.nowPage}">
+	</c:if>	
 	</div>
 </body>
 </html>

@@ -35,11 +35,18 @@ function qlist(q_num){
 	<tr>
 	<th style="text-align:center;">제목</th>
 	<td><input type="text" name="q_title" size="149" value="${dto.q_title}"></td>
-
+	
 	</tr>
 	<tr>
 	<th style="text-align:center;">내용</th>
-	<td><textarea rows="24" cols="150" name="q_content">${dto.q_content}</textarea></td>
+	<td><textarea rows="24" cols="150" name="q_content">${dto.q_content}</textarea>
+	<br>
+	<input type="checkbox" name="q_lock" value="L" 
+	<c:if test="${dto.q_lock=='L' }">
+	checked
+	</c:if>
+	>비밀글 선택
+	</td>
 	</tr>
 </table>
 </div>
@@ -48,6 +55,8 @@ function qlist(q_num){
 <button class="btn btn-Default btn-md" type="submit" name="" >등록</button>
 <button class="btn btn-Default btn-md" type="button" name="" onclick="history.back()">취소</button>
 </div>
+<input type="hidden" name="q_num" value="${dto.q_num }">
+<input type="hidden" name="id" value="${dto.id }">
 </FORM>
 </body>
 </html>

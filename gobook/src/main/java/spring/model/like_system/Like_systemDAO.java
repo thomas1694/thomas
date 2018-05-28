@@ -58,7 +58,12 @@ public class Like_systemDAO implements ILike_systemDAO{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+	public boolean count_like(Object dto) throws Exception{
+		boolean flag=false;
+		int cnt=mybatis.selectOne("like_system.count_like", dto);
+		if(cnt>0)flag=true;
+		return flag;
+	}
 }
 
 

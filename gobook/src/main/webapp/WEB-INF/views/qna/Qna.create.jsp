@@ -27,8 +27,6 @@ function qlist(q_num){
 </head>	
 <body>
 <FORM method="POST" action="./create">
-<input type="hidden" name="id" value="ctest">
-<input type="hidden" name="q_lock" value="L">
 
 <div class="container">
 <h2><i class="	glyphicon glyphicon-pencil"></i>질문과 답변</h2>
@@ -42,21 +40,13 @@ function qlist(q_num){
 	
 	<tr>
 	<th style="text-align:center;">내용</th>
-	<td><textarea rows="24" cols="30" name="q_content"></textarea></td>
+	<td><textarea rows="24" cols="30" name="q_content"></textarea>
+	<br>
+	<input type="checkbox" name="q_lock" value="L" >비밀글 선택
+	</td>
+	
 	</tr>
 	
-	<tr>
-	<th>
-	<option value="q_lock"
-	<c:if test="${q_lock=='U' }">selected</c:if>
-	>공개</option>
-	<option value="q_lock"
-	<c:if test="${q_lock=='L' }">selected</c:if>
-	>비공개</option>
-	</th>
-	<td><input type="search" name="q_lock" value="${q_lock}" ></td>
-
-	</tr>
 
 </table>
 </div>

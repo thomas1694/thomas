@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ include file = "ssi.jsp" %>  
 <%
 	request.setCharacterEncoding("utf-8");
 %>    
@@ -9,26 +10,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>서비스 수정</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<!-- jQuery library -->
-<script src="resources/js/jquery.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="resources/js/bootstrap.min.js"></script>
-<style type="text/css">
-.container{
-  top: 300px;
-  left:1000px;
-  position:absolute;
-}
-.bottom{
- bottom: 100px;
-  left:500px;
-  position:absolute;
-}
-</style>
 </head>
 <body>
 <FORM name='frm' 
@@ -41,18 +27,19 @@
    <input type="hidden" name="simg_num" value="${dto.serdto.simg_num}">
    
 <DIV class="container">
- <h2>상세 서비스 수정</h2>
+ <h2><c:if test="${dto.sv_num_upper !='' }">상세 </c:if>서비스 수정</h2>
  
   <TABLE>
     <TR>
       <TH>서비스 사진</TH>
-      <TD><img src="./storage_s/${dto.serdto.simg_filename}"></TD>
+      <TD><img src="${root }/storage/service_image/img/${dto.serdto.simg_filename}"></TD>
     </TR>
-    
     <TR>
-      <TH>상세서비스명</TH>
+      <TH><c:if test="${dto.sv_num_upper !='' }">상세 </c:if>서비스명</TH>
       <TD><input type="text" name="sv_title" value="${dto.sv_title}"></TD>
     </TR>
+    <c:if test="${dto.sv_num_upper !='' }">
+    
     <TR>
       <TH>서비스 내용</TH>
       <TD>
@@ -67,21 +54,27 @@
       <TH>타임당 예약인원수</TH>
       <TD><input type="text" name="sv_timeperson" value="${dto.sv_timeperson}"></TD>
     </TR>
-    <TR>
-      <TH>템플릿</TH>
-      <TD>
-      <input type ="text" name="sv_template" value="${dto.sv_template}">
-      </TD>
-      <td>템플릿을 선택하세요</td>
-    </TR>
+    </c:if>
+    <c:if test="${dto.sv_num_upper =='' }">
+    
+    
+      <input type="hidden" name="sv_content" value="${dto.sv_content}">
+      
+      
+      <TD><input type="hidden" name="sv_price" value="${dto.sv_price}"></TD>
+
+      
+      <TD><input type="hidden" name="sv_timeperson" value="${dto.sv_timeperson}"></TD>
+    
+    </c:if>
     
   </TABLE>
   
   </DIV>
   
-  <DIV class='bottom'>
-    <input type='submit' value='수정'>
-    <input type='reset' value='취소'>
+  <DIV class='bottom' style="text-align: center;">
+    <input class="btn btn-Default btn-md" style="width: 70px;height: 40px;" type='submit' value='수정'>
+    <input class="btn btn-Default btn-md" style="width: 70px;height: 40px;" type='button' onclick="history.back()" value='취소'>
   </DIV>
 
   </FORM>

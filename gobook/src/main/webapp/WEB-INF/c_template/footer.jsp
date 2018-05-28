@@ -24,10 +24,10 @@
 		
 
 		<!-- Footer -->
-			<div id="footer">
+			<div id="footer" style="margin-left: 0;">
 
 				<!-- Copyright -->
-					<ul class="copyright">
+					<ul class="copyright" style="margin-left: 300px;">
 						<li>&copy; Main. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 					</ul>
 

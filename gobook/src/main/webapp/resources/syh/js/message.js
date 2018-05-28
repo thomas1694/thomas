@@ -10,7 +10,7 @@ var id, col, word, nowPage;
 	});
 	
 	function mreadchecktotal() {
-		$.post("message/readchecktotal", {
+		$.post("/gobook/message/readchecktotal", {
 			id: id
 		}, function(data, textSt){
 			if(data.readchecktotal>0){
@@ -84,7 +84,7 @@ var id, col, word, nowPage;
 	}
 
 	function mlist(id, col, word, nowPage) {
-		$.post("message/list", { //파라미터 넣는 거 있지 말자... '있는' 데이터로 ㅠㅠ
+		$.post("/gobook/message/list", { //파라미터 넣는 거 있지 말자... '있는' 데이터로 ㅠㅠ
 			id: id,
 			col: col,
 			word: word,
@@ -149,7 +149,7 @@ var id, col, word, nowPage;
 
 
 	function msendlist(id, col, word, nowPage) {
-		$.post("message/sendlist", {
+		$.post("/gobook/message/sendlist", {
 			id:id,
 			col:col,
 			word:word,
@@ -215,7 +215,7 @@ var id, col, word, nowPage;
 	
 
 	function mread(num) {
-		$.post("message/read", {
+		$.post("/gobook/message/read", {
 			num:num,
 			col:col,
 			word:word,
@@ -248,7 +248,7 @@ var id, col, word, nowPage;
 		$("#message_etc").append("<button onclick='mdelete("+dto.m_num+")'>삭제</button>");
 		
 		//readcheck update
-		if(dto.m_readcheck=='F') {
+		if(dto.m_readcheck=='F' && dto.m_receiveid==id) {
 			mupreadcheck(dto.m_num);
 			mdecreaserctotal();
 		}
@@ -260,7 +260,7 @@ var id, col, word, nowPage;
 	}
 	
 	function mupreadcheck(num) {
-		$.post("message/upreadcheck", {
+		$.post("/gobook/message/upreadcheck", {
 			num: num
 		}, function(data, textSt){
 			
@@ -297,7 +297,7 @@ var id, col, word, nowPage;
 
 		
 		
-		$.post("message/create", {
+		$.post("/gobook/message/create", {
 			sid: sendid,
 			rid: receiveid,
 			content: content
@@ -322,7 +322,7 @@ var id, col, word, nowPage;
 	
 	function mdelete(num) {
 		if(confirm("정말로 삭제하시겠습니까?")) {
-			$.post("message/delete", {
+			$.post("/gobook/message/delete", {
 				num: num,
 				id: id,
 				col: col,

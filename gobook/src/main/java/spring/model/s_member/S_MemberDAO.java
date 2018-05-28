@@ -93,4 +93,22 @@ public class S_MemberDAO implements S_IDAO {
 		return flag;
 	}
 
+	public boolean idCheck(String s_id) {
+		boolean flag=false;
+		int cnt=mybatis.selectOne("s_member.idCheck", s_id);
+		if(cnt>0)flag=true;
+		return flag;
+	}
+	
+	public String emailCheck(String email) {
+		String flag = "true"; //중복임
+		
+		int cnt = mybatis.selectOne("c_member.emailCheck", email);
+		if(cnt == 0) {
+			flag = "false"; //사용가능
+		}
+		
+		return flag;
+	}
+
 }

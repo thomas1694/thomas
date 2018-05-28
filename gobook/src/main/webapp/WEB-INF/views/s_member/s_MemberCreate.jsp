@@ -2,6 +2,9 @@
 <!-- top, bottom 필요함 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="root" value="${pageContext.request.contextPath }"></c:set>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,65 +19,182 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!--STYLESHEETS-->
-<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<link href="${root }/resources/ksy/css/style.css" rel="stylesheet" type="text/css" />
 
+<!-- recaptcha -->
+<script src='https://www.google.com/recaptcha/api.js'></script>
 <script type="text/javascript">
+var mw = jQuery.noConflict();
+mw(document).ready(function() {
+	$(".joincode").css("display", "none");
+});
+
+
 function inCheck(f){                      //얘는submit 할때 검증되는 함수임
-	if(f.id.value==""){
+	if(f.s_id.value==""){
 		alert("아이디를 입력해 주세요");
-		f.id.focus();
+		f.s_id.focus();
 		return false;
 	}
-	if(f.passwd.value==""){
+	if(f.s_passwd.value==""){
 		alert("패스워드를 입력해 주세요");
-		f.passwd.focus();
+		f.s_passwd.focus();
 		return false;
 	}
-	if(f.repasswd.value==""){
+	if(f.s_repasswd.value==""){
 		alert("비밀번호 확인을 입력해 주세요");
-		f.repasswd.focus();
+		f.s_repasswd.focus();
 		return false;
 	}
-	if(f.repasswd.value!=f.passwd.value){
+	if(f.s_repasswd.value!=f.s_passwd.value){
 		alert("비밀번호가 일치하지 않습니다. 다시 입력해 주세요.");
-		f.repasswd.focus();
+		f.s_repasswd.focus();
 		return false;
 	}
-	if(f.mname.value==""){
-		alert("이름을 입력해 주세요");
-		f.mname.focus();
+	if(f.s_name.value==""){
+		alert("회사명을 입력해 주세요");
+		f.s_name.focus();
 		return false;
 	}
-	if(f.email.value==""){
+	if(f.s_tel.value==""){
+		alert("전화번호를 입력해 주세요");
+		f.s_tel.focus();
+		return false;
+	}
+	if(f.s_email.value==""){
 		alert("이메일을 입력해 주세요");
-		f.email.focus();
+		f.s_email.focus();
 		return false;
 	}
+	if(f.s_zipcode.value==""){
+		alert("주소 검색을 해 주세요");
+		return false;
+	}
+	if(f.s_address1.value==""){
+		alert("주소 검색을 해 주세요");
+		return false;
+	}
+	if(f.s_address2.value==""){
+		alert("상세주소를 입력해 주세요");
+		f.s_address2.focus();
+		return false;
+	}
+
+	
+
+	
+	
+	if($(".joincode").is(':visible') == false ){
+
+		alert("이메일 중복확인 검사를 해 주세요");
+		f.s_email.focus();
+		return false;
+	}
+	if(f.email_code.value==""){
+		alert("이메일 인증코드를 입력해 주세요");
+		f.email_code.focus();
+		return false;
+	}
+	if($("#em1").text()==""){
+		alert("인증코드 확인을 눌러주세요");
+		return false;
+	}
+	if(Code==false){
+		alert("인증코드가 틀렸습니다. 다시 입력 해 주세요");
+		f.email_code.focus();
+		return false;
+	}
+	if(f.s_info.value==""){
+		alert("회사 설명을 입력해 주세요");
+		f.s_address2.focus();
+		return false;
+	}
+	
+	if(grecaptcha.getResponse()==""){
+		alert("스팸방지코드를 확인해 주세요");
+		return false;
 }
-function idCheck(id){
-	if(id==""){
+	
+}
+
+function idCheck(s_id){
+	if(s_id==""){
 		alert("아이디를 입력해 주세요");
-		document.frm.id.focus();
+		document.frm.s_id.focus();
 	}else{
 		var url = "./id_proc"
-		url += "?id="+id;
+		url += "?s_id="+s_id;
 		
-		wr = window.open(url, "아이디 검색", "width=500,height=500"); /*  window.open : 새창  wr는 새창을 말한다.*/
+		wr = window.open(url, "아이디 검색", "width=500,height=500"); /*  window.open : 새창  wr는 새창을 말한다.*/		
 		wr.moveTo((window.screen.width-500)/2,(window.screen.height-500)/2);              /* x좌표와 y좌표를 나타낸다 */
 	}
 }
-function emailCheck(email){
+function emailCheck(){
+	var email = document.getElementById("s_email").value;
+	
 	if(email==""){
 		alert("이메일을 입력해 주세요");
-		document.frm.email.focus();
-	}else{
-		var url = "./email_proc"
-		url += "?email="+email;
-		
-		wr = window.open(url, "이메일 검색", "width=500,height=500"); /*  window.open : 새창  wr는 새창을 말한다.*/
-		wr.moveTo((window.screen.width-500)/2, (window.screen.height-500)/2);              /* x좌표와 y좌표를 나타낸다 */
+		document.frm.s_email.focus();
+		return false;
 	}
+
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function(){
+		if(xhttp.readyState == 4){
+			var data = JSON.parse(xhttp.responseText);
+			if(data == "true"){
+				alert("이미 가입한 메일입니다.");
+				$(".joincode").css("display", "none");
+			}else{
+				sendMail(email);
+				$(".joincode").css("display", "");
+			}
+		}
+	};	
+	xhttp.open("POST", 'emailCheck/', true);	
+	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+	xhttp.send('email=' + email);
 }
+function sendMail(email){
+
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function(){
+		if(xhttp.readyState == 4){
+			if(xhttp.status == 200)
+				alert("메일을 정상적으로 보냈습니다.");
+			else{
+				
+				alert(xhttp.status+"올바른 메일 형식이 아닙니다.");
+			}
+		}
+	};
+	xhttp.open("POST", 'sendMail/', true);
+	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+	xhttp.send('email=' + email);
+}
+
+function emailNumCheck(){
+	var emailcode = document.getElementById("emailcode").value;
+	
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function(){
+		if(xhttp.readyState == 4){
+			Code = JSON.parse(xhttp.responseText);
+			if(Code==true){
+				$("#em1").text("인증코드 일치");
+				
+			}else{
+				$("#em1").text("인증코드 불일치");
+				
+			}
+		}
+	};	
+	xhttp.open("POST", 'codeCheck/', true);	
+	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+	xhttp.send('emailcode=' + emailcode);
+}
+
+
 </script>
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -264,10 +384,8 @@ $j144(document).ready(function($){
 				}).open();
 	}
 </script>
-<!-- recaptcha -->
-<script src='https://www.google.com/recaptcha/api.js'></script>
 <!-- 다음 지도 api -->
-<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=47844deb89b482d0297165cccbc1dd67&libraries=services"></script>
+<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=cbc9a44495a229ba6b4ecd67265a238a&libraries=services"></script>
 <script>
 var $d = jQuery.noConflict(); 
 
@@ -367,7 +485,7 @@ geocoder.addressSearch(address1, function(result, status) {
 <body>
 
 	<!-- Form -->
-	<FORM name='frm' method='POST' action='./create'
+	<FORM name='frm' method='POST' action='./createProc'
 		onsubmit="return inCheck(this)">
 		<input type="hidden" name="s_hour1" id="s_hour1">
 		<input type="hidden" name="s_hour2" id="s_hour2">
@@ -379,76 +497,79 @@ geocoder.addressSearch(address1, function(result, status) {
 	<div class="container">
 	<h2 class='title'>GoBook 회원가입</h2>
 		<table class="question">
-			<caption class="qtit">(<img src="../images/star.png"/>은 필수 입력사항)</caption>
+			<caption class="qtit">(<img src="${root }/resources/pmw/img/star.png"/>은 필수 입력사항)</caption>
 			<tr>
-				<th class="th" scope="row"><img src="../images/star.png"/>회사ID</th>
+				<th class="th" scope="row"><img src="${root }/resources/pmw/img/star.png"/>회사ID</th>
 				<td>
-					<input type="text" name="s_id" title="회사 ID를 입력하세요" class="wid20" placeholder="회사 ID를 입력하세요" />
-					<button class="button" onclick="idCheck(document.frm.id.value)">ID 중복확인</button>
+					<input type="text" name="s_id" title="회사 ID를 입력하세요" class="wid20" placeholder="회사 ID를 입력하세요" style="display:inline;" />
+					<button type="button" onclick="idCheck(document.frm.s_id.value)">ID 중복확인</button>
 				</td>
 			</tr>
 			<tr>
-				<th class="th"><img src="../images/star.png"/>비밀번호</th>
+				<th class="th"><img src="${root }/resources/pmw/img/star.png"/>비밀번호</th>
 				<td><input type="password" name="s_passwd" size="20"></td>
 			</tr>
 			<tr>
-				<th class="th"><img src="../images/star.png"/>비밀번호 확인</th>
+				<th class="th"><img src="${root }/resources/pmw/img/star.png"/>비밀번호 확인</th>
 				<td><input type="password" name="s_repasswd" size="20"></td>
 			</tr>
 			<tr>
-				<th class="th" scope="row"><img src="../images/star.png"/>회사명</th>
-				<td><input type="text" name="s_name" size="25" placeholder="실명을 입력해 주세요"></td>
+				<th class="th" scope="row"><img src="${root }/resources/pmw/img/star.png"/>회사명</th>
+				<td><input type="text" name="s_name" size="25" placeholder="정확한 회사명을 입력해 주세요"></td>
 			</tr>
 			
 			
 			
 			<TR>
-				<th class="th" scope="row"><img src="../images/star.png"/>전화번호</TH>
+				<th class="th" scope="row"><img src="${root }/resources/pmw/img/star.png"/>전화번호</TH>
 				<TD><input type="text" name="s_tel" size="25" placeholder="예: 010-0000-0000"></TD>
 			</TR>
 			<TR>
-				<TH rowspan="2" class="th" scope="row"><img src="../images/star.png"/>이메일</TH>
+				<TH rowspan="2" class="th" scope="row"><img src="${root }/resources/pmw/img/star.png"/>이메일</TH>
 				<TD>
-					<input type="email" name="s_email" size="30" placeholder="예 : gobook@xxxxx.com"> <!--  타입이 email이면 submit 시에 @가 있는지 확인한다. -->
-					<button type="button" class="button" onclick="emailCheck(document.frm.email.value)">e-mail 인증</button>
+					<input type="email" id="s_email" name="s_email" size="30" class="wid20" style="display:inline;" placeholder="예 : gobook@xxxxx.com"> <!--  타입이 email이면 submit 시에 @가 있는지 확인한다. -->
+					<button type="button" class="button" onclick="emailCheck()">e-mail 인증</button>
 					<!-- 이메일 인증 버튼을 누르면 우선 중복확인을 한 뒤 인증 이메일이 보내진다. -->
 				</TD>
 			</TR>
 			<TR>
-				<TD>
-					인증코드 &nbsp <input type="password" name="email_code" size="8">
-					<button type="button" class="button" onclick="emailNumCheck(document.frm.email_code.value)">확인</button>
+				<TD class="joincode">
+					인증코드 &nbsp 
+					<input type="password" name="email_code" class="wid20" style="display:inline;" id="emailcode" size="8" maxlength="5">
+					<input type="button" class="button" onclick="emailNumCheck()" value="확인"/>
+					<em id="em1"></em>
 				</TD>
 			</TR>
 			<TR>
-				<TH class="th" scope="row"><img src="../images/star.png"/>우편번호</TH>
+				<TH class="th" scope="row"><img src="${root }/resources/pmw/img/star.png"/>우편번호</TH>
 				<TD>
-					<input type="text" name="s_zipcode" size="10" id="sample6_postcode" placeholder="우편번호">
+					<input type="text" name="s_zipcode" size="10" class="wid20" style="display:inline;" id="sample6_postcode" placeholder="우편번호" readonly="readonly">
 					<button type="button" class="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">주소검색</button>
 				</TD>
 			</TR>
 			<TR>
-				<TH class="th" scope="row"><img src="../images/star.png"/>회사 주소</TH>
+				<TH class="th" scope="row"><img src="${root }/resources/pmw/img/star.png"/>회사 주소</TH>
 				<TD>
-					<input type="text" name="s_address1" size="80" id="sample6_address" placeholder="주소" > 
+					<input type="text" name="s_address1" size="80" id="sample6_address" placeholder="주소" readonly="readonly"> 
 					<input type="text" name="s_address2" size="40" id="sample6_address2" placeholder="상세주소">
 				</TD>
 			
 			</TR>
 			
 			<TR>
-				<th class="th" scope="row"><img src="../images/star.png"/>비지니스 카테고리</TH>
+				<th class="th" scope="row"><img src="${root }/resources/pmw/img/star.png"/>비지니스 카테고리</TH>
 				<TD>
 					<select name="s_category">
 						<option value="restaurant">레스토랑
 						<option value="hospital">병원
 						<option value="studycafe">스터디카페
 						<option value="beauty">뷰티
+						<option value="etc">기타
 					</select>
 				</TD>
 			</TR>
 			<tr>
-				<th class="th" scope="row">회사설명</th>
+				<th class="th" scope="row"><img src="${root }/resources/pmw/img/star.png"/>회사설명</th>
 				<td>
 					<textarea name="s_info" rows="20" cols="20"></textarea>
 				</td>
@@ -493,16 +614,18 @@ geocoder.addressSearch(address1, function(result, status) {
 				</td>
 			</tr>
 			<tr>
-				<TH class="th" scope="row"><img src="../images/star.png"/>회사 위치</TH>
+				<TH class="th" scope="row"><img src="${root }/resources/pmw/img/star.png"/>회사 위치</TH>
 				<td>
 					<div id="map" style="width:100%;height:350px;"></div>
-					<input type="text" id="s_location" name="s_location" value="">
+					<input type="hidden" id="s_location" name="s_location" value="">
+					<br><br> 정확한 회사 위치로 마커를 움직여 주세요
 				</td>
 			</tr>
 			<tr>
 				<th class="th" scope="row"></th>
 				<td><center>
-					<div id="captcha" class="g-recaptcha"  data-sitekey="6Ld1rVUUAAAAAB2nvuPJCRM-aQ7Ef4pWGqsoN-wk"></div>
+				
+					<div  class="g-recaptcha"  data-sitekey="6Ld1rVUUAAAAAB2nvuPJCRM-aQ7Ef4pWGqsoN-wk"></div>
 					</center>
 				</td>
 			</tr>

@@ -7,64 +7,66 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-	table{
-	width: 100%;
-	}
-	table,th,td{
-	
-	border: 1px solid black;
-	border-collapse: collapse;
-	}
-	th{
-	background-color: #A4A4A4;
-	}
-	
-</style>
 
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body >
-<div style="width: 70%;margin: auto;text-align: center;">
-<h3 style="text-align: center;">회원 목록</h3>
+<div class="container">
+<h2><span class="glyphicon glyphicon-list"></span>회원 목록</h2>
 <form style="text-align: center;margin: auto;" action="./member" method="get">
 <div>
-<select name="col" style="width: 30%;display: inline;">
+<select name="col" style="width: 20%;display: inline;">
 			<option value="id">ID
 			<option value="grade">회원등급
 			<option value="">전체목록
 		</select>
 
-<input style="margin-left:15px;margin-right:15px;  font: 30px;height: 40px;" type="search" name="word">
-<button type="submit" style="height: 40px;font:30px;width: 60px;" >검색</button>
+<input style="width:20%;display: inline;" type="text" name="word">
+<button type="submit" class="btn btn-Default btn-md" style="width: 90px;height: 40px;" >검색</button>
 </div>
 </form>
-<br><br>
 
-<table style="vertical-align: middle;">
+<table  class="table table-hover" style="margin-top: 50px;">
 	<tr height="50px">
-		<th style="padding: 0;vertical-align: middle;">회원ID</th>
-		<th style="padding: 0;vertical-align: middle;">회원등급</th>
-		<th style="padding: 0;vertical-align: middle;">비고</th>
+		<th style="text-align:center; width:33%; vertical-align: middle;">회원ID</th>
+		<th style="text-align:center; width:33%; vertical-align: middle;">회원등급</th>
+		<th style="text-align:center; width:33%; vertical-align: middle;">비고</th>
 	</tr> 
 	<c:choose>
 		<c:when test="${empty list }">
-			<tr height="200px;">
+			<tr >
 		<td style="padding: 0;vertical-align: middle;" colspan="3">등록된 회원이 없습니다</td>
 		
 	</tr>
 		</c:when>
 		<c:otherwise>
 			<c:forEach var="dto" items="${list }">
-				<tr height="200px;">
-					<td style="padding: 0;vertical-align: middle;">${dto.id }</td>
-					<td style="padding: 0;vertical-align: middle;">${dto.grade }</td>
-					<td style="padding: 0;vertical-align: middle;"><button>강제탈퇴</button></td>
+				<tr >
+					<td style="text-align:center; width:33%; vertical-align: middle;">${dto.id }</td>
+					<td style="text-align:center;width:33%;vertical-align: middle;">${dto.grade }</td>
+					<td style="text-align:center;vertical-align: middle;">
+					<form class="form-inline" action="./read" method="post" style="display: inline;" >
+					<input type="hidden" name="id" value="${dto.id }">
+					<input type="hidden" name="grade" value="${dto.grade }">
+					<button class="btn btn-Default btn-md" style=" width: 90px;height: 40px;">정보보기</button>
+					</form>
+					<c:if test="${dto.id!='admin' }">
+					<form class="form-inline" action="./delete" method="post" style="display: inline;"> 
+					<input type="hidden" name="id" value="${dto.id }">
+					<button class="btn btn-Default btn-md" style="width: 90px;height: 40px;">강제탈퇴</button>
+					</form>
+					</c:if>
 				</tr>
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>
 </table>
+<div style="text-align: center;margin-bottom: 50px;">
+	${paging}
+	</div>
 </div>
 </body>
 </html>

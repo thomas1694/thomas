@@ -36,7 +36,9 @@ function ncreate(n_num){
 	url += "&nowPage=${param.nowPage}";
 	location.href = url;
 }
-
+function nmain(){
+	location.href='${root}/notice/list';
+}
 
 
 </script>
@@ -78,21 +80,14 @@ margin:auto;
 
 </table>
 <br><br>
-<div style="text-align: center;">
-	<button class="btn btn-Default btn-md" type="button" name="" onclick="history.back()">뒤로가기</button>
-	<button class="btn btn-Default btn-md" type="button" name="" onclick="main">메인으로</button>
+<div style="text-align: center; margin-bottom: 50px;">
+	<button class="btn btn-Default btn-md" type="button" name="" onclick="nmain()">목록</button>
+	<c:if test="${sessionScope.grade=='A' }">
 	<button class="btn btn-Default btn-md" type="button" name="" onclick="ncreate('${dto.n_num}')">글 작성</button>
 	<button class="btn btn-Default btn-md" type="button" name="" onclick="nupdate('${dto.n_num}')">수정</button>
 	<button class="btn btn-Default btn-md" type="button" name="" onclick="ndelete('${dto.n_num}')">삭제</button>
-	
-	<input type="hidden" name="n_num" value="${param.n_num}">
-	<input type="hidden" name="n_title" value="${param.n_title}">
-	<input type="hidden" name="n_content" value="${param.n_content}">
-	<input type="hidden" name="n_wdate" value="${param.n_wdate}">
-	<input type="hidden" name="a_id" value="${param.a_id}">
-	<input type="hidden" name="col" value="${param.col}">
-	<input type="hidden" name="word" value="${param.word}">
-	<input type="hidden" name="nowPage" value="${param.nowPage}">
+	</c:if>
+
 </div>
 </div>
 </body>

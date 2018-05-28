@@ -141,6 +141,15 @@ function rdelete(){
 	
 	location.href=url;
 }
+function rlist(){
+	var url="./list"
+    url+="?res_code=${res_code}";
+	url+="&col=${param.col}";
+	url+="&word=${param.word}";
+	url+="&nowPage=${param.nowPage}";
+	
+	location.href=url;
+}
 </script>
 <body>
 <form name="frm">

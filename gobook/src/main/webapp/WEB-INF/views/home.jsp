@@ -82,6 +82,7 @@
 		<script src="${root }/resources/pmw/bottom/js/util.js"></script>
 		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 		<script src="${root }/resources/pmw/bottom/js/main.js"></script>
+		
 </body>
 </html>
 

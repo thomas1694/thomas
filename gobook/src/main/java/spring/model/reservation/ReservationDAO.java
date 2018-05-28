@@ -104,6 +104,18 @@ public class ReservationDAO implements IDAO {
 		return mybatis.selectList("reservation.Dlist",sv_num_upper);
 		
 	}
+
+	public boolean checkres(int sv_num) {
+		boolean flag=false;
+		int cnt= mybatis.selectOne("reservation.checkres",sv_num);
+		if(cnt>0)flag=true;
+		return flag;
+	}
+
+	public List resdate(Map map) {
+		List list=mybatis.selectList("reservation.resdate", map);
+		return list;
+	}
 	
 
 

@@ -36,7 +36,7 @@
     </definition>
            
 	<definition name="/c_member/agree" extends="main"> 
-        <put-attribute name="title" value="고북닷컴_약관동의" ></put-attribute> 
+        <put-attribute name="title" value="고북닷컴_약관동의" /> 
         <put-attribute name="body" value="/WEB-INF/views/c_member/agreement.jsp" /> 
     </definition>
     
@@ -68,7 +68,7 @@
     
     <definition name="/c_member/updatePasswd" extends="main"> 
         <put-attribute name="title" value="고북닷컴_비밀번호변경" ></put-attribute> 
-        <put-attribute name="body" value="/WEB-INF/views/c_member/updatePasswd.jsp" /> 
+        <put-attribute name="body" value="/WEB-INF/views/c_member/updatePwForm.jsp" /> 
     </definition>
     
     <definition name="/c_member/error" template="/WEB-INF/c_template/template.jsp"> 

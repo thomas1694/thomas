@@ -5,50 +5,46 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import www.dao.IDAO;
-import www.mybatis.MyAppSqlConfig;
-
-public class Page_ImageDAO implements IDAO {
+@Repository
+public class Page_ImageDAO implements IPage_ImageDAO {
 	
-	private static SqlSessionFactory sqlMapper;
+	@Autowired
+	private  SqlSessionTemplate mybatis;
 	
-	static {
-		sqlMapper = MyAppSqlConfig.getSqlMapInstance();
+	public void setMybatis(SqlSessionTemplate mybatis) {
+		this.mybatis = mybatis;
 	}
-
+	
 	@Override
 	public boolean create(Object dto) throws Exception {
-		
 		boolean flag = false;
-		SqlSession session = sqlMapper.openSession();
-		int cnt = session.delete("page_image.create", dto);
+		System.out.println(((Page_ImageDTO)dto).getPg_filesize()+"@@@@@@@@@@@@@@@");
+		int cnt = mybatis.delete("page_image.create", dto);
 		if(cnt>0) flag = true;
-		session.commit();
-		session.close();
 		return flag;
-		
 	}
+
 
 	@Override
 	public List list(Map map) throws Exception {
-		return sqlMapper.openSession().selectList("page_image.list", map);
+		return mybatis.selectList("page_image.list", map);
 	}
 
 	@Override
 	public Object read(Object pk) throws Exception {
-		return sqlMapper.openSession().selectOne("page_image.read", pk);
+		return mybatis.selectOne("page_image.read", pk);
 	}
 
 	@Override
 	public boolean update(Object dto) throws Exception {
 		
 		boolean flag = false;
-		SqlSession session = sqlMapper.openSession();
-		int cnt = session.update("page_image.update", dto);
+		int cnt = mybatis.update("page_image.update", dto);
 		if(cnt>0) flag = true;
-		session.commit();
-		session.close();
 		return flag;
 		
 	}
@@ -56,21 +52,24 @@ public class Page_ImageDAO implements IDAO {
 	@Override
 	public boolean delete(Object pk) throws Exception {
 		boolean flag = false;
-		int cnt = sqlMapper.openSession().delete("page_image.delete", pk);
+		int cnt = mybatis.delete("page_image.delete", pk);
 		if(cnt>0) flag = true;
 		return flag;
 	}
 
 	@Override
 	public int total(Map map) throws Exception {
-		int total = (Integer) sqlMapper.openSession().selectOne("page_image.total", map);
+		int total = mybatis.selectOne("page_image.total", map);
 		return total;
 	}
 
-	@Override
-	public boolean passwdCheck(Map map) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateContent(Page_ImageDTO dto) {
+		boolean flag = false;
+		int cnt = mybatis.update("page_image.updateContent", dto);
+		if(cnt>0) flag = true;
+		return flag;
 	}
+
+
 
 }

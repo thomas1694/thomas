@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
    	<update id="update" parameterType="qnaDTO">
    	UPDATE qna
-   	SET q_title = #{q_title}, q_content = #{q_content}
+   	SET q_title = #{q_title}, q_content = #{q_content},q_lock=#{q_lock}
    	WHERE q_num = #{q_num}
    	</update>
    	
@@ -69,7 +69,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     INSERT INTO qna                                      
  	(q_num, id, q_title, q_content, q_wdate, q_grpno, q_indent, q_ansnum , q_refnum, q_lock)       
  	VALUES((SELECT NVL(MAX(q_num), 0) + 1 FROM qna),
- 	#{id,jdbcType=VARCHAR}, #{q_title,jdbcType=VARCHAR}, #{q_content,jdbcType=VARCHAR}, sysdate, #{q_grpno}, #{q_indent}+1,#{q_ansnum}+1, #{q_num} , 'U')                
+ 	#{id,jdbcType=VARCHAR}, #{q_title,jdbcType=VARCHAR}, #{q_content,jdbcType=VARCHAR}, sysdate, #{q_grpno}, #{q_indent}+1,#{q_ansnum}+1, #{q_num} , #{q_lock})                
     </insert>
    	
      <select id="readReply" resultType="qnaDTO" parameterType="int">
@@ -81,10 +81,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="upAnsnum" parameterType="Map">
 	UPDATE qna
 	set q_ansnum = q_ansnum + 1
-	WHERE q_grpno = ${q_grpno}
-	and q_ansnum > ${q_ansnum}	
+	WHERE q_grpno = #{q_grpno}
+	and q_ansnum > #{q_ansnum}	
 	</update>
+	<select id="checkRefnum">
 	
+	</select>
  
 </mapper>
 
