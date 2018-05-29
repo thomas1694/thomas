@@ -1,6 +1,6 @@
 var id, col, word, nowPage;
 
-	id = '${sessionScope.id}';
+	id = sessionStorage.getItem('id');
 	col = '';
 	word = '';
 	nowPage = '';
@@ -116,7 +116,7 @@ var id, col, word, nowPage;
 				}
 				str += "><td>" + dtolist[i].m_num +
 					   "</td><td>" + dtolist[i].m_sendid +
-					   "</td><td width='200px' nowrap>" +
+					   "</td><td width='180px' height='70px' style='display: block;text-overflow: ellipsis; overflow: hidden; white-space: nowrap'>" +
 					   "<a href='javascript:mread(" + dtolist[i].m_num + ")'>" + dtolist[i].m_content + "</a>" +
 					   "</td><td>" + dtolist[i].m_wdate + "</td></tr>"
 				$("#message_content").append(str);
@@ -137,7 +137,7 @@ var id, col, word, nowPage;
 		if(info.col=='m_content') search += " selected";
 		search += ">내용</option></select>";
 		search += "<input type='text' id='word' style='width:200px;display:inline-block;' value='"+ info.word +"'>";
-		search += "<button type='button'onclick='msearchlist()' style='display:inline-block;margin:10px;'>검색</button>";
+		search += "<button type='button' class='btn btn-Default btn-md' onclick='msearchlist()' style='display:inline-block;margin:10px;'>검색</button>";
 		
 		$("#message_etc").append(search);
 		
@@ -182,7 +182,7 @@ var id, col, word, nowPage;
 				}*/
 				str += "><td>" + dtolist[i].m_num +
 					   "</td><td>" + dtolist[i].m_receiveid +
-					   "</td><td width='200px' height='70px' style='display: block;text-overflow: ellipsis; overflow: hidden; white-space: nowrap'>" +
+					   "</td><td width='180px' height='70px' style='display: block;text-overflow: ellipsis; overflow: hidden; white-space: nowrap'>" +
 					   "<a href='javascript:mread(" + dtolist[i].m_num + ")'>" + dtolist[i].m_content + "</a>" +
 					   "</td><td>" + dtolist[i].m_wdate + "</td></tr>"
 				$("#message_content").append(str);
@@ -203,7 +203,7 @@ var id, col, word, nowPage;
 		if(info.col=='m_content') search += " selected";
 		search += ">내용</option></select>";
 		search += "<input type='text' id='sword' style='width:200px;display:inline-block;' value='"+ info.word +"'>";
-		search += "<button type='button'onclick='msearchsendlist()' style='display:inline-block;margin:10px;'>검색</button>";
+		search += "<button type='button' class='btn btn-Default btn-md' onclick='msearchsendlist()' style='display:inline-block;margin:10px;'>검색</button>";
 		
 		$("#message_etc").append(search);
 		
@@ -236,16 +236,16 @@ var id, col, word, nowPage;
 		$("#message_content").append("<tr><th>보낸 아이디</th><td>"+ dto.m_sendid +"</td></tr>");
 		$("#message_content").append("<tr><th>받은 아이디</th><td>"+ dto.m_receiveid +"</td></tr>");
 		$("#message_content").append("<tr><th>날짜</th><td>"+ dto.m_wdate+"</td></tr>");
-		$("#message_content").append("<tr><td colspan='2' style='color:#bbe5ea'>내용</th></tr>");
-		$("#message_content").append("<tr><td colspan='2' height='150px'><div style='overflow-y:scroll; height:100%; width:100%;'>"+ dto.m_content.replace(/\r\n/gi, "<br>")+"</div></td></tr>");
-		var str = "<br><button onclick='";
+		$("#message_content").append("<tr><td colspan='2' style='color:#BDDFA5'>내용</th></tr>");
+		$("#message_content").append("<tr><td colspan='2' height='150px'><div style='overflow:auto; height:200px; width:490px;'>"+ dto.m_content.replace(/\r\n/gi, "<br>")+"</div></td></tr>");
+		var str = "<br><button class='btn btn-Default btn-md' onclick='";
 		if(id==dto.m_receiveid) {
 			str += "tomlist()'>목록</button>";
 		} else {
 			str += "tomsendlist()'>목록</button>";
 		}
 		$("#message_etc").append(str);
-		$("#message_etc").append("<button onclick='mdelete("+dto.m_num+")'>삭제</button>");
+		$("#message_etc").append("<button class='btn btn-Default btn-md' onclick='mdelete("+dto.m_num+")'>삭제</button>");
 		
 		//readcheck update
 		if(dto.m_readcheck=='F' && dto.m_receiveid==id) {
@@ -274,9 +274,9 @@ var id, col, word, nowPage;
 		$("#listbtn").css({"background-color":"", "color":"white"});
 		$("#sendlistbtn").css({"background-color":"", "color":"white"});
 		$("#createbtn").css({"background-color":"#f4f4f4", "color":"#a5a5a5"});
-		$("#message_content").append("<tr><td style='text-align:left'> 받을 아이디</td><tr><td><input type='text' id='msgid' required></td><tr>");
-		$("#message_content").append("<tr><td style='text-align:left'> 내용</td><tr><td><textarea cols='50' rows='7' id='msgcontent' required></textarea></td><tr>");
-		$("#message_etc").append("<button type='button' onclick='mcreateproc()'>보내기</button>");		
+		$("#message_content").append("<tr><td style='text-align:left;background-color:rgb(244, 244, 244);line-height:40px'> 받을 아이디</td><tr><td style='line-height:40px'><input type='text' id='msgid' required></td><tr>");
+		$("#message_content").append("<tr><td style='text-align:left;line-height:40px'> 내용</td><tr><td><textarea style='line-height:40px' cols='50' rows='7' id='msgcontent' required></textarea></td><tr>");
+		$("#message_etc").append("<button type='button' class='btn btn-Default btn-md' style='margin:20px' onclick='mcreateproc()'>보내기</button>");		
 	}
 	
 	function mcreateproc() {
@@ -307,14 +307,14 @@ var id, col, word, nowPage;
 					$("#message_content").empty();
 					$("#message_etc").empty();
 					$("#message_etc").append("<span>쪽지를 보냈습니다.</span><br>");
-					$("#message_etc").append("<button type='button' onclick='mcreateform()'>확인</button>");
+					$("#message_etc").append("<button type='button' class='btn btn-Default btn-md' onclick='mcreateform()'>확인</button>");
 				})();
 			} else {
 				(function(){
 					$("#message_content").empty();
 					$("#message_etc").empty();
 					$("#message_etc").append("<span>쪽지를 보내기에 실패했습니다.</span><br>");
-					$("#message_etc").append("<button type='button' onclick='mcreateform()'>확인</button>");
+					$("#message_etc").append("<button type='button' class='btn btn-Default btn-md' onclick='mcreateform()'>확인</button>");
 				})();
 			}
 		});
@@ -335,10 +335,10 @@ var id, col, word, nowPage;
 						$("#message_etc").empty();
 						$("#message_etc").append("<span>쪽지를 삭제했습니다.</span><br>");
 						if(data.sendidflag) {
-							$("#message_etc").append("<button type='button' onclick='tomsendlist()'>확인</button>");
-							snowPage = data.nowPage;
+							$("#message_etc").append("<button type='button' class='btn btn-Default btn-md' onclick='tomsendlist()'>확인</button>");
+							nowPage = data.nowPage;
 						} else {
-							$("#message_etc").append("<button type='button' onclick='tomlist()'>확인</button>");
+							$("#message_etc").append("<button type='button' class='btn btn-Default btn-md' onclick='tomlist()'>확인</button>");
 							nowPage = data.nowPage;
 						}
 						
@@ -348,7 +348,7 @@ var id, col, word, nowPage;
 						$("#message_content").empty();
 						$("#message_etc").empty();
 						$("#message_etc").append("<span>쪽지를 삭제하기에 실패했습니다.</span><br>");
-						$("#message_etc").append("<button type='button' onclick='tomlist()'>확인</button>");
+						$("#message_etc").append("<button type='button' class='btn btn-Default btn-md' onclick='tomlist()'>확인</button>");
 					})();
 				}
 			});

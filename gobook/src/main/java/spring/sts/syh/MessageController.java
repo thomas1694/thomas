@@ -198,8 +198,9 @@ public class MessageController {
 			total = dao.total(totalmap);
 		}
 		int nowPage = Integer.parseInt(request.getParameter("nowPage"));
-		if(total%5==0) nowPage--; //삭제된 시점에서 레코드 개수로 나누어 떨어지면 -1
-		
+		System.out.println(nowPage + "@@");
+		if(total%5==0&&nowPage!=1) nowPage--; //삭제된 시점에서 레코드 개수로 나누어 떨어지면 -1
+		System.out.println(nowPage + "$$");
 		Map map = new HashMap<>();
 		map.put("flag", flag);
 		map.put("sendidflag", sendidflag);

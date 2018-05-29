@@ -429,7 +429,7 @@ public class Utility {
 		   str.append("  }"); 
 		   str.append("  .span_box_2{"); 
 		   str.append("    text-align: center;");    
-		   str.append("    background-color: #bbe5ea;"); 
+		   str.append("    background-color: #BDDFA5;"); 
 		   str.append("    color: #FFFFFF;"); 
 		   str.append("    font-size: 1em;");
 		   str.append("    padding:1px 6px 1px 6px; /*위, 오른쪽, 아래, 왼쪽*/"); 
@@ -489,7 +489,7 @@ public class Utility {
 			 str.append("  }"); 
 			 str.append("  .span_box_2{"); 
 			 str.append("    text-align: center;");    
-			 str.append("    background-color: #bbe5ea;"); 
+			 str.append("    background-color: #BDDFA5;"); 
 			 str.append("    color: #FFFFFF;"); 
 			 str.append("    font-size: 1em;");
 			 str.append("    padding:1px 6px 1px 6px; /*위, 오른쪽, 아래, 왼쪽*/"); 

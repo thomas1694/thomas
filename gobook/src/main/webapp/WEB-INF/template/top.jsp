@@ -18,8 +18,9 @@
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<script src="${root }/resources/pmw/top/assets/js/jquery.min.js"></script>
-	
-	
+		<script type="text/javascript">
+			sessionStorage.setItem('id', '${sessionScope.id}');
+		</script>
 	</head>
 	<body>
 
