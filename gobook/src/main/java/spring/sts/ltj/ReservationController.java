@@ -56,17 +56,17 @@ public class ReservationController {
 		for(int i=0;i<list.size();i++) {
 			svnum[i]=(Integer)list.get(i);
 		}
-		int timeperson=svdao.tp(sv_num);
+		
 		Map map =new HashMap<>();
 		map.put("sv_num", svnum[0]);
-		map.put("sv_num2", svnum[1]);
-		map.put("sv_num3", svnum[2]);
-		map.put("sv_num4", svnum[3]);
-		map.put("sv_num5", svnum[4]);
-		map.put("sv_num6", svnum[5]);
-		map.put("sv_num7", svnum[6]);
-		map.put("sv_num8", svnum[7]);
-		map.put("sv_num9", svnum[8]);
+		map.put("sv_num2", 0);
+		map.put("sv_num3", 0);
+		map.put("sv_num4", 0);
+		map.put("sv_num5", 0);
+		map.put("sv_num6", 0);
+		map.put("sv_num7", 0);
+		map.put("sv_num8", 0);
+		map.put("sv_num9", 0);
 		List rlist=dao.resdate(map);
 		String [] restime=new String[rlist.size()];
 		Iterator<String> itr=rlist.iterator();
@@ -113,16 +113,20 @@ public class ReservationController {
 		if(hour.length!=0) {
 			
 			if(restime.length!=0&&restime[0]!=null) {
+				int timeperson=svdao.tp(sv_num);
 				for(int y=0;y<k;y++) {
-				for(int l=0;l<hour.length;l++) {
-					if(hour[l]==Integer.parseInt(restime[y])) {
-						timeperson=timeperson-1;
-					}
-					if(timeperson==0) {
-						fail.add(hour[l]);
-					}else {
-						result.add(hour[l]);
-					}
+				
+					for(int l=0;l<hour.length;l++) {
+						
+						if(hour[l]==Integer.parseInt(restime[y])) {
+							timeperson--;
+						}
+						if(timeperson==0) {
+							fail.add(hour[l]);
+							break;
+						}else {
+							result.add(hour[l]);
+						}
 					}
 				}
 			}else {
@@ -153,7 +157,7 @@ public class ReservationController {
 					resultString.append("<br>");
 				}
 			}
-			for(int i=0;i<fail.size();i++) {
+			for(int i=0;i<finalFail.size();i++) {
 				resultString.append("<input type='button' class='btn btn-Default btn-md' style='background-color:white; width: 100px;height: 50px; margin:10px;' value='"+finalFail.get(i)+":00 예약완료' onclick=\"\"/>");
 				if(i!=0&&i%5==0) {
 					resultString.append("<br>");
@@ -215,6 +219,9 @@ public class ReservationController {
 		dto.setC_id((String)request.getSession().getAttribute("id"));
 		dto.setRes_time(date+time);
 		dto.setSv_num(sv_num);
+		System.out.println(dto.getC_id());
+		System.out.println(dto.getRes_time());
+		System.out.println(dto.getSv_num());
 		boolean flag = dao.create(dto);
 		if(flag) {
 			 request.setAttribute("msg", "예약에 성공했습니다 !");

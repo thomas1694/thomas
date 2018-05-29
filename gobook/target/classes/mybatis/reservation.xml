@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reservation">
+
+	<insert id="create" parameterType="reservationDTO">
+		INSERT INTO
+		reservation(res_code,res_time,sv_num,c_id)
+		VALUES((select nvl(max(res_code),0)+1 as res_code from reservation),#{res_time,jdbcType=VARCHAR},#{sv_num},#{c_id,jdbcType=VARCHAR})
+	</insert>
+
+	<!-- <select id="list" parameterType="map" resultType="reservationDTO"> -->
+	<!-- select * from reservation -->
+	<!-- <where> -->
+	<!-- <choose> -->
+	<!-- <when test="col=='c_id'"> -->
+	<!-- c_id=#{c_id} -->
+	<!-- </when> -->
+	<!-- <when test="col=='sv_num'"> -->
+	<!-- sv_num=#{sv_num} -->
+	<!-- </when> -->
+
+	<!-- </choose> -->
+	<!-- </where> -->
+	<!-- </select> -->
+
+	<update id="update" parameterType="reservationDTO">
+		UPDATE reservation
+		SET
+		res_time=#{res_time}
+		WHERE res_code=#{res_code}
+	</update>
+
+	<delete id="Mdelete" parameterType="string">
+		delete from reservation
+		WHERE
+		res_code=#{res_code}
+	</delete>
+
+	<resultMap type="reservationMDTO" id="reservationMap">
+		<result property="sv_num" column="sv_num" />
+		<result property="sv_num_upper" column="sv_num_upper" />
+		<result property="sv_timeperson" column="sv_timeperson" />
+		<result property="sv_title" column="sv_title" />
+		<result property="sv_price" column="sv_price" />
+		<result property="sv_content" column="sv_content" />
+		<result property="resdto.res_code" column="res_code" />
+		<result property="resdto.res_time" column="res_time" />
+		<result property="resdto.c_id" column="c_id" />
+	</resultMap>
+
+	<select id="Mread" parameterType="string" resultMap="reservationMap">
+		select
+		e.sv_num, e.sv_title, e.sv_price, e.sv_content, e.sv_timeperson,
+		p.res_code, p.res_time, p.c_id
+		from service e INNER JOIN reservation p
+		ON e.sv_num = p.sv_num
+		where p.res_code = #{p.res_code}
+	</select>
+
+	<select id="Mlist" parameterType="map" resultMap="reservationMap">
+		select s_id,sv_num, sv_title, sv_price, res_code, res_time, c_id, r
+		from(
+		select s_id,sv_num, sv_title, sv_price, res_code, res_time, c_id, rownum as r
+		from(
+		select e.s_id,e.sv_num, e.sv_title, e.sv_price, p.res_code, p.res_time, p.c_id
+		from service e INNER JOIN reservation p ON e.sv_num = p.sv_num
+		<where>
+			<choose>
+				<when test="idcheck=='s_id'">
+					e.s_id =#{idcheckword}
+				</when>
+				<when test="idcheck=='c_id'">
+					p.c_id = #{idcheckword}
+				</when>
+				
+			</choose>
+			<choose>
+				<when test="col=='c_id'">
+					and p.c_id like '%'||#{word}||'%'
+				</when>
+				<when test="col=='sv_title'">
+					and e.sv_title like '%'||#{word}||'%'
+				</when>
+				<when test="col=='sv_content'">
+					and e.sv_content like '%'||#{word}||'%'
+				</when>
+			</choose>
+		</where>
+		)
+		)
+    <![CDATA[
+    where r>=#{sno} and r<=${eno}
+    ]]>
+	</select>
+
+	<select id="total" resultType="int" parameterType="Map">
+		select count(*) as cnt from reservation
+		<where>
+			<choose>
+				<when test="col=='c_id'">
+					c_id like '%'||#{c_id}||'%'
+				</when>
+				<when test="col=='sv_title'">
+					sv_title like '%'||#{sv_title}||'%'
+				</when>
+				<when test="col=='sv_content'">
+					sv_content like '%'||#{sv_content}||'%'
+				</when>
+			</choose>
+		</where>
+	</select>
+
+	<select id="list" resultType="serviceDTO">
+		select s.sv_num, s.sv_title,s.sv_num_upper,i.simg_filename
+		from service s , service_image i
+		where s.sv_num=i.sv_num and  s.s_id=#{s_id} and s.sv_num_upper is null
+		order by sv_num_upper asc,sv_num
+	</select>
+
+	<select id="Dlist" parameterType="int" resultType="serviceDTO">
+		select s.sv_num, s.sv_num_upper, s.sv_title, s.sv_content, s.sv_price, s.sv_timeperson, i.simg_filename
+		from service s, service_image i 
+		where s.sv_num=i.sv_num and sv_num_upper = #{sv_num}
+	</select>
+	<select id="checkres" parameterType="int" resultType="int">
+	select count(*) from reservation
+	where sv_num =#{sv_num}
+	</select>
+	
+	<select id="resdate" parameterType="map" resultType="string">
+	select res_time from reservation
+	where sv_num=#{sv_num} or sv_num=#{sv_num2} or sv_num=#{sv_num3}
+	</select>
+</mapper>
+

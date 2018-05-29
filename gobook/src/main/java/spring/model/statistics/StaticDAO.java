@@ -41,6 +41,16 @@ public class StaticDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	public int countread(Map map) {
+		int a=mybatis.selectOne("static.countread", map);
+		return a;
+	}
+	
+	public int countgender(Map map) {
+		int a=mybatis.selectOne("static.countgender", map);
+		return a;
+	}
 	
 
 }

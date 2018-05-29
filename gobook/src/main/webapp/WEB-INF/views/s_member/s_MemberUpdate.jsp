@@ -309,7 +309,7 @@ $j144(document).ready(function($){
 			slide : function(event, ui) {
 				if(ui.values[0]==ui.values[1]){
 					$("#s_time6").val("휴일");
-					$("#s_hour6").val("Sat/"+ui.values[0]+","+ ui.values[1]);
+					$("#s_hour6").val("Sat"+ui.values[0]+","+ ui.values[1]);
 				}else{
 					$("#s_time6").val( ui.values[0]+" : 00" + " ~ " + ui.values[1]+" : 00");
 					$("#s_hour6").val("Sat/"+ui.values[0]+","+ ui.values[1]);

@@ -140,7 +140,7 @@
 		홈페이지 이미지 설정
 		<img src="${root }/resources/ksy/images/set3.png" class="setting_3_img"/>	
 	</button>
-	<button class="setting_4" onclick="location.href='#stat'">
+	<button class="setting_4" onclick="location.href='${root}/chart'">
 		<img src="${root }/resources/ksy/images/set4.png" class="setting_4_img"/>
 		통계 확인
 	</button>

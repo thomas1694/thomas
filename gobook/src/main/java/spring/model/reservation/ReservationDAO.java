@@ -23,7 +23,7 @@ public class ReservationDAO implements IDAO {
 	@Override
 	public boolean create(Object dto) throws Exception {
 		boolean flag=false;
-
+		
 		int cnt=mybatis.insert("reservation.create", dto);
 		if(cnt>0)flag=true;
 	
