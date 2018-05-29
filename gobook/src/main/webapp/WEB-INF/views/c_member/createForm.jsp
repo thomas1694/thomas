@@ -109,7 +109,11 @@ function idCheck(c_id){
 	if(c_id==""){
 		alert("아이디를 입력해 주세요");
 		document.frm.c_id.focus();
-	}else{
+	} else if(c_id.length>8) {
+		alert("아이디는 8자 이내로 입력해주세요.");
+		document.frm.c_id.value = "";
+		document.frm.c_id.focus();
+	} else{
 		var url = "./id_proc"
 		url += "?c_id="+c_id;
 		

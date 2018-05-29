@@ -121,7 +121,11 @@ function idCheck(s_id){
 	if(s_id==""){
 		alert("아이디를 입력해 주세요");
 		document.frm.s_id.focus();
-	}else{
+	} else if(s_id.length>8) {
+		alert("아이디는 8자 이내로 입력해주세요.");
+		document.frm.s_id.value = "";
+		document.frm.s_id.focus();
+	} else{
 		var url = "./id_proc"
 		url += "?s_id="+s_id;
 		
