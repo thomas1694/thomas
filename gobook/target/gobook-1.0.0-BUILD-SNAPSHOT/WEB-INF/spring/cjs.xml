@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE  tiles-definitions PUBLIC 
+    "-//Aapche Software Foundation//DTD Tiles Configuration 2.0//EN" 
+    "http://tiles.apache.org/dtds/tiles-config_2_0.dtd"> 
+
+<tiles-definitions> 
+    
+	 
+    <definition name="/review/list" extends="c_main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/review/list.jsp" /> 
+    </definition>   
+     
+     <definition name="/review/read" extends="c_main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/review/read.jsp" /> 
+    </definition>   
+     
+      <definition name="/review/create" extends="c_main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/review/createForm.jsp" /> 
+    </definition>   
+     
+     <definition name="/review/update" extends="c_main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/review/updateForm.jsp" /> 
+    </definition>   
+    
+    <definition name="/review/delete" extends="c_main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/review/deleteForm.jsp" /> 
+    </definition>   
+   
+   
+</tiles-definitions> 

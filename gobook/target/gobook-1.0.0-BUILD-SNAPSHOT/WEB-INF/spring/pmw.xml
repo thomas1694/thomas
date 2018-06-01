@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE  tiles-definitions PUBLIC 
+    "-//Aapche Software Foundation//DTD Tiles Configuration 2.0//EN" 
+    "http://tiles.apache.org/dtds/tiles-config_2_0.dtd"> 
+
+<tiles-definitions> 
+    
+	 
+    <definition name="/s_member/list" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/s_member/s_MemberList.jsp" /> 
+    </definition>   
+    <definition name="/s_member/s_login" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/s_member/s_login.jsp" /> 
+    </definition> 
+    <definition name="/s_member/create" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/s_member/s_MemberCreate.jsp" /> 
+    </definition>   
+    <definition name="/s_member/read" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/s_member/s_MemberRead.jsp" /> 
+    </definition>   
+     <definition name="/s_member/update" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/s_member/s_MemberUpdate.jsp" /> 
+    </definition> 
+    <definition name="/s_member/delete" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/s_member/s_MemberDelete.jsp" /> 
+    </definition> 
+    <definition name="/member" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/member/MemberList.jsp" /> 
+    </definition> 
+     
+    <definition name="/s_member/imgUpdate" template="/WEB-INF/c_template/template.jsp"> 
+        <put-attribute name="sidebar" value="" /> 
+        <put-attribute name="c_footer" value="" />
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/s_member/imgUpdate.jsp" />
+    </definition>        
+   <definition name="/chat" template="/WEB-INF/c_template/template.jsp"> 
+        <put-attribute name="sidebar" value="" /> 
+        <put-attribute name="c_footer" value="" />
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/chat.jsp" />
+    </definition>    
+  
+   
+    <definition name="/s_member/success" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/s_member/success.jsp" /> 
+    </definition> 
+   
+   <definition name="/s_member/settings" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/s_member/settings.jsp" /> 
+    </definition>
+   <definition name="/member/login" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/loginForm.jsp" /> 
+    </definition> 
+    
+    <definition name="/member/select" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/member/select.jsp" /> 
+    </definition> 
+    
+    <definition name="/s_member/agree" extends="main"> 
+        <put-attribute name="title" value="고북닷컴_약관동의" /> 
+        <put-attribute name="body" value="/WEB-INF/views/s_member/agreement.jsp" /> 
+    </definition>
+    
+    <definition name="/Page_Image/list" extends="main"> 
+        <put-attribute name="title" value="페이지이미지 리스트" /> 
+        <put-attribute name="body" value="/WEB-INF/views/page_image/list.jsp" /> 
+    </definition>
+    
+    
+    
+    <definition name="/admin/read" extends="main"> 
+        <put-attribute name="title" value="관리자 회원정보" /> 
+        <put-attribute name="body" value="/WEB-INF/views/admin_member/read.jsp" /> 
+    </definition>
+    <definition name="/admin/list" extends="main"> 
+        <put-attribute name="title" value="관리자 회원목록" /> 
+        <put-attribute name="body" value="/WEB-INF/views/admin_member/list.jsp" /> 
+    </definition>
+    <definition name="/admin/create" extends="main"> 
+        <put-attribute name="title" value="관리자 추가" /> 
+        <put-attribute name="body" value="/WEB-INF/views/admin_member/create.jsp" /> 
+    </definition>
+     <definition name="/admin/update" extends="main"> 
+        <put-attribute name="title" value="관리자 수정" /> 
+        <put-attribute name="body" value="/WEB-INF/views/admin_member/update.jsp" /> 
+    </definition>
+ 
+    <definition name="/review/alist" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/review/alist.jsp" /> 
+    </definition> 
+     <definition name="/review/aread" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/review/aread.jsp" /> 
+    </definition> 
+    
+    <definition name="/chart" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/chart2.jsp" /> 
+    </definition> 
+</tiles-definitions> 

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE  tiles-definitions PUBLIC 
+    "-//Aapche Software Foundation//DTD Tiles Configuration 2.0//EN" 
+    "http://tiles.apache.org/dtds/tiles-config_2_0.dtd"> 
+
+<tiles-definitions> 
+    
+    <definition name="/c_member/login" extends="main"> 
+        <put-attribute name="title" value="고북닷컴_로그인" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/c_member/loginForm.jsp" /> 
+    </definition>   
+     
+    <definition name="/admin/list" extends="main"> 
+        <put-attribute name="title" value="고북닷컴_c회원목록" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/c_member/list.jsp" /> 
+    </definition> 
+    
+    <definition name="/c_member/read" extends="main"> 
+        <put-attribute name="title" value="고북닷컴_마이정보" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/c_member/read.jsp" /> 
+    </definition>   
+    
+    <definition name="/c_member/create" extends="main"> 
+        <put-attribute name="title" value="고북닷컴_회원가입" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/c_member/createForm.jsp" /> 
+    </definition>   
+     
+    <definition name="/c_member/update" extends="main"> 
+        <put-attribute name="title" value="고북닷컴_회원정보_수정" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/c_member/updateForm.jsp" /> 
+    </definition>
+    
+     <definition name="/c_member/delete" extends="main"> 
+        <put-attribute name="title" value="고북닷컴_회원탈퇴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/c_member/deleteForm.jsp" /> 
+    </definition>
+           
+	<definition name="/c_member/agree" extends="main"> 
+        <put-attribute name="title" value="고북닷컴_약관동의" /> 
+        <put-attribute name="body" value="/WEB-INF/views/c_member/agreement.jsp" /> 
+    </definition>
+    
+    <definition name="/c_member/id_form" template="/WEB-INF/c_template/template.jsp"> 
+        <put-attribute name="title" value="고북닷컴_id중복체크_폼" ></put-attribute> 
+        <put-attribute name="c_footer" value=""></put-attribute>
+        <put-attribute name="sidebar" value=""></put-attribute>
+        <put-attribute name="body" value="/WEB-INF/views/c_member/id_form.jsp" /> 
+    </definition>
+    <definition name="/c_member/id_proc" template="/WEB-INF/c_template/template.jsp"> 
+        <put-attribute name="title" value="고북닷컴_id중복체크" ></put-attribute> 
+        <put-attribute name="c_footer" value=""></put-attribute>
+        <put-attribute name="sidebar" value=""></put-attribute>
+        <put-attribute name="body" value="/WEB-INF/views/c_member/id_proc.jsp" /> 
+    </definition>
+    
+    <definition name="/c_member/email_form" template="/WEB-INF/c_template/template.jsp"> 
+        <put-attribute name="title" value="고북닷컴_email중복체크폼_" ></put-attribute> 
+        <put-attribute name="c_footer" value=""></put-attribute>
+        <put-attribute name="sidebar" value=""></put-attribute>
+        <put-attribute name="body" value="/WEB-INF/views/c_member/email_form.jsp" /> 
+    </definition>
+    <definition name="/c_member/email_proc" template="/WEB-INF/c_template/template.jsp"> 
+        <put-attribute name="title" value="고북닷컴_email중복체크" ></put-attribute> 
+        <put-attribute name="c_footer" value=""></put-attribute>
+        <put-attribute name="sidebar" value=""></put-attribute>
+        <put-attribute name="body" value="/WEB-INF/views/c_member/email_proc.jsp" /> 
+    </definition>
+    
+    <definition name="/c_member/updatePasswd" extends="main"> 
+        <put-attribute name="title" value="고북닷컴_비밀번호변경" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/c_member/updatePwForm.jsp" /> 
+    </definition>
+    
+    <definition name="/c_member/error" template="/WEB-INF/c_template/template.jsp"> 
+        <put-attribute name="title" value="고북닷컴_에러"></put-attribute> 
+        <put-attribute name="c_footer" value=""></put-attribute>
+        <put-attribute name="sidebar" value=""></put-attribute>
+        <put-attribute name="body" value="/WEB-INF/views/c_member/error.jsp" /> 
+    </definition>
+    
+    <definition name="/c_member/passwdError" template="/WEB-INF/c_template/template.jsp"> 
+        <put-attribute name="title" value="고북닷컴_비밀번호 오류"></put-attribute> 
+        <put-attribute name="c_footer" value=""></put-attribute>
+        <put-attribute name="sidebar" value=""></put-attribute>
+        <put-attribute name="body" value="/WEB-INF/views/c_member/passwdError.jsp" /> 
+    </definition>
+   
+</tiles-definitions> 

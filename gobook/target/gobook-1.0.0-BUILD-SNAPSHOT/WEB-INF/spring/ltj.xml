@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE  tiles-definitions PUBLIC 
+    "-//Aapche Software Foundation//DTD Tiles Configuration 2.0//EN" 
+    "http://tiles.apache.org/dtds/tiles-config_2_0.dtd"> 
+
+<tiles-definitions> 
+
+    	
+    <definition name="/reservation" extends="c_main">  
+        <put-attribute name="title" value="Prologue by HTML5 UP" ></put-attribute>  
+         <put-attribute name="body" value="/WEB-INF/views/c_home.jsp" />  
+      </definition>   
+     
+     <definition name="/reservation/reservation" template="/WEB-INF/template/template.jsp"> 
+        <put-attribute name="header" value="" /> 
+        <put-attribute name="footer" value="" />
+        <put-attribute name="title" value="예약" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/reservation/reservation.jsp" /> 
+    </definition>    
+     <definition name="/reservation/reservation2" template="/WEB-INF/template/template.jsp"> 
+        <put-attribute name="header" value="" /> 
+        <put-attribute name="footer" value="" />
+        <put-attribute name="title" value="예약" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/reservation/reservation2.jsp" /> 
+    </definition>  
+     <definition name="/reservation/reservation3" template="/WEB-INF/template/template.jsp"> 
+        <put-attribute name="header" value="" /> 
+        <put-attribute name="footer" value="" />
+        <put-attribute name="title" value="예약" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/reservation/reservation3.jsp" /> 
+    </definition>  
+    
+   
+    
+    <definition name="/service_image" extends="main">  
+        <put-attribute name="title" value="Prologue by HTML5 UP" ></put-attribute>  
+         <put-attribute name="body" value="/WEB-INF/views/home.jsp" />  
+      </definition>  
+    
+     <definition name="/service_image/create" extends="main"> 
+        <put-attribute name="title" value="서비스 목록" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/service_image/serviceimageCreate.jsp" /> 
+    </definition>  
+    
+     <definition name="/reservationM/list" extends="main"> 
+        <put-attribute name="title" value="서비스 목록" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/reservation/reservationM_list.jsp" /> 
+    </definition>
+    
+    <definition name="/reservationM/read" extends="main"> 
+        <put-attribute name="title" value="서비스 목록" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/reservation/reservationM_read.jsp" /> 
+    </definition>
+    
+    <definition name="/reservationM/update" extends="main"> 
+        <put-attribute name="title" value="서비스 목록" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/reservation/reservationM_update.jsp" /> 
+    </definition>
+    
+    <definition name="/reservationM/delete" extends="main"> 
+        <put-attribute name="title" value="서비스 목록" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/reservation/reservationM_delete.jsp" /> 
+    </definition>   
+    
+    
+     <definition name="/service" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/home.jsp" /> 
+    </definition>  
+    
+      <definition name="/service/create" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/service/serviceCreate.jsp" /> 
+    </definition>
+    
+     <definition name="/service/Dcreate" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/service/serviceD_Create.jsp" /> 
+    </definition>
+    
+    <definition name="/service/list" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/service/serviceList.jsp" /> 
+    </definition>
+    
+    <definition name="/service/read" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/service/serviceread.jsp" /> 
+    </definition>
+    
+    <definition name="/service/Dread" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/service/serviceD_read.jsp" /> 
+    </definition>
+    
+      <definition name="/service/update" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/service/serviceUpdate.jsp" /> 
+    </definition>
+    
+      <definition name="/service/updatefile" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/service/serviceimageUpdate.jsp" /> 
+    </definition>
+    
+     <definition name="/service/delete" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/service/serviceDelete.jsp" /> 
+    </definition>
+           
+   
+</tiles-definitions> 

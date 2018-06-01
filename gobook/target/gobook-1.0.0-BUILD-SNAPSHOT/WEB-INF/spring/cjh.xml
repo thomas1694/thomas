@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE  tiles-definitions PUBLIC 
+    "-//Aapche Software Foundation//DTD Tiles Configuration 2.0//EN" 
+    "http://tiles.apache.org/dtds/tiles-config_2_0.dtd"> 
+
+<tiles-definitions> 
+    
+	
+    <definition name="/freeboard/list" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/freeboard/list.jsp" /> 
+    </definition>   
+    <definition name="/freeboard/create" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/freeboard/create.jsp" /> 
+    </definition>   
+    <definition name="/freeboard/delete" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/freeboard/delete.jsp" /> 
+    </definition>   
+    <definition name="/freeboard/read" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/freeboard/read.jsp" /> 
+    </definition>   
+    <definition name="/freeboard/update" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/freeboard/update.jsp" /> 
+    </definition>   
+     <definition name="/freeboard/reply" extends="main"> 
+        <put-attribute name="title" value="고북닷컴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/freeboard/reply.jsp" /> 
+    </definition> 
+      
+     
+    
+     
+           
+   
+</tiles-definitions> 
